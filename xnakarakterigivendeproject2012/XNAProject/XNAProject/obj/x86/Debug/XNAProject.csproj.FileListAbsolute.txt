@@ -1,0 +1,6 @@
+c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\bin\x86\Debug\XNAProject.exe
+c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\bin\x86\Debug\XNAProject.pdb
+c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\obj\x86\Debug\XNAProject.csprojResolveAssemblyReference.cache
+c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\obj\x86\Debug\XNAProject.exe
+c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\obj\x86\Debug\XNAProject.pdb
