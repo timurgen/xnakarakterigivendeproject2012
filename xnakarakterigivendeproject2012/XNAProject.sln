@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNAProject", "XNAProject\XNAProject\XNAProject.csproj", "{D3810AF9-C72B-4EE6-9690-028096BAC9F2}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "XNAProjectContent", "XNAProject\XNAProjectContent\XNAProjectContent.contentproj", "{44AC08B1-EE54-4ABB-A2AE-FFAE43DCD6CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNAProjectContent", "XNAProject\XNAProjectContent\XNAProjectContent.contentproj", "{44AC08B1-EE54-4ABB-A2AE-FFAE43DCD6CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticlesTraining", "ParticlesTraining\ParticlesTraining\ParticlesTraining.csproj", "{F015A31F-A300-457A-8AC7-334F4E3FC544}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "ParticlesTrainingContent", "ParticlesTraining\ParticlesTrainingContent\ParticlesTrainingContent.contentproj", "{32FFC3DB-4006-45C7-9B9F-5FA3702E73F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +21,12 @@ Global
 		{D3810AF9-C72B-4EE6-9690-028096BAC9F2}.Release|x86.Build.0 = Release|x86
 		{44AC08B1-EE54-4ABB-A2AE-FFAE43DCD6CC}.Debug|x86.ActiveCfg = Debug|x86
 		{44AC08B1-EE54-4ABB-A2AE-FFAE43DCD6CC}.Release|x86.ActiveCfg = Release|x86
+		{F015A31F-A300-457A-8AC7-334F4E3FC544}.Debug|x86.ActiveCfg = Debug|x86
+		{F015A31F-A300-457A-8AC7-334F4E3FC544}.Debug|x86.Build.0 = Debug|x86
+		{F015A31F-A300-457A-8AC7-334F4E3FC544}.Release|x86.ActiveCfg = Release|x86
+		{F015A31F-A300-457A-8AC7-334F4E3FC544}.Release|x86.Build.0 = Release|x86
+		{32FFC3DB-4006-45C7-9B9F-5FA3702E73F3}.Debug|x86.ActiveCfg = Debug|x86
+		{32FFC3DB-4006-45C7-9B9F-5FA3702E73F3}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

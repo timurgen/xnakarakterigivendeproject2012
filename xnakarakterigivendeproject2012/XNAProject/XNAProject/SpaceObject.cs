@@ -38,7 +38,7 @@ namespace XNAProject
         /// <param name="orbitalSpeed">banehastiget</param>
         /// <param name="orbitAngle">banevinkel i forhold til xz plane</param>
         /// <param name="parent">parent planet</param>
-        public SpaceObject(Game _game, float _size, float _orbitRadius, float _akseAngle, float _orbitalSpeed, float _orbitAngle, float _rotSpeed, SpaceObject _parent): base(game)
+        public SpaceObject(Game _game, float _size, float _orbitRadius, float _akseAngle, float _orbitalSpeed, float _orbitAngle, float _rotSpeed, SpaceObject _parent): base(_game)
         {
             this.size = _size;
             this.orbitRadius = _orbitRadius;

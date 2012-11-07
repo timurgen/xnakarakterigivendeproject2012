@@ -7,10 +7,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProjectContent\</RootDirectory>
-      <LoggerRootDirectory>c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\</LoggerRootDirectory>
-      <IntermediateDirectory>c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProjectContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProjectContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProjectContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
