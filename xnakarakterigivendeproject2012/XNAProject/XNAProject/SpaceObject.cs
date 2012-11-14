@@ -17,7 +17,7 @@ namespace XNAProject
         /// Nødvendige variabler
         /// </summary>
         private SpaceObject parent;
-        private Model thisPlanet;
+        private Model model;
         private Matrix world, view, projection;
         private float size;
         private float orbitRadius;
@@ -58,8 +58,11 @@ namespace XNAProject
         ///  Metode skal kalles i load metode av main class
         /// </summary>
         /// <param name="game">reference til spill, objekt tilhører</param>
-        public void load(Effect _effect)
+        public void load(Effect _effect, Model _model, Texture2D _texture)
         {
+            this.effect = _effect;
+            this.model = _model;
+            this.texture = _texture;
             
         }//end of load
 
@@ -111,7 +114,7 @@ namespace XNAProject
         public void draw()
         {
 
-            foreach (ModelMesh mesh in thisPlanet.Meshes)
+            foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (Effect e in mesh.Effects)
                 {
