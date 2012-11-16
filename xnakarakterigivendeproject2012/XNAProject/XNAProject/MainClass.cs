@@ -17,7 +17,17 @@ namespace XNAProject
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        GraphicsDevice device;
 
+        Effect effectSky;
+
+        Matrix matrixView;
+        Matrix matrixProjection;
+
+        private Vector3 cameraPosition = new Vector3(10, 10, 10);
+        private Vector3 cameraTarget = new Vector3(0, 0, 0);
+        private Vector3 cameraUpVector = new Vector3(0, 1, 0);
+        private Vector3 viewVector;
 
         /*********************************************************/
         /*Objekter i rommet*/
@@ -70,6 +80,15 @@ namespace XNAProject
         /*********************************************************/
 
         //skybox
+        Matrix matrixWorld = Matrix.Identity;
+        Matrix matrixIdentity = Matrix.Identity;
+        Matrix matrixScale = Matrix.CreateScale(1.0f);
+        Matrix matrixRotationX = Matrix.CreateRotationX(0.0f);
+        Matrix matrixRotationY = Matrix.CreateRotationY(0.0f);
+        Matrix matrixTranslation = Matrix.CreateTranslation(0.0f, 0.0f, 0.0f);
+
+        
+        
         private VertexPositionColorTexture[] vericesSkyBox;
 
         private const float BOUNDARY = 80000.0f;
@@ -196,6 +215,21 @@ namespace XNAProject
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            device = graphics.GraphicsDevice;
+
+            SetUpCamera();
+
+            effectSky = Content.Load<Effect>("effects/effectsRiemersTut");
+
+            skbxFront = Content.Load<Texture2D>(@"textures-skybox/sky1f");
+            skbxLeft = Content.Load<Texture2D>(@"textures-skybox/sky2s");
+            skbxRight = Content.Load<Texture2D>(@"textures-skybox/sky3i");
+            skbxTop = Content.Load<Texture2D>(@"textures-skybox/sky4s");
+            skbxBottom = Content.Load<Texture2D>(@"textures-skybox/sky5");
+            skbxBack = Content.Load<Texture2D>(@"textures-skybox/sky1f");
+
+
         }
 
 
@@ -212,14 +246,82 @@ namespace XNAProject
             base.Update(gameTime);
         }
 
+        private void SetUpCamera()
+        {
+            matrixView = Matrix.CreateLookAt(cameraPosition, cameraTarget, cameraUpVector);
+            matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, device.Viewport.AspectRatio, 1.0f, 300.0f);
+        }
+
 
         protected override void Draw(GameTime gameTime)
         {
+            RasterizerState rs = new RasterizerState();
+            rs.CullMode = CullMode.None;
+            rs.FillMode = FillMode.Solid;
+            device.RasterizerState = rs;
+            
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
+
+        private void DrawSkybox()
+        {
+            const float kfDrop = -1.2f;
+
+            for (int i = 0; i < 6; i++)
+            {
+                switch (i)
+                { 
+                    case 0:
+                        matrixTranslation = Matrix.CreateTranslation(0.0f, kfDrop, EDGE);
+                        effectSky.Parameters["xTexture"].SetValue(skbxFront);
+                        break;
+                    case 1:
+                        matrixTranslation = Matrix.CreateTranslation(-EDGE, kfDrop, 0.0f);
+                        matrixRotationY = Matrix.CreateRotationY(-(float)Math.PI / 2.0f);
+                        effectSky.Parameters["xTexture"].SetValue(skbxFront);
+                        break;
+                    case 2:
+                        matrixTranslation = Matrix.CreateTranslation(0.0f, kfDrop, -EDGE);
+                        matrixRotationY = Matrix.CreateRotationY((float)Math.PI);
+                        effectSky.Parameters["xTexture"].SetValue(skbxFront);
+                        break;
+                    case 3:
+                        matrixTranslation = Matrix.CreateTranslation(EDGE, kfDrop, 0.0f);
+                        matrixRotationY = Matrix.CreateRotationY((float)Math.PI / 2.0f);
+                        effectSky.Parameters["xTexture"].SetValue(skbxFront);
+                        break;
+                    case 4:
+                        matrixTranslation = Matrix.CreateTranslation(0.0f, EDGE + kfDrop, 0.0f);
+                        matrixRotationX = Matrix.CreateRotationX(-(float)Math.PI / 2.0f);
+                        matrixRotationY = Matrix.CreateRotationY(-(3.0f/2.0f) * (float)Math.PI);
+                        matrixScale = Matrix.CreateScale(1.0f, 1.0f, 1.0f);
+                        effectSky.Parameters["xTexture"].SetValue(skbxFront);
+                        break;
+                    case 5:
+                        break;
+                }//end of switch
+
+                matrixWorld = matrixIdentity * matrixScale * matrixRotationX * matrixRotationY * matrixTranslation;
+
+                effectSky.CurrentTechnique = effectSky.Techniques["Textured"];
+                effectSky.Parameters["xWorld"].SetValue(matrixWorld);
+                effectSky.Parameters["xView"].SetValue(matrixView);
+                effectSky.Parameters["xProjection"].SetValue(matrixProjection);
+
+                foreach (EffectPass pass in effectSky.CurrentTechnique.Passes)
+                {
+                    pass.Apply();
+
+                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, vericesSkyBox, 0, 2);
+                }//end of foreach
+
+            }//end of for
+
+
+        }//end of DrawSkybox
     }
 }
