@@ -20,14 +20,17 @@ namespace XNAProject
         GraphicsDevice device;
 
         Effect effectSky;
+        BasicEffect basicEffect;
 
         Matrix matrixView;
         Matrix matrixProjection;
 
-        private Vector3 cameraPosition = new Vector3(10, 10, 10);
-        private Vector3 cameraTarget = new Vector3(0, 0, 0);
-        private Vector3 cameraUpVector = new Vector3(0, 1, 0);
+        private Vector3 cameraPosition;// = new Vector3(0, 1000, 1000);
+        private Vector3 cameraTarget;// = new Vector3(0, 0, 0);
+        private Vector3 cameraUpVector;// = new Vector3(0, 1, 0);
         private Vector3 viewVector;
+
+        private CoordinateAxes cAxes;
 
         /*********************************************************/
         /*Objekter i rommet*/
@@ -87,14 +90,12 @@ namespace XNAProject
         Matrix matrixRotationY = Matrix.CreateRotationY(0.0f);
         Matrix matrixTranslation = Matrix.CreateTranslation(0.0f, 0.0f, 0.0f);
 
-        
-        
         private VertexPositionColorTexture[] vericesSkyBox;
 
         private const float BOUNDARY = 80000.0f;
         private const float EDGE = BOUNDARY * 2.0f;
 
-        //textures
+        //textures skybox
         private Texture2D skbxFront;
         private Texture2D skbxLeft;
         private Texture2D skbxRight;
@@ -114,10 +115,37 @@ namespace XNAProject
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            initDevice();
+            initCamera();
+            this.cAxes = new CoordinateAxes();
             initializeSolarSystemObjects();
             initializeSkyBox();
             base.Initialize();
+        }
+
+        private void initDevice()
+        {
+            this.device = graphics.GraphicsDevice;
+            this.IsMouseVisible = true;
+            this.graphics.PreferredBackBufferWidth = 1280;
+            this.graphics.PreferredBackBufferHeight = 800;
+            this.graphics.IsFullScreen = false;
+            this.graphics.ApplyChanges();
+            this.Window.Title = "Prosjekt";
+            this.basicEffect = new BasicEffect(graphics.GraphicsDevice);
+        }
+
+        private void initCamera()
+        {
+            cameraPosition = new Vector3(10000, 10000, 10000);
+            cameraTarget = Vector3.Zero;
+            cameraUpVector = new Vector3(0.0f, 1.0f, 0.0f);
+            float aspectRatio = (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height;
+            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 1f, 100000.0f, out matrixProjection);
+            Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
+            basicEffect.Projection = matrixProjection;
+            basicEffect.View = matrixView;
+            basicEffect.VertexColorEnabled = true;
         }
 
         private void initializeSkyBox()
@@ -213,12 +241,8 @@ namespace XNAProject
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-
-            device = graphics.GraphicsDevice;
-
-            SetUpCamera();
+            loadSpaceObjects();
+            
 
             effectSky = Content.Load<Effect>("effects/effectsRiemersTut");
 
@@ -232,6 +256,11 @@ namespace XNAProject
 
         }
 
+        private void loadSpaceObjects()
+        {
+            this.Sol.load(Content.Load<Effect>("effects/effectsRiemersTut"), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
+        }
+
 
         protected override void UnloadContent()
         {
@@ -241,15 +270,14 @@ namespace XNAProject
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
+            updateSpaceObjects(gameTime);
 
             base.Update(gameTime);
         }
 
-        private void SetUpCamera()
+        private void updateSpaceObjects(GameTime gameTime)
         {
-            matrixView = Matrix.CreateLookAt(cameraPosition, cameraTarget, cameraUpVector);
-            matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, device.Viewport.AspectRatio, 1.0f, 300.0f);
+            this.Sol.Update(gameTime);
         }
 
 
@@ -260,9 +288,14 @@ namespace XNAProject
             rs.FillMode = FillMode.Solid;
             device.RasterizerState = rs;
             
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            GraphicsDevice.Clear(Color.Black);
+            this.Sol.Draw(gameTime);
+            
+            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                this.cAxes.draw(this.device);
+            }
 
             base.Draw(gameTime);
         }

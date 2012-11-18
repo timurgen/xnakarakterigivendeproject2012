@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoordinateAxes.cs" />
     <Compile Include="Particle.cs" />
     <Compile Include="ParticleExplosion.cs" />
     <Compile Include="ParticleSettings.cs" />

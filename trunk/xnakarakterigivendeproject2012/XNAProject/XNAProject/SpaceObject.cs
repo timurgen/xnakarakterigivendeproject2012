@@ -63,6 +63,14 @@ namespace XNAProject
             this.effect = _effect;
             this.model = _model;
             this.texture = _texture;
+
+            foreach (ModelMesh mesh in this.model.Meshes)
+            {
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    meshPart.Effect = this.effect.Clone();
+                }
+            }
             
         }//end of load
 
@@ -71,7 +79,7 @@ namespace XNAProject
         /// <summary>
         /// metode skal kalles i update metode av main class
         /// </summary>
-        public void update(GameTime gt)
+        public override void Update(GameTime gt)
         {
             Matrix matIdentity, matTrans, matRotateY, matRotateX, matScale, matOrbT, matOrbR;
             
@@ -111,14 +119,18 @@ namespace XNAProject
         /// <summary>
         /// Tegner model, den metoden kalles fra draw i main class
         /// </summary>
-        public void draw()
+        public override void Draw(GameTime gt)
         {
 
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (Effect e in mesh.Effects)
                 {
-
+                    e.CurrentTechnique = e.Techniques["Textured"];
+                    e.Parameters["xWorld"].SetValue(this.world);
+                    e.Parameters["xView"].SetValue(this.view);
+                    e.Parameters["xProjection"].SetValue(this.projection);
+                    effect.Parameters["xTexture"].SetValue(this.texture);
                 }
                 
                 mesh.Draw();
