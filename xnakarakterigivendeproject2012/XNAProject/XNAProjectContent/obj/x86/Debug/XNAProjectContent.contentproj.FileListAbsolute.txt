@@ -1,2 +1,1 @@
 c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProjectContent\obj\x86\Debug\XNAProjectContent.contentprojResolveAssemblyReference.cache
-C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProjectContent\obj\x86\Debug\XNAProjectContent.contentprojResolveAssemblyReference.cache

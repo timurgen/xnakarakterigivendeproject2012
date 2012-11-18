@@ -7,9 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ParticlesTraining
 {
-    class Particle
-    {
-    }
+
 
     /// <summary>
     /// Struct som representerer partikkel
