@@ -27,7 +27,7 @@ namespace XNAProject
         private float rotSpeed;
         private Texture2D texture;
         private Effect effect;
-        private Game game;
+        private MainClass game;
 
         /// <summary>
         /// Brukes til å lage nytt objekt
@@ -46,7 +46,7 @@ namespace XNAProject
             this.orbitalSpeed = _orbitalSpeed;
             this.orbitAngle = _orbitAngle;
             this.rotSpeed = _rotSpeed;
-            this.game = _game;
+            this.game = (MainClass)_game;
             if (_parent != null)
             {
                 this.parent = _parent;
@@ -126,10 +126,10 @@ namespace XNAProject
             {
                 foreach (Effect e in mesh.Effects)
                 {
-                    e.CurrentTechnique = e.Techniques["Textured"];
+                    e.CurrentTechnique = e.Techniques["TexturedNoShading"];
                     e.Parameters["xWorld"].SetValue(this.world);
-                    e.Parameters["xView"].SetValue(this.view);
-                    e.Parameters["xProjection"].SetValue(this.projection);
+                    //e.Parameters["xView"].SetValue(this.view);
+                    //e.Parameters["xProjection"].SetValue(this.projection);
                     effect.Parameters["xTexture"].SetValue(this.texture);
                 }
                 
