@@ -176,10 +176,10 @@ namespace XNAProject
         private void initializeSolarSystemObjects()
         {
             //Sola
-            this.Sol = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, null);
+            this.Sol = new SpaceObject(this, 10f, 0, 0, 0, 0, 0.0f, null);
 
             //Planetter
-            this.mercury = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
+            this.mercury = new SpaceObject(this, 0.2f, 500f, 1f, 2f, 0, 1.0f, this.Sol);
             this.venus = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
             this.earth = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
             this.mars = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
@@ -258,7 +258,12 @@ namespace XNAProject
 
         private void loadSpaceObjects()
         {
-            this.Sol.load(Content.Load<Effect>("effects/effectsRiemersTut"), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
+            Effect spaceObjectEffect = Content.Load<Effect>("effects/effectsRiemersTut");
+            spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
+            spaceObjectEffect.Parameters["xProjection"].SetValue(this.matrixProjection);
+
+            this.Sol.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
+            this.mercury.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mercurymap"));
         }
 
 
@@ -275,9 +280,14 @@ namespace XNAProject
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Her oppdateres objekter av "SpaceObject" class
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void updateSpaceObjects(GameTime gameTime)
         {
             this.Sol.Update(gameTime);
+            this.mercury.Update(gameTime);
         }
 
 
@@ -288,8 +298,9 @@ namespace XNAProject
             rs.FillMode = FillMode.Solid;
             device.RasterizerState = rs;
             
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.White);
             this.Sol.Draw(gameTime);
+            this.mercury.Draw(gameTime);
             
             foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
