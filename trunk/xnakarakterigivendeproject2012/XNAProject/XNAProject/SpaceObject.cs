@@ -28,6 +28,7 @@ namespace XNAProject
         private Texture2D texture;
         private Effect effect;
         private MainClass game;
+        private String currentTechnique;
 
         /// <summary>
         /// Brukes til å lage nytt objekt
@@ -63,7 +64,7 @@ namespace XNAProject
             this.effect = _effect;
             this.model = _model;
             this.texture = _texture;
-
+            
             foreach (ModelMesh mesh in this.model.Meshes)
             {
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
@@ -121,21 +122,35 @@ namespace XNAProject
         /// </summary>
         public override void Draw(GameTime gt)
         {
-
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (Effect e in mesh.Effects)
                 {
-                    e.CurrentTechnique = e.Techniques["TexturedNoShading"];
-                    e.Parameters["xWorld"].SetValue(this.world);
+                    e.CurrentTechnique = e.Techniques[this.currentTechnique];
+                    //e.Parameters["xEnableLighting"].SetValue(true);
+                    //Vector3 lightDirection = new Vector3(0.0f, 0, 0.0f);
+                    //lightDirection.Normalize();
+                    //e.Parameters["xLightDirection"].SetValue(lightDirection);
+                    //e.Parameters["xWorld"].SetValue(this.world);
                     //e.Parameters["xView"].SetValue(this.view);
                     //e.Parameters["xProjection"].SetValue(this.projection);
-                    effect.Parameters["xTexture"].SetValue(this.texture);
+                    //e.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * this.view * this.projection);
+                    e.Parameters["xTexture"].SetValue(this.texture);
+                    e.Parameters["xWorld"].SetValue(Matrix.Identity);
+                    e.Parameters["xLightPos"].SetValue(new Vector3(0f, 0f, 0f));
+                    e.Parameters["xLightPower"].SetValue(5f);
+                    e.Parameters["xAmbient"].SetValue(1f);
+                   
                 }
                 
                 mesh.Draw();
             }
 
         }//end of draw
+
+        public void setShaderTechnique(String _Technique)
+        {
+            this.currentTechnique = _Technique;
+        }
     }
 }
