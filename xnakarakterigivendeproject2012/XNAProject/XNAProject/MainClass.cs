@@ -17,7 +17,7 @@ namespace XNAProject
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        GraphicsDevice device;
+        GraphicsDevice device { get; set; }
 
         Effect effectSky;
         BasicEffect basicEffect;
@@ -41,6 +41,9 @@ namespace XNAProject
 
         //Planetter
         SpaceObject mercury, venus, earth, mars, jupiter, saturn, uran, neptun, pluto;
+
+        //rings hos saturn
+        SpaceObject saturnRing;
 
         /*Naturlige satellitter*/
 
@@ -137,11 +140,11 @@ namespace XNAProject
 
         private void initCamera()
         {
-            cameraPosition = new Vector3(10000, 10000, 10000);
+            cameraPosition = new Vector3(50000, 50000, 50000);
             cameraTarget = Vector3.Zero;
             cameraUpVector = new Vector3(0.0f, 1.0f, 0.0f);
             float aspectRatio = (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height;
-            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 1f, 100000.0f, out matrixProjection);
+            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 1f, 200000.0f, out matrixProjection);
             Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
             basicEffect.Projection = matrixProjection;
             basicEffect.View = matrixView;
@@ -176,18 +179,19 @@ namespace XNAProject
         private void initializeSolarSystemObjects()
         {
             //Sola
-            this.Sol = new SpaceObject(this, 10f, 0, 0, 0, 0, 0.0f, null);
+            this.Sol = new SpaceObject(this, 50f, 0, 0, 0, 0, 0.0f, null);
 
             //Planetter
-            this.mercury = new SpaceObject(this, 0.2f, 500f, 1f, 2f, 0, 1.0f, this.Sol);
-            this.venus = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
-            this.earth = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
-            this.mars = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
-            this.jupiter = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
-            this.saturn = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
-            this.uran = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
-            this.neptun = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
-            this.pluto = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.Sol);
+            this.mercury = new SpaceObject(this, 0.1f, 300f, 1f, 0.5f, 0, 0.2f, this.Sol);
+            this.venus = new SpaceObject(this, 0.2f, 500f, 1f, 0.5f, 0, 0.1f, this.Sol);
+            this.earth = new SpaceObject(this, 0.3f, 700f, 1f, 0.5f, 0, 1.0f, this.Sol);
+            this.mars = new SpaceObject(this, 0.25f, 900f, 1f, 0.3f, 0, 1.0f, this.Sol);
+            this.jupiter = new SpaceObject(this, 0.6f, 1200f, 1f, 0.2f, 0, 1.0f, this.Sol);
+            this.saturn = new SpaceObject(this, 0.5f, 1500f, 1f, 0.7f, 0, 1.0f, this.Sol);
+            this.saturnRing = new SpaceObject(this, 5.5f, 0f, 0f, 0.7f, 0, 1.0f, this.saturn);
+            this.uran = new SpaceObject(this, 0.45f, 1700f, 1f, 1f, 0, 1.0f, this.Sol);
+            this.neptun = new SpaceObject(this, 0.4f, 2100f, 1f, 0.2f, 0, 1.0f, this.Sol);
+            this.pluto = new SpaceObject(this, 0.05f, 2400f, 1f, 0.1f, 0, 1.0f, this.Sol);
 
             //satellitter
 
@@ -262,8 +266,21 @@ namespace XNAProject
             spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
             spaceObjectEffect.Parameters["xProjection"].SetValue(this.matrixProjection);
 
-            this.Sol.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
-            this.mercury.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mercurymap"));
+            Effect solEffect = Content.Load<Effect>("effects/LightPoint");
+            solEffect.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * this.matrixView * this.matrixProjection);
+
+            this.Sol.load(solEffect, Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
+
+            //this.mercury.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mercurymap"));
+            //this.venus.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/venusmap"));
+            //this.earth.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/earthmap1k"));
+            //this.mars.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mars_1k_color"));
+            //this.jupiter.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/jupitermap"));
+            //this.saturn.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/saturnmap"));
+            //this.saturnRing.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/ring"), Content.Load<Texture2D>("textures-planets/saturnringcolor"));
+            //this.uran.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/uranusmap"));
+            //this.neptun.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/neptunemap"));
+            //this.pluto.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/plutomap1k"));
         }
 
 
@@ -287,7 +304,16 @@ namespace XNAProject
         private void updateSpaceObjects(GameTime gameTime)
         {
             this.Sol.Update(gameTime);
-            this.mercury.Update(gameTime);
+            //this.mercury.Update(gameTime);
+            //this.venus.Update(gameTime);
+            //this.earth.Update(gameTime);
+            //this.mars.Update(gameTime);
+            //this.jupiter.Update(gameTime);
+            //this.saturn.Update(gameTime);
+            //this.saturnRing.Update(gameTime);
+            //this.uran.Update(gameTime);
+            //this.neptun.Update(gameTime);
+            //this.pluto.Update(gameTime);
         }
 
 
@@ -297,11 +323,13 @@ namespace XNAProject
             rs.CullMode = CullMode.None;
             rs.FillMode = FillMode.Solid;
             device.RasterizerState = rs;
+
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.White, 1.0f, 0);
+
+            drawPlanets(gameTime);
+
             
-            GraphicsDevice.Clear(Color.White);
-            this.Sol.Draw(gameTime);
-            this.mercury.Draw(gameTime);
-            
+            //tegner koordinater
             foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
@@ -309,6 +337,51 @@ namespace XNAProject
             }
 
             base.Draw(gameTime);
+        }
+
+
+
+        /// <summary>
+        /// Tegner planetter på gameskjermen
+        /// </summary>
+        /// <param name="gameTime"></param>
+        private void drawPlanets(GameTime gameTime)
+        {
+
+            //tegner planetter
+            this.Sol.setShaderTechnique("Simplest");
+            this.Sol.Draw(gameTime);
+
+            //this.mercury.setShaderTechnique("Textured");
+            //this.mercury.Draw(gameTime);
+
+            //this.venus.setShaderTechnique("Textured");
+            //this.venus.Draw(gameTime);
+
+            //this.earth.setShaderTechnique("Textured");
+            //this.earth.Draw(gameTime);
+
+            //this.mars.setShaderTechnique("Textured");
+            //this.mars.Draw(gameTime);
+
+            //this.jupiter.setShaderTechnique("Textured");
+            //this.jupiter.Draw(gameTime);
+
+            //this.saturn.setShaderTechnique("Textured");
+            //this.saturn.Draw(gameTime);
+
+            //this.saturnRing.setShaderTechnique("Textured");
+            //this.saturnRing.Draw(gameTime);
+
+            //this.uran.setShaderTechnique("Textured");
+            //this.uran.Draw(gameTime);
+
+            //this.neptun.setShaderTechnique("Textured");
+            //this.neptun.Draw(gameTime);
+
+            //this.pluto.setShaderTechnique("Textured");
+            //this.pluto.Draw(gameTime);
+
         }
 
         private void DrawSkybox()
