@@ -4,7 +4,6 @@ c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProjec
 c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\obj\x86\Debug\XNAProject.exe
 c:\users\abnormal\documents\visual studio 2010\Projects\XNA\XNAProject\XNAProject\XNAProject\obj\x86\Debug\XNAProject.pdb
-C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\obj\x86\Debug\XNAProject.csprojResolveAssemblyReference.cache
 C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\obj\x86\Debug\XNAProject.exe
 C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\XNAProject.exe
@@ -28,3 +27,6 @@ C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakt
 C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-skybox\sky5.xnb
 C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\effects\effectsRiemersTut.xnb
 C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\models\planet.xnb
+C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\models\ring.xnb
+C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\obj\x86\Debug\XNAProject.csprojResolveAssemblyReference.cache
+C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\effects\LightPoint.xnb
