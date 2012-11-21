@@ -266,10 +266,12 @@ namespace XNAProject
             spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
             spaceObjectEffect.Parameters["xProjection"].SetValue(this.matrixProjection);
 
-            Effect solEffect = Content.Load<Effect>("effects/LightPoint");
-            solEffect.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * this.matrixView * this.matrixProjection);
 
-            this.Sol.load(solEffect, Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
+
+            //Effect solEffect = Content.Load<Effect>("effects/LightPoint");
+            //solEffect.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * this.matrixView * this.matrixProjection);
+
+            this.Sol.load(spaceObjectEffect, Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
 
             //this.mercury.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mercurymap"));
             //this.venus.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/venusmap"));
@@ -349,7 +351,7 @@ namespace XNAProject
         {
 
             //tegner planetter
-            this.Sol.setShaderTechnique("Simplest");
+            this.Sol.setShaderTechnique("Textured");
             this.Sol.Draw(gameTime);
 
             //this.mercury.setShaderTechnique("Textured");

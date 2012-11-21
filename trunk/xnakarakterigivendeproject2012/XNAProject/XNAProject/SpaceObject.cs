@@ -131,15 +131,15 @@ namespace XNAProject
                     //Vector3 lightDirection = new Vector3(0.0f, 0, 0.0f);
                     //lightDirection.Normalize();
                     //e.Parameters["xLightDirection"].SetValue(lightDirection);
-                    //e.Parameters["xWorld"].SetValue(this.world);
-                    //e.Parameters["xView"].SetValue(this.view);
-                    //e.Parameters["xProjection"].SetValue(this.projection);
+                    e.Parameters["xWorld"].SetValue(this.world);
+                    e.Parameters["xView"].SetValue(this.view);
+                    e.Parameters["xProjection"].SetValue(this.projection);
                     //e.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * this.view * this.projection);
                     e.Parameters["xTexture"].SetValue(this.texture);
-                    e.Parameters["xWorld"].SetValue(Matrix.Identity);
-                    e.Parameters["xLightPos"].SetValue(new Vector3(0f, 0f, 0f));
-                    e.Parameters["xLightPower"].SetValue(5f);
-                    e.Parameters["xAmbient"].SetValue(1f);
+                    //e.Parameters["xWorld"].SetValue(Matrix.Identity);
+                    //e.Parameters["xLightPos"].SetValue(new Vector3(0f, 0f, 0f));
+                    //e.Parameters["xLightPower"].SetValue(5f);
+                    //e.Parameters["xAmbient"].SetValue(1f);
                    
                 }
                 
