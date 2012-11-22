@@ -32,6 +32,7 @@ namespace XNAProject
 
         private CoordinateAxes cAxes;
 
+        #region variabler til planetter og måner
         /*********************************************************/
         /*Objekter i rommet*/
 
@@ -84,6 +85,7 @@ namespace XNAProject
         //StarWars star of death
         SpaceObject StarOfDeath;
         /*********************************************************/
+        #endregion
 
         //skybox
         Matrix matrixWorld = Matrix.Identity;
@@ -176,71 +178,139 @@ namespace XNAProject
         }
 
 
+        #region Her opprettes alle planetter og måner
+        /// <summary>
+        /// Her opprettes alle objekter som tilhører solarsystemmet
+        /// </summary>
         private void initializeSolarSystemObjects()
         {
             //Sola
             this.Sol = new SpaceObject(this, 50f, 0, 0, 0, 0, 0.0f, null);
+            this.Components.Add(this.Sol);
 
             //Planetter
             this.mercury = new SpaceObject(this, 0.1f, 300f, 1f, 0.5f, 0, 0.2f, this.Sol);
+            this.Components.Add(this.mercury);
+
             this.venus = new SpaceObject(this, 0.2f, 500f, 1f, 0.5f, 0, 0.1f, this.Sol);
+            this.Components.Add(this.venus);
+
             this.earth = new SpaceObject(this, 0.3f, 700f, 1f, 0.5f, 0, 1.0f, this.Sol);
+            this.Components.Add(this.earth);
+
             this.mars = new SpaceObject(this, 0.25f, 900f, 1f, 0.3f, 0, 1.0f, this.Sol);
+            this.Components.Add(this.mars);
+
             this.jupiter = new SpaceObject(this, 0.6f, 1200f, 1f, 0.2f, 0, 1.0f, this.Sol);
+            this.Components.Add(this.jupiter);
+
             this.saturn = new SpaceObject(this, 0.5f, 1500f, 1f, 0.7f, 0, 1.0f, this.Sol);
+            this.Components.Add(this.saturn);
+
             this.saturnRing = new SpaceObject(this, 5.5f, 0f, 0f, 0.7f, 0, 1.0f, this.saturn);
+            this.Components.Add(this.saturnRing);
+
             this.uran = new SpaceObject(this, 0.45f, 1700f, 1f, 1f, 0, 1.0f, this.Sol);
+            this.Components.Add(this.uran);
+
             this.neptun = new SpaceObject(this, 0.4f, 2100f, 1f, 0.2f, 0, 1.0f, this.Sol);
+            this.Components.Add(this.neptun);
+
             this.pluto = new SpaceObject(this, 0.05f, 2400f, 1f, 0.1f, 0, 1.0f, this.Sol);
+            this.Components.Add(this.pluto);
+
 
             //satellitter
 
             //earth
-            this.moon = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.earth);
+            this.moon = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.earth);
+            this.Components.Add(this.moon);
             //mars
-            this.fobos = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.mars);
-            this.deimos = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.mars);
+            this.fobos = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.mars);
+            this.Components.Add(this.fobos);
+
+            this.deimos = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.mars);
+            this.Components.Add(this.deimos);
 
             //jupiter
             //største satellitter
-            this.Io = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.jupiter);
-            this.Europa = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.jupiter);
-            this.Ganymede = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.jupiter);
-            this.Callisto = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.jupiter);
+            this.Io = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.jupiter);
+            this.Components.Add(this.Io);
+
+            this.Europa = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.jupiter);
+            this.Components.Add(this.Europa);
+
+            this.Ganymede = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.jupiter);
+            this.Components.Add(this.Ganymede);
+
+            this.Callisto = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.jupiter);
+            this.Components.Add(this.Callisto);
+
+
             //små satellitter , antall 63
             this.smallSatelitesOfJupiter = new SpaceObject[63];
+            //TODO add to components
 
             //Saturn
             //Største satellitter
-            this.Mimas = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.saturn);
-            this.Enceladus = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.saturn);
-            this.Tethys = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.saturn);
-            this.Dione = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.saturn);
-            this.Rhea = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.saturn);
-            this.Titan = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.saturn);
-            this.Iapetus = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.saturn);
+            this.Mimas = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.saturn);
+            this.Components.Add(this.Mimas);
+
+            this.Enceladus = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.saturn);
+            this.Components.Add(this.Enceladus);
+
+            this.Tethys = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.saturn);
+            this.Components.Add(this.Tethys);
+
+            this.Dione = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.saturn);
+            this.Components.Add(this.Dione);
+
+            this.Rhea = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.saturn);
+            this.Components.Add(this.Rhea);
+
+            this.Titan = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.saturn);
+            this.Components.Add(this.Titan);
+
+            this.Iapetus = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.saturn);
+            this.Components.Add(this.Iapetus);
+
             //små satellitter, antall 55
             this.smallSatelitesOfSaturn = new SpaceObject[55];
+            //TODO add to components
 
             //Uran
             //Største satelitter
-            this.Miranda = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.uran);
-            this.Ariel = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.uran);
-            this.Umbriel = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.uran);
-            this.Titania = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.uran);
-            this.Oberon = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.uran);
+            this.Miranda = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.uran);
+            this.Components.Add(this.Miranda);
+
+            this.Ariel = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.uran);
+            this.Components.Add(this.Ariel);
+
+            this.Umbriel = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.uran);
+            this.Components.Add(this.Umbriel);
+
+            this.Titania = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.uran);
+            this.Components.Add(this.Titania);
+
+            this.Oberon = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.uran);
+            this.Components.Add(this.Oberon);
+
             //små satellitter, antall 22
             this.smallSatelitesOfUranus = new SpaceObject[22];
+            //TODO add to components
+
 
             //Neptun
             //Størst satellitt
-            this.Triton = new SpaceObject(this, 10f, 0, 0, 0, 0, 1.0f, this.neptun);
+            this.Triton = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.neptun);
+            this.Components.Add(this.Triton);
+
             //små satellitter, antall 12
             this.smallSatelitesOfNeptune = new SpaceObject[12];
-
+            //TODO add to components
 
         }
-
+        #endregion
 
         protected override void LoadContent()
         {
@@ -265,24 +335,40 @@ namespace XNAProject
             Effect spaceObjectEffect = Content.Load<Effect>("effects/effectsRiemersTut");
             spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
             spaceObjectEffect.Parameters["xProjection"].SetValue(this.matrixProjection);
-
-
-
-            //Effect solEffect = Content.Load<Effect>("effects/LightPoint");
-            //solEffect.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * this.matrixView * this.matrixProjection);
-
-            this.Sol.load(spaceObjectEffect, Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
-
-            //this.mercury.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mercurymap"));
-            //this.venus.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/venusmap"));
-            //this.earth.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/earthmap1k"));
-            //this.mars.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mars_1k_color"));
-            //this.jupiter.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/jupitermap"));
-            //this.saturn.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/saturnmap"));
-            //this.saturnRing.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/ring"), Content.Load<Texture2D>("textures-planets/saturnringcolor"));
-            //this.uran.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/uranusmap"));
-            //this.neptun.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/neptunemap"));
-            //this.pluto.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/plutomap1k"));
+            //Sola
+            this.Sol.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
+            //Planetter
+            this.mercury.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mercurymap"));
+            this.venus.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/venusmap"));
+            this.earth.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/earthmap1k"));
+            this.mars.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mars_1k_color"));
+            this.jupiter.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/jupitermap"));
+            this.saturn.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/saturnmap"));
+            this.saturnRing.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/ring"), Content.Load<Texture2D>("textures-planets/saturnringcolor"));
+            this.uran.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/uranusmap"));
+            this.neptun.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/neptunemap"));
+            this.pluto.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/plutomap1k"));
+            //satellitter
+            this.moon.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.fobos.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.deimos.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Io.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Europa.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Ganymede.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Callisto.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Mimas.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Enceladus.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Dione.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Tethys.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Rhea.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Titan.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Iapetus.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Miranda.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Ariel.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Umbriel.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Titania.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Oberon.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Triton.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
         }
 
 
@@ -294,29 +380,10 @@ namespace XNAProject
 
         protected override void Update(GameTime gameTime)
         {
-            updateSpaceObjects(gameTime);
 
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// Her oppdateres objekter av "SpaceObject" class
-        /// </summary>
-        /// <param name="gameTime"></param>
-        private void updateSpaceObjects(GameTime gameTime)
-        {
-            this.Sol.Update(gameTime);
-            //this.mercury.Update(gameTime);
-            //this.venus.Update(gameTime);
-            //this.earth.Update(gameTime);
-            //this.mars.Update(gameTime);
-            //this.jupiter.Update(gameTime);
-            //this.saturn.Update(gameTime);
-            //this.saturnRing.Update(gameTime);
-            //this.uran.Update(gameTime);
-            //this.neptun.Update(gameTime);
-            //this.pluto.Update(gameTime);
-        }
 
 
         protected override void Draw(GameTime gameTime)
@@ -326,9 +393,7 @@ namespace XNAProject
             rs.FillMode = FillMode.Solid;
             device.RasterizerState = rs;
 
-            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.White, 1.0f, 0);
-
-            drawPlanets(gameTime);
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
             
             //tegner koordinater
@@ -343,48 +408,7 @@ namespace XNAProject
 
 
 
-        /// <summary>
-        /// Tegner planetter på gameskjermen
-        /// </summary>
-        /// <param name="gameTime"></param>
-        private void drawPlanets(GameTime gameTime)
-        {
-
-            //tegner planetter
-            this.Sol.setShaderTechnique("Textured");
-            this.Sol.Draw(gameTime);
-
-            //this.mercury.setShaderTechnique("Textured");
-            //this.mercury.Draw(gameTime);
-
-            //this.venus.setShaderTechnique("Textured");
-            //this.venus.Draw(gameTime);
-
-            //this.earth.setShaderTechnique("Textured");
-            //this.earth.Draw(gameTime);
-
-            //this.mars.setShaderTechnique("Textured");
-            //this.mars.Draw(gameTime);
-
-            //this.jupiter.setShaderTechnique("Textured");
-            //this.jupiter.Draw(gameTime);
-
-            //this.saturn.setShaderTechnique("Textured");
-            //this.saturn.Draw(gameTime);
-
-            //this.saturnRing.setShaderTechnique("Textured");
-            //this.saturnRing.Draw(gameTime);
-
-            //this.uran.setShaderTechnique("Textured");
-            //this.uran.Draw(gameTime);
-
-            //this.neptun.setShaderTechnique("Textured");
-            //this.neptun.Draw(gameTime);
-
-            //this.pluto.setShaderTechnique("Textured");
-            //this.pluto.Draw(gameTime);
-
-        }
+        
 
         private void DrawSkybox()
         {
