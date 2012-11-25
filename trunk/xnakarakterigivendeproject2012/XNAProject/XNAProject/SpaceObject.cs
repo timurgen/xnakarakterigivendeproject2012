@@ -78,12 +78,13 @@ namespace XNAProject
 
 
         float RotY, orbRotY;
+        float orbRotX;
         /// <summary>
         /// metode skal kalles i update metode av main class
         /// </summary>
         public override void Update(GameTime gt)
         {
-            Matrix matIdentity, matTrans, matRotateY, matRotateX, matScale, matOrbT, matOrbR;
+            Matrix matIdentity, matTrans, matRotateY, matRotateX, matScale, matOrbT, matOrbR, matOrbTX, matOrbRX;
             
             matIdentity = Matrix.Identity;
             
@@ -103,17 +104,22 @@ namespace XNAProject
             orbRotY = orbRotY % (float)(2 * Math.PI);
             matOrbR = Matrix.CreateRotationY((orbRotY));
 
+            //matOrbTX = Matrix.CreateTranslation(this.orbitAngle, this.orbitAngle, 0);
+            //orbRotX += this.orbitAngle * (float)gt.ElapsedGameTime.Milliseconds / 5000.0f;
+            //orbRotX = orbRotX % (float)(2 * Math.PI);
+            //matOrbRX = Matrix.CreateRotationX((orbRotX));
+
             matTrans = Matrix.CreateTranslation(0.0f, 0.0f, 0.0f);
             //matTrans = Matrix.CreateTranslation(this.orbitAngle, this.orbitAngle, this.orbitAngle);
             
             //Kumulativ world‐matrise;
             if (parent == null)
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * matOrbT  * matOrbR * matTrans;
+                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT  * matOrbR) * matTrans;
             }
             else
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * matOrbT  * matOrbR * matTrans * parent.world;
+                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT  * matOrbR)  * matTrans * parent.world;
             }
 
         }//end of update
@@ -133,6 +139,7 @@ namespace XNAProject
                     e.Parameters["xTexture"].SetValue(this.texture);
                     e.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
                     e.Parameters["isEmissive"].SetValue(isEmissive);
+                    e.Parameters["xLightsWorldViewProjection"].SetValue(this.world * effect.Parameters["xView"].GetValueMatrix() * effect.Parameters["xProjection"].GetValueMatrix());
                     
 
                    
