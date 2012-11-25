@@ -392,7 +392,6 @@ namespace XNAProject
             rs.CullMode = CullMode.None;
             rs.FillMode = FillMode.Solid;
             device.RasterizerState = rs;
-
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
             
@@ -402,6 +401,7 @@ namespace XNAProject
                 pass.Apply();
                 this.cAxes.draw(this.device);
             }
+
 
             base.Draw(gameTime);
         }
