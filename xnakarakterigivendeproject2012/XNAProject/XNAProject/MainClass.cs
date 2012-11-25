@@ -186,16 +186,17 @@ namespace XNAProject
         {
             //Sola
             this.Sol = new SpaceObject(this, 50f, 0, 0, 0, 0, 0.0f, null);
+            this.Sol.isEmissive = true;
             this.Components.Add(this.Sol);
 
             //Planetter
-            this.mercury = new SpaceObject(this, 0.1f, 300f, 1f, 0.5f, 0, 0.2f, this.Sol);
+            this.mercury = new SpaceObject(this, 0.1f, 300f, 1f, 0.75f, 1, 1.0f, this.Sol);
             this.Components.Add(this.mercury);
 
-            this.venus = new SpaceObject(this, 0.2f, 500f, 1f, 0.5f, 0, 0.1f, this.Sol);
+            this.venus = new SpaceObject(this, 0.2f, 500f, 1f, 0.75f, 10, 1.0f, this.Sol);
             this.Components.Add(this.venus);
 
-            this.earth = new SpaceObject(this, 0.3f, 700f, 1f, 0.5f, 0, 1.0f, this.Sol);
+            this.earth = new SpaceObject(this, 0.3f, 700f, 1f, 0.75f, 0.5f, 1.0f, this.Sol);
             this.Components.Add(this.earth);
 
             this.mars = new SpaceObject(this, 0.25f, 900f, 1f, 0.3f, 0, 1.0f, this.Sol);
@@ -229,7 +230,7 @@ namespace XNAProject
             this.fobos = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.mars);
             this.Components.Add(this.fobos);
 
-            this.deimos = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.mars);
+            this.deimos = new SpaceObject(this, 0.12f, 130f, 0.5f, 1.1f, 1.5f, 0.75f, this.mars);
             this.Components.Add(this.deimos);
 
             //jupiter
@@ -336,12 +337,12 @@ namespace XNAProject
             spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
             spaceObjectEffect.Parameters["xProjection"].SetValue(this.matrixProjection);
             spaceObjectEffect.Parameters["xLightPos"].SetValue(new Vector3(0f,0f,0f));
-            spaceObjectEffect.Parameters["xLightPower"].SetValue(0.95f);
-            spaceObjectEffect.Parameters["xAmbient"].SetValue(0.2f);
+            spaceObjectEffect.Parameters["xLightPower"].SetValue(0.97f);
+            spaceObjectEffect.Parameters["xAmbient"].SetValue(0.1f);
             //Sola
-            spaceObjectEffect.Parameters["isEmissive"].SetValue(true);
-            spaceObjectEffect.Parameters["xEmissiveColor"].SetValue(new Vector4(1.0f, 1f, 1.75f, 1f));
+
             this.Sol.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
+            
             //Planetter
             this.mercury.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mercurymap"));
             this.venus.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/venusmap"));
@@ -354,6 +355,7 @@ namespace XNAProject
             this.neptun.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/neptunemap"));
             this.pluto.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/plutomap1k"));
             //satellitter
+            
             this.moon.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
             this.fobos.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
             this.deimos.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));

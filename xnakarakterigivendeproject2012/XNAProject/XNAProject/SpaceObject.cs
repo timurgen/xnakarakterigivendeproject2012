@@ -29,6 +29,7 @@ namespace XNAProject
         private Effect effect;
         private MainClass game;
         private String currentTechnique;
+        public bool isEmissive { get; set; }
 
         /// <summary>
         /// Brukes til å lage nytt objekt
@@ -103,15 +104,16 @@ namespace XNAProject
             matOrbR = Matrix.CreateRotationY((orbRotY));
 
             matTrans = Matrix.CreateTranslation(0.0f, 0.0f, 0.0f);
+            //matTrans = Matrix.CreateTranslation(this.orbitAngle, this.orbitAngle, this.orbitAngle);
             
             //Kumulativ world‐matrise;
             if (parent == null)
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * matOrbT * matOrbR * matTrans;
+                world = matIdentity * matScale * matRotateY * matRotateX * matOrbT  * matOrbR * matTrans;
             }
             else
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * matOrbT * matOrbR * matTrans * parent.world;
+                world = matIdentity * matScale * matRotateY * matRotateX * matOrbT  * matOrbR * matTrans * parent.world;
             }
 
         }//end of update
@@ -129,6 +131,9 @@ namespace XNAProject
                     e.CurrentTechnique = e.Techniques["Textured"];
                     e.Parameters["xWorld"].SetValue(this.world);
                     e.Parameters["xTexture"].SetValue(this.texture);
+                    e.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
+                    e.Parameters["isEmissive"].SetValue(isEmissive);
+                    
 
                    
                 }

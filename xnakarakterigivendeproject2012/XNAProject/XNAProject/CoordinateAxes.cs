@@ -19,7 +19,7 @@ namespace XNAProject
 
         public CoordinateAxes()
         {
-            endPoint = 1000f;
+            endPoint = 100000f;
             lineX = new VertexPositionColor[2];
             lineY = new VertexPositionColor[2];
             lineZ = new VertexPositionColor[2];
