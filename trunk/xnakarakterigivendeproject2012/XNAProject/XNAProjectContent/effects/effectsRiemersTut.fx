@@ -77,9 +77,12 @@ PixelToFrame TexturedPS(VertexToPixel PSIn)
 
     PSIn.TexCoords.y--;
     float4 baseColor = tex2D(TextureSampler, PSIn.TexCoords);
-    Output.Color = baseColor*(diffuseLightingFactor + xAmbient);
+    
 	if(isEmissive)
-		Output.Color = baseColor*(diffuseLightingFactor*xEmissiveColor + xAmbient );
+		Output.Color = baseColor*(diffuseLightingFactor + xEmissiveColor + xAmbient );
+	else {
+		Output.Color = baseColor*(diffuseLightingFactor + xAmbient);
+	}
     return Output;
 		
 }

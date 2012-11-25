@@ -31,9 +31,9 @@ float DotProduct(float3 lightPos, float3 pos3D, float3 normal)
 VertexToPixel SimplestVertexShader( float4 inPos : POSITION0, float3 inNormal: NORMAL0, float2 inTexCoords : TEXCOORD0)
 {
     VertexToPixel Output = (VertexToPixel)0;
-    
     Output.Position = mul(inPos, xWorldViewProjection);
     Output.TexCoords = inTexCoords;
+
     Output.Normal = normalize(mul(inNormal, (float3x3)xWorld));    
     Output.Position3D = mul(inPos, xWorld);
 
