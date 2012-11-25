@@ -146,7 +146,7 @@ namespace XNAProject
             cameraTarget = Vector3.Zero;
             cameraUpVector = new Vector3(0.0f, 1.0f, 0.0f);
             float aspectRatio = (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height;
-            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 1f, 200000.0f, out matrixProjection);
+            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 1f, 2000000.0f, out matrixProjection);
             Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
             basicEffect.Projection = matrixProjection;
             basicEffect.View = matrixView;
@@ -335,7 +335,12 @@ namespace XNAProject
             Effect spaceObjectEffect = Content.Load<Effect>("effects/effectsRiemersTut");
             spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
             spaceObjectEffect.Parameters["xProjection"].SetValue(this.matrixProjection);
+            spaceObjectEffect.Parameters["xLightPos"].SetValue(new Vector3(0f,0f,0f));
+            spaceObjectEffect.Parameters["xLightPower"].SetValue(0.95f);
+            spaceObjectEffect.Parameters["xAmbient"].SetValue(0.2f);
             //Sola
+            spaceObjectEffect.Parameters["isEmissive"].SetValue(true);
+            spaceObjectEffect.Parameters["xEmissiveColor"].SetValue(new Vector4(1.0f, 1f, 1.75f, 1f));
             this.Sol.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
             //Planetter
             this.mercury.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mercurymap"));
