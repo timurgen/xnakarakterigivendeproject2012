@@ -115,6 +115,7 @@ namespace XNAProject
             //orbRotX += this.orbitAngle * (float)gt.ElapsedGameTime.Milliseconds / 5000.0f;
             //orbRotX = orbRotX % (float)(2 * Math.PI);
             //matOrbRX = Matrix.CreateRotationX((orbRotX));
+            matOrbRX = Matrix.CreateRotationX(this.orbitAngle);
 
             matTrans = Matrix.CreateTranslation(0.0f, 0.0f, 0.0f);
             //matTrans = Matrix.CreateTranslation(this.orbitAngle, this.orbitAngle, this.orbitAngle);
@@ -122,11 +123,13 @@ namespace XNAProject
             //Kumulativ world‐matrise;
             if (parent == null)
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT  * matOrbR * orbitStart) * matTrans;
+                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT  * matOrbR * orbitStart) * matTrans*matOrbRX;
+                //world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR ) * matTrans * matOrbRX;
             }
             else
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans * parent.world;
+                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans *matOrbRX* parent.world;
+                //world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR ) * matTrans * matOrbRX * parent.world;
             }
 
         }//end of update

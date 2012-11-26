@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 namespace XNAProject
 {
 
-    public class MainClass : Microsoft.Xna.Framework.Game
+    public partial class MainClass : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -111,14 +111,14 @@ namespace XNAProject
         private Texture2D skbxBottom;
         private Texture2D skbxBack;
 
-        private Random generator;
+        private Random g; //generator
 
 
         public MainClass()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            generator = new Random(this.GetHashCode());
+            g = new Random(this.GetHashCode());
         }
 
 
@@ -194,13 +194,13 @@ namespace XNAProject
             this.Components.Add(this.Sol);
 
             //Planetter
-            this.mercury = new SpaceObject(this, 0.1f, 300f, 1f, 0.75f, 1, 1.0f, this.Sol);
+            this.mercury = new SpaceObject(this, 0.1f, 300f, 1f, 0.75f, 0.0f, 1.0f, this.Sol);
             this.Components.Add(this.mercury);
 
-            this.venus = new SpaceObject(this, 0.2f, 500f, 1f, 0.75f, 10, 1.0f, this.Sol);
+            this.venus = new SpaceObject(this, 0.2f, 500f, 1f, -0.75f, 0.0f, 1.0f, this.Sol);
             this.Components.Add(this.venus);
 
-            this.earth = new SpaceObject(this, 0.3f, 700f, 1f, 0.75f, 0.5f, 1.0f, this.Sol);
+            this.earth = new SpaceObject(this, 0.3f, 700f, 1f, 0.75f, 0.0f, 1.0f, this.Sol);
             this.Components.Add(this.earth);
 
             this.mars = new SpaceObject(this, 0.25f, 900f, 1f, 0.3f, 0, 1.0f, this.Sol);
@@ -228,27 +228,27 @@ namespace XNAProject
             //satellitter
 
             //earth
-            this.moon = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.earth);
+            this.moon = new SpaceObject(this, 0.1f, 100f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, this.earth);
             this.Components.Add(this.moon);
             //mars
-            this.fobos = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.mars);
+            this.fobos = new SpaceObject(this, 0.1f, 100f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, this.mars);
             this.Components.Add(this.fobos);
 
-            this.deimos = new SpaceObject(this, 0.12f, 130f, 0.5f, 1.1f, 1.5f, 0.75f, this.mars);
+            this.deimos = new SpaceObject(this, 0.12f, 130f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, this.mars);
             this.Components.Add(this.deimos);
 
             //jupiter
             //største satellitter
-            this.Io = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.jupiter);
+            this.Io = new SpaceObject(this, 0.1f, 100f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, (float)g.NextDouble() + 0.1f, this.jupiter);
             this.Components.Add(this.Io);
 
-            this.Europa = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.jupiter);
+            this.Europa = new SpaceObject(this, 0.1f, 100f, (float)g.NextDouble(), (float)g.NextDouble(), (float)g.NextDouble(), (float)g.NextDouble(), this.jupiter);
             this.Components.Add(this.Europa);
 
-            this.Ganymede = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.jupiter);
+            this.Ganymede = new SpaceObject(this, 0.1f, 100f, (float)g.NextDouble(), (float)g.NextDouble(), (float)g.NextDouble(), (float)g.NextDouble(), this.jupiter);
             this.Components.Add(this.Ganymede);
 
-            this.Callisto = new SpaceObject(this, 0.1f, 100f, 1, 1, 1, 1.0f, this.jupiter);
+            this.Callisto = new SpaceObject(this, 0.1f, 100f, (float)g.NextDouble(), (float)g.NextDouble(), (float)g.NextDouble(), (float)g.NextDouble(), this.jupiter);
             this.Components.Add(this.Callisto);
 
 
