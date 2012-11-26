@@ -31,6 +31,9 @@ namespace XNAProject
         private String currentTechnique;
         public bool isEmissive { get; set; }
 
+        private Matrix orbitStart;
+        private Random g;
+
         /// <summary>
         /// Brukes til å lage nytt objekt
         /// </summary>
@@ -53,6 +56,10 @@ namespace XNAProject
             {
                 this.parent = _parent;
             }
+            //her for planetter tilfeldige oppstartspunkter i bane
+            g = new Random(this.GetHashCode());
+            //System.Threading.Thread.Sleep(5);
+            Matrix.CreateRotationY((float)(Math.PI * g.NextDouble()), out orbitStart);
         }
 
 
@@ -115,11 +122,11 @@ namespace XNAProject
             //Kumulativ world‐matrise;
             if (parent == null)
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT  * matOrbR) * matTrans;
+                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT  * matOrbR * orbitStart) * matTrans;
             }
             else
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT  * matOrbR)  * matTrans * parent.world;
+                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans * parent.world;
             }
 
         }//end of update

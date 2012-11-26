@@ -111,13 +111,14 @@ namespace XNAProject
         private Texture2D skbxBottom;
         private Texture2D skbxBack;
 
-
+        private Random generator;
 
 
         public MainClass()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            generator = new Random(this.GetHashCode());
         }
 
 
@@ -211,7 +212,7 @@ namespace XNAProject
             this.saturn = new SpaceObject(this, 0.5f, 1500f, 1f, 0.7f, 0, 1.0f, this.Sol);
             this.Components.Add(this.saturn);
 
-            this.saturnRing = new SpaceObject(this, 5.5f, 0f, 0f, 0.7f, 0, 1.0f, this.saturn);
+            this.saturnRing = new SpaceObject(this, 5.5f, 0f, 0f, 0.7f, 0, 0.0f, this.saturn);
             this.Components.Add(this.saturnRing);
 
             this.uran = new SpaceObject(this, 0.45f, 1700f, 1f, 1f, 0, 1.0f, this.Sol);
@@ -314,16 +315,16 @@ namespace XNAProject
             //TODO add to components
 
             //asteroids
-            int antall = 10000;
-            this.asteroids = new SpaceObject[antall];
-            Random r = new Random();
-            for (int i = 0; i < antall; i++)
-            {
-                SpaceObject asteroid = new SpaceObject(this, 0.01f, (float)r.Next(600,800), 1, (float)r.NextDouble(), 1, 1.0f, this.Sol);
-                asteroids[i] = asteroid;
-                this.Components.Add(asteroid);
+            //int antall = 5000;
+            //this.asteroids = new SpaceObject[antall];
+            //Random r = new Random();
+            //for (int i = 0; i < antall; i++)
+            //{
+            //    SpaceObject asteroid = new SpaceObject(this, 0.01f, (float)r.Next(600,800), 1, (float)r.NextDouble(), 1, 1.0f, this.Sol);
+            //    asteroids[i] = asteroid;
+            //    this.Components.Add(asteroid);
 
-            }
+            //}
 
 
         }
@@ -396,12 +397,12 @@ namespace XNAProject
             this.Triton.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
 
             //asteroids 
-            Model model = Content.Load<Model>("models/planet");
-            Texture2D texture = Content.Load<Texture2D>("textures-planets/moonmap");
-            for (int i = 0; i < this.asteroids.Length; i++)
-            {
-                asteroids[i].load(spaceObjectEffect.Clone(), model,texture);
-            }
+            //Model model = Content.Load<Model>("models/planet");
+            //Texture2D texture = Content.Load<Texture2D>("textures-planets/moonmap");
+            //for (int i = 0; i < this.asteroids.Length; i++)
+            //{
+            //    asteroids[i].load(spaceObjectEffect.Clone(), model,texture);
+            //}
         }
 
 
