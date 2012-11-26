@@ -60,7 +60,7 @@ sampler ShadowMapSampler = sampler_state
 	texture = <xShadowMap> ; 
 	magfilter = LINEAR; 
 	minfilter = LINEAR; 
-	mipfilter=LINEAR; 
+	mipfilter = LINEAR; 
 	AddressU = clamp; 
 	AddressV = clamp;
 };
@@ -102,10 +102,6 @@ PixelToFrame TexturedPS(VertexToPixel PSIn)
 		
 }
 
-
-
-
-
 technique Textured
 {
     pass Pass0
@@ -113,8 +109,6 @@ technique Textured
         VertexShader = compile vs_2_0 TexturedVS();
         PixelShader  = compile ps_2_0 TexturedPS();
     }
-
-
 }
 
 //tech shadow map 

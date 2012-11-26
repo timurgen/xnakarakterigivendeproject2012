@@ -16,19 +16,28 @@ namespace XNAProject
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont spriteFont;
 
         GraphicsDevice device { get; set; }
 
         Effect effectSky;
         BasicEffect basicEffect;
+        Effect spaceObjectEffect;
 
         Matrix matrixView;
         Matrix matrixProjection;
 
+        /// <summary>
+        /// Variabler til kamera
+        /// </summary>
         private Vector3 cameraPosition;// = new Vector3(0, 1000, 1000);
         private Vector3 cameraTarget;// = new Vector3(0, 0, 0);
         private Vector3 cameraUpVector;// = new Vector3(0, 1, 0);
         private Vector3 viewVector;
+
+        private float cameraX = 50000;
+        private float cameraY = 50000;
+        private float cameraZ = 50000;
 
         private CoordinateAxes cAxes;
         private AsteroidBelt asteroidBelt;
@@ -98,20 +107,24 @@ namespace XNAProject
         Matrix matrixRotationY = Matrix.CreateRotationY(0.0f);
         Matrix matrixTranslation = Matrix.CreateTranslation(0.0f, 0.0f, 0.0f);
 
+        /// <summary>
+        /// Skybox
+        /// </summary>
         private VertexPositionColorTexture[] vericesSkyBox;
-
         private const float BOUNDARY = 80000.0f;
         private const float EDGE = BOUNDARY * 2.0f;
 
         //textures skybox
-        private Texture2D skbxFront;
-        private Texture2D skbxLeft;
-        private Texture2D skbxRight;
-        private Texture2D skbxTop;
-        private Texture2D skbxBottom;
-        private Texture2D skbxBack;
+        private Texture2D textureSkyboxFront;
+        private Texture2D textureSkyboxBack;
+        private Texture2D textureSkyboxLeft;
+        private Texture2D textureSkyboxRight;
+        private Texture2D textureSkyboxBottom;
+        private Texture2D textureSkyboxTop;
 
         private Random g; //generator
+
+        Skybox skybox;
 
 
         public MainClass()
@@ -129,6 +142,9 @@ namespace XNAProject
             this.cAxes = new CoordinateAxes();
             initializeSolarSystemObjects();
             initializeSkyBox();
+
+            spriteFont = Content.Load<SpriteFont>(@"Fonts\Arial");
+
             base.Initialize();
         }
 
@@ -146,7 +162,7 @@ namespace XNAProject
 
         private void initCamera()
         {
-            cameraPosition = new Vector3(50000, 50000, 50000);
+            cameraPosition = new Vector3(cameraX, cameraY, cameraZ);
             cameraTarget = Vector3.Zero;
             cameraUpVector = new Vector3(0.0f, 1.0f, 0.0f);
             float aspectRatio = (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height;
@@ -165,19 +181,19 @@ namespace XNAProject
             this.vericesSkyBox = new VertexPositionColorTexture[4];
 
             this.vericesSkyBox[0].Position = new Vector3(EDGE, -EDGE, 0.0f);
-            this.vericesSkyBox[0].Color = Color.White;
+            this.vericesSkyBox[0].Color = Color.Green;
             this.vericesSkyBox[0].TextureCoordinate = new Vector2(min, max);
 
             this.vericesSkyBox[1].Position = new Vector3(EDGE, EDGE, 0.0f);
-            this.vericesSkyBox[1].Color = Color.White;
+            this.vericesSkyBox[1].Color = Color.Green;
             this.vericesSkyBox[1].TextureCoordinate = new Vector2(min, min);
 
             this.vericesSkyBox[2].Position = new Vector3(-EDGE, -EDGE, 0.0f);
-            this.vericesSkyBox[2].Color = Color.White;
+            this.vericesSkyBox[2].Color = Color.Green;
             this.vericesSkyBox[2].TextureCoordinate = new Vector2(max, max);
 
             this.vericesSkyBox[3].Position = new Vector3(-EDGE, EDGE, 0.0f);
-            this.vericesSkyBox[3].Color = Color.White;
+            this.vericesSkyBox[3].Color = Color.Green;
             this.vericesSkyBox[3].TextureCoordinate = new Vector2(max, min);
         }
 
@@ -334,23 +350,22 @@ namespace XNAProject
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             loadSpaceObjects();
-            
 
             effectSky = Content.Load<Effect>("effects/effectsRiemersTut");
 
-            skbxFront = Content.Load<Texture2D>(@"textures-skybox/sky1f");
-            skbxLeft = Content.Load<Texture2D>(@"textures-skybox/sky2s");
-            skbxRight = Content.Load<Texture2D>(@"textures-skybox/sky3i");
-            skbxTop = Content.Load<Texture2D>(@"textures-skybox/sky4s");
-            skbxBottom = Content.Load<Texture2D>(@"textures-skybox/sky5");
-            skbxBack = Content.Load<Texture2D>(@"textures-skybox/sky1f");
+            textureSkyboxFront = Content.Load<Texture2D>(@"textures-skybox/sky1f");
+            textureSkyboxLeft = Content.Load<Texture2D>(@"textures-skybox/sky2s");
+            textureSkyboxRight = Content.Load<Texture2D>(@"textures-skybox/sky3i");
+            textureSkyboxTop = Content.Load<Texture2D>(@"textures-skybox/sky4s");
+            textureSkyboxBottom = Content.Load<Texture2D>(@"textures-skybox/sky5");
+            textureSkyboxBack = Content.Load<Texture2D>(@"textures-skybox/sky1f");
 
-
+            skybox = new Skybox("textures-skybox/Sunset", Content);//"textures-skybox/Sunset", Content   
         }
 
         private void loadSpaceObjects()
         {
-            Effect spaceObjectEffect = Content.Load<Effect>("effects/effectsRiemersTut");
+            spaceObjectEffect = Content.Load<Effect>("effects/effectsRiemersTut");
             spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
             spaceObjectEffect.Parameters["xProjection"].SetValue(this.matrixProjection);
             spaceObjectEffect.Parameters["xLightPos"].SetValue(new Vector3(0f,0f,0f));
@@ -414,6 +429,79 @@ namespace XNAProject
 
         protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.Delete))
+            {
+                cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateRotationY(-0.01f)) + cameraTarget;
+                //cameraPosition = new Vector3(cameraX, cameraY, cameraZ);
+                Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
+                cameraX = cameraPosition.X;
+                cameraY = cameraPosition.Y;
+                cameraZ = cameraPosition.Z;
+                spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
+                //basicEffect.View = matrixView;
+                
+            }
+            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.PageDown))
+            {
+                cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateRotationY(0.01f)) + cameraTarget;
+                Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
+                cameraX = cameraPosition.X;
+                cameraY = cameraPosition.Y;
+                cameraZ = cameraPosition.Z;
+                spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
+                //basicEffect.View = matrixView;
+
+            }
+
+            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.Home))
+            {
+                cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateRotationX(-0.01f)) + cameraTarget;
+                //cameraPosition = new Vector3(cameraX, cameraY, cameraZ);
+                Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
+                cameraX = cameraPosition.X;
+                cameraY = cameraPosition.Y;
+                cameraZ = cameraPosition.Z;
+                spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
+                //basicEffect.View = matrixView;
+
+            }
+            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.End))
+            {
+                cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateRotationX(0.01f)) + cameraTarget;
+                Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
+                cameraX = cameraPosition.X;
+                cameraY = cameraPosition.Y;
+                cameraZ = cameraPosition.Z;
+                spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
+                //basicEffect.View = matrixView;
+
+            }
+
+            ///Zooming
+            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.PageUp))
+            {
+                cameraX += 0.0001f;
+                cameraY += 0.0001f;
+                cameraZ += 0.0001f;
+                cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateTranslation(cameraX, cameraY, cameraZ)) + cameraTarget;
+                //cameraPosition = new Vector3(cameraX, cameraY, cameraZ);
+                Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
+                
+                spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
+                //basicEffect.View = matrixView;
+
+            }
+            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.Insert))
+            {
+                cameraX += 0.0001f;
+                cameraY += 0.0001f;
+                cameraZ += 0.0001f;
+                cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateTranslation(-cameraX, -cameraY, -cameraZ)) + cameraTarget;
+                Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
+                spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
+                //basicEffect.View = matrixView;
+
+            }
 
             base.Update(gameTime);
         }
@@ -423,7 +511,7 @@ namespace XNAProject
         protected override void Draw(GameTime gameTime)
         {
             RasterizerState rs = new RasterizerState();
-            rs.CullMode = CullMode.None;
+            rs.CullMode = CullMode.CullClockwiseFace;
             rs.FillMode = FillMode.Solid;
             device.RasterizerState = rs;
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
@@ -437,46 +525,56 @@ namespace XNAProject
             }
 
 
+            //this.DrawSkybox();
+            this.DrawInfo(gameTime);
+
+            //graphics.GraphicsDevice.RasterizerState.CullMode = CullMode.CullClockwiseFace;
+            skybox.Draw(matrixView, matrixProjection, cameraPosition);
+            //graphics.GraphicsDevice.RasterizerState.CullMode = CullMode.CullCounterClockwiseFace;
+
             base.Draw(gameTime);
         }
 
-
-
-        
 
         private void DrawSkybox()
         {
             const float kfDrop = -1.2f;
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 5; i++)
             {
                 switch (i)
                 { 
                     case 0:
                         matrixTranslation = Matrix.CreateTranslation(0.0f, kfDrop, EDGE);
-                        effectSky.Parameters["xTexture"].SetValue(skbxFront);
+                        basicEffect.Texture = textureSkyboxFront;
+                        //effectSky.Parameters["xTexture"].SetValue(textureSkyboxFront);
                         break;
+                    
                     case 1:
                         matrixTranslation = Matrix.CreateTranslation(-EDGE, kfDrop, 0.0f);
                         matrixRotationY = Matrix.CreateRotationY(-(float)Math.PI / 2.0f);
-                        effectSky.Parameters["xTexture"].SetValue(skbxFront);
+                        basicEffect.Texture = textureSkyboxFront;
+                        //effectSky.Parameters["xTexture"].SetValue(textureSkyboxLeft);
                         break;
                     case 2:
                         matrixTranslation = Matrix.CreateTranslation(0.0f, kfDrop, -EDGE);
                         matrixRotationY = Matrix.CreateRotationY((float)Math.PI);
-                        effectSky.Parameters["xTexture"].SetValue(skbxFront);
+                        basicEffect.Texture = textureSkyboxFront;
+                        //effectSky.Parameters["xTexture"].SetValue(textureSkyboxBack);
                         break;
                     case 3:
                         matrixTranslation = Matrix.CreateTranslation(EDGE, kfDrop, 0.0f);
                         matrixRotationY = Matrix.CreateRotationY((float)Math.PI / 2.0f);
-                        effectSky.Parameters["xTexture"].SetValue(skbxFront);
+                        basicEffect.Texture = textureSkyboxFront;
+                        //effectSky.Parameters["xTexture"].SetValue(textureSkyboxRight);
                         break;
                     case 4:
                         matrixTranslation = Matrix.CreateTranslation(0.0f, EDGE + kfDrop, 0.0f);
                         matrixRotationX = Matrix.CreateRotationX(-(float)Math.PI / 2.0f);
                         matrixRotationY = Matrix.CreateRotationY(-(3.0f/2.0f) * (float)Math.PI);
                         matrixScale = Matrix.CreateScale(1.0f, 1.0f, 1.0f);
-                        effectSky.Parameters["xTexture"].SetValue(skbxFront);
+                        basicEffect.Texture = textureSkyboxFront;
+                        //effectSky.Parameters["xTexture"].SetValue(textureSkyboxTop);
                         break;
                     case 5:
                         break;
@@ -484,21 +582,102 @@ namespace XNAProject
 
                 matrixWorld = matrixIdentity * matrixScale * matrixRotationX * matrixRotationY * matrixTranslation;
 
+                /*
                 effectSky.CurrentTechnique = effectSky.Techniques["Textured"];
                 effectSky.Parameters["xWorld"].SetValue(matrixWorld);
                 effectSky.Parameters["xView"].SetValue(matrixView);
                 effectSky.Parameters["xProjection"].SetValue(matrixProjection);
-
+                
+                 
                 foreach (EffectPass pass in effectSky.CurrentTechnique.Passes)
                 {
                     pass.Apply();
 
                     device.DrawUserPrimitives(PrimitiveType.TriangleStrip, vericesSkyBox, 0, 2);
                 }//end of foreach
+                */
+
+                foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+                {
+                    pass.Apply();
+                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, vericesSkyBox, 0, 2);
+                    this.DrawOverlayText(basicEffect.Texture.ToString(), 0, 150);
+                }//end of foreach
+
 
             }//end of for
 
 
         }//end of DrawSkybox
+
+        #region Spritebatch
+        private void DrawInfo(GameTime _gameTime)
+        {
+            #region view matrix test informasjon
+            this.DrawOverlayText("View Matrix", 0 ,0);
+            
+            this.DrawOverlayText(matrixView.M11.ToString(), 0, 15);
+            this.DrawOverlayText(matrixView.M12.ToString(), 100, 15);
+            this.DrawOverlayText(matrixView.M13.ToString(), 200, 15);
+            this.DrawOverlayText(matrixView.M14.ToString(), 300, 15);
+
+            this.DrawOverlayText(matrixView.M21.ToString(), 0, 30);
+            this.DrawOverlayText(matrixView.M22.ToString(), 100, 30);
+            this.DrawOverlayText(matrixView.M23.ToString(), 200, 30);
+            this.DrawOverlayText(matrixView.M24.ToString(), 300, 30);
+
+            this.DrawOverlayText(matrixView.M31.ToString(), 0, 45);
+            this.DrawOverlayText(matrixView.M32.ToString(), 100, 45);
+            this.DrawOverlayText(matrixView.M33.ToString(), 200, 45);
+            this.DrawOverlayText(matrixView.M34.ToString(), 300, 45);
+
+            this.DrawOverlayText(matrixView.M41.ToString(), 0, 60);
+            this.DrawOverlayText(matrixView.M42.ToString(), 100, 60);
+            this.DrawOverlayText(matrixView.M43.ToString(), 200, 60);
+            this.DrawOverlayText(matrixView.M44.ToString(), 300, 60);
+
+            this.DrawOverlayText("xView", 0, 75);
+
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M11.ToString(), 0, 90);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M12.ToString(), 100, 90);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M13.ToString(), 200, 90);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M14.ToString(), 300, 90);
+
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M21.ToString(), 0, 105);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M22.ToString(), 100, 105);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M23.ToString(), 200, 105);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M24.ToString(), 300, 105);
+
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M31.ToString(), 0, 120);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M32.ToString(), 100, 120);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M33.ToString(), 200, 120);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M34.ToString(), 300, 120);
+
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M41.ToString(), 0, 135);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M42.ToString(), 100, 135);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M43.ToString(), 200, 135);
+            this.DrawOverlayText(effectSky.Parameters["xView"].GetValueMatrix().M44.ToString(), 300, 135);
+            #endregion
+        }
+
+        private void DrawOverlayText(String _text, int _x, int _y)
+        {
+            spriteBatch.Begin();
+
+            spriteBatch.DrawString(spriteFont, _text, new Vector2(_x, _y), Color.White);
+
+            spriteBatch.End();
+        }//end of DrawOverlayText
+        #endregion
+
+        /// <summary>
+        /// returnerer effe
+        /// </summary>
+        /// <returns></returns>
+        public Effect getEffect()
+        {
+            return spaceObjectEffect;
+        }
+
     }
 }

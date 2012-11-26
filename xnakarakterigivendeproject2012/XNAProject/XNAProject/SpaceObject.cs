@@ -132,6 +132,8 @@ namespace XNAProject
                 //world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR ) * matTrans * matOrbRX * parent.world;
             }
 
+            view = game.getEffect().Parameters["xView"].GetValueMatrix();
+
         }//end of update
 
 
@@ -146,13 +148,11 @@ namespace XNAProject
                 {
                     e.CurrentTechnique = e.Techniques["Textured"];
                     e.Parameters["xWorld"].SetValue(this.world);
+                    e.Parameters["xView"].SetValue(view);
                     e.Parameters["xTexture"].SetValue(this.texture);
                     e.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
                     e.Parameters["isEmissive"].SetValue(isEmissive);
-                    e.Parameters["xLightsWorldViewProjection"].SetValue(this.world * effect.Parameters["xView"].GetValueMatrix() * effect.Parameters["xProjection"].GetValueMatrix());
-                    
-
-                   
+                    e.Parameters["xLightsWorldViewProjection"].SetValue(this.world * effect.Parameters["xView"].GetValueMatrix() * effect.Parameters["xProjection"].GetValueMatrix()); 
                 }
                 
                 mesh.Draw();
@@ -163,6 +163,11 @@ namespace XNAProject
         public void setShaderTechnique(String _Technique)
         {
             this.currentTechnique = _Technique;
+        }
+
+        public Effect getEffect()
+        {
+            return this.effect;
         }
 
     }
