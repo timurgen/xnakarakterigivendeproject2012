@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Diagnostics;
 
 namespace XNAProject
 {
@@ -41,6 +42,10 @@ namespace XNAProject
 
         private CoordinateAxes cAxes;
         private AsteroidBelt asteroidBelt;
+
+        public const int WIDTH = 1900;
+
+        public const int HEIGHT = 1080;
 
         #region variabler til planetter og måner
         /*********************************************************/
@@ -96,7 +101,8 @@ namespace XNAProject
         SpaceObject StarOfDeath;
         /*********************************************************/
 
-        SpaceObject[] asteroids;
+        private int maxAsteroid = 3000;
+        List<VertexPositionNormalTexture[]> asteroids;
         #endregion
 
         //skybox
@@ -152,9 +158,9 @@ namespace XNAProject
         {
             this.device = graphics.GraphicsDevice;
             this.IsMouseVisible = true;
-            this.graphics.PreferredBackBufferWidth = 1280;
-            this.graphics.PreferredBackBufferHeight = 800;
-            this.graphics.IsFullScreen = false;
+            this.graphics.PreferredBackBufferWidth = WIDTH;
+            this.graphics.PreferredBackBufferHeight = HEIGHT;
+            this.graphics.IsFullScreen = true;
             this.graphics.ApplyChanges();
             this.Window.Title = "Prosjekt";
             this.basicEffect = new BasicEffect(graphics.GraphicsDevice);
@@ -329,26 +335,14 @@ namespace XNAProject
             //små satellitter, antall 12
             this.smallSatelitesOfNeptune = new SpaceObject[12];
             //TODO add to components
-
-            //asteroids
-            //int antall = 5000;
-            //this.asteroids = new SpaceObject[antall];
-            //Random r = new Random();
-            //for (int i = 0; i < antall; i++)
-            //{
-            //    SpaceObject asteroid = new SpaceObject(this, 0.01f, (float)r.Next(600,800), 1, (float)r.NextDouble(), 1, 1.0f, this.Sol);
-            //    asteroids[i] = asteroid;
-            //    this.Components.Add(asteroid);
-
-            //}
-
-
         }
         #endregion
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            
+            //
             loadSpaceObjects();
 
             effectSky = Content.Load<Effect>("effects/effectsRiemersTut");
@@ -371,53 +365,44 @@ namespace XNAProject
             spaceObjectEffect.Parameters["xLightPos"].SetValue(new Vector3(0f,0f,0f));
             spaceObjectEffect.Parameters["xLightPower"].SetValue(0.99f);
             spaceObjectEffect.Parameters["xAmbient"].SetValue(0.1f);
-            
-           
-            //Sola
 
-            this.Sol.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/sunmap"));
+            Model planet = Content.Load<Model>("models/planet");
+            //Sola
+            this.Sol.load(spaceObjectEffect.Clone(), planet, Content.Load<Texture2D>("textures-planets/sunmap"));
             
             //Planetter
-            this.mercury.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mercurymap"));
-            this.venus.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/venusmap"));
-            this.earth.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/earthmap1k"));
-            this.mars.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/mars_1k_color"));
-            this.jupiter.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/jupitermap"));
-            this.saturn.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/saturnmap"));
-            this.saturnRing.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/ring"), Content.Load<Texture2D>("textures-planets/saturnringcolor"));
-            this.uran.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/uranusmap"));
-            this.neptun.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/neptunemap"));
-            this.pluto.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/plutomap1k"));
+            this.mercury.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/mercurymap"));
+            this.venus.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/venusmap"));
+            this.earth.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/earthmap1k"));
+            this.mars.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/mars_1k_color"));
+            this.jupiter.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/jupitermap"));
+            this.saturn.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/saturnmap"));
+            this.saturnRing.load(spaceObjectEffect, Content.Load<Model>("models/ring"), Content.Load<Texture2D>("textures-planets/saturnringcolor"));
+            this.uran.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/uranusmap"));
+            this.neptun.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/neptunemap"));
+            this.pluto.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/plutomap1k"));
             //satellitter
-            
-            this.moon.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.fobos.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.deimos.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Io.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Europa.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Ganymede.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Callisto.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Mimas.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Enceladus.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Dione.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Tethys.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Rhea.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Titan.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Iapetus.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Miranda.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Ariel.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Umbriel.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Titania.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Oberon.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
-            this.Triton.load(spaceObjectEffect.Clone(), Content.Load<Model>("models/planet"), Content.Load<Texture2D>("textures-planets/moonmap"));
 
-            //asteroids 
-            //Model model = Content.Load<Model>("models/planet");
-            //Texture2D texture = Content.Load<Texture2D>("textures-planets/moonmap");
-            //for (int i = 0; i < this.asteroids.Length; i++)
-            //{
-            //    asteroids[i].load(spaceObjectEffect.Clone(), model,texture);
-            //}
+            this.moon.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.fobos.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.deimos.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Io.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Europa.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Ganymede.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Callisto.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Mimas.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Enceladus.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Dione.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Tethys.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Rhea.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Titan.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Iapetus.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Miranda.load(spaceObjectEffect.Clone(), planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Ariel.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Umbriel.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Titania.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Oberon.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+            this.Triton.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
         }
 
 
@@ -515,7 +500,7 @@ namespace XNAProject
             rs.CullMode = CullMode.None;
             rs.FillMode = FillMode.Solid;
             device.RasterizerState = rs;
-            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.White, 1.0f, 0);
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
             
             //tegner koordinater
@@ -530,7 +515,7 @@ namespace XNAProject
             //this.DrawInfo(gameTime);
 
             //graphics.GraphicsDevice.RasterizerState.CullMode = CullMode.CullClockwiseFace;
-            skybox.Draw(matrixView, matrixProjection, cameraPosition);
+            //skybox.Draw(matrixView, matrixProjection, cameraPosition);
             //graphics.GraphicsDevice.RasterizerState.CullMode = CullMode.CullCounterClockwiseFace;
 
             base.Draw(gameTime);
