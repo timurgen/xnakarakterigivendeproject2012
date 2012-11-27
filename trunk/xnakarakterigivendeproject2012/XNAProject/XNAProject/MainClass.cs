@@ -138,6 +138,9 @@ namespace XNAProject
         Texture2D[] skyboxTextures;
         Model skyboxModel;
 
+        //Space ships
+        Model shipModel;
+
         public MainClass()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -165,7 +168,7 @@ namespace XNAProject
             this.IsMouseVisible = true;
             this.graphics.PreferredBackBufferWidth = WIDTH;
             this.graphics.PreferredBackBufferHeight = HEIGHT;
-            this.graphics.IsFullScreen = true;
+            this.graphics.IsFullScreen = false;
             this.graphics.ApplyChanges();
             this.Window.Title = "Prosjekt";
             this.basicEffect = new BasicEffect(graphics.GraphicsDevice);
@@ -366,6 +369,8 @@ namespace XNAProject
 
             //skybox mk3
             skyboxModel = LoadModel("textures-skybox/skybox2", out skyboxTextures);
+
+            shipModel = LoadShipModel("models/spaceone");
         }
 
         /// <summary>
@@ -388,6 +393,15 @@ namespace XNAProject
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
                     meshPart.Effect = effect.Clone();
 
+            return newModel;
+        }
+
+        private Model LoadShipModel(string assetName)
+        {
+
+            Model newModel = Content.Load<Model>(assetName); foreach (ModelMesh mesh in newModel.Meshes)
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                    meshPart.Effect = effect.Clone();
             return newModel;
         }
 
@@ -555,6 +569,7 @@ namespace XNAProject
 
             //skybox ver3
             DrawSkybox();
+            DrawSpaceshipModel();
 
             base.Draw(gameTime);
         }
@@ -590,6 +605,25 @@ namespace XNAProject
             dss = new DepthStencilState();
             dss.DepthBufferEnable = true;
             device.DepthStencilState = dss;
+        }
+
+        private void DrawSpaceshipModel()
+        {
+            //Matrix worldMatrix = Matrix.CreateScale(1.5f, 1.5f, 1.5f) * Matrix.CreateRotationY(MathHelper.Pi) * Matrix.CreateTranslation(new Vector3(1, 1, 1));
+
+            //Matrix[] xwingTransforms = new Matrix[shipModel.Bones.Count];
+            //shipModel.CopyAbsoluteBoneTransformsTo(xwingTransforms);
+            foreach (ModelMesh mesh in shipModel.Meshes)
+            {
+                foreach (Effect effect in mesh.Effects)
+                {
+                    effect.CurrentTechnique = effect.Techniques["Textured"];
+                    effect.Parameters["xWorld"].SetValue(matrixWorld);
+                    effect.Parameters["xView"].SetValue(matrixView);
+                    effect.Parameters["xProjection"].SetValue(matrixProjection);
+                }
+                mesh.Draw();
+            }
         }
 
         #region skyboxmk1
