@@ -129,12 +129,12 @@ namespace XNAProject
 
 
         /// <summary>
-        /// hjelpematriser
+        /// hjelpevariabler til baneberegning
         /// </summary>
         float RotY, orbRotY;
         float orbRotX;
         /// <summary>
-        /// metode skal kalles i update metode av main class
+        /// Oppdaterer posisjon
         /// </summary>
         public override void Update(GameTime gt)
         {
@@ -157,15 +157,10 @@ namespace XNAProject
             orbRotY += this.orbitalSpeed * (float)gt.ElapsedGameTime.Milliseconds / 5000.0f;
             orbRotY = orbRotY % (float)(2 * Math.PI);
             matOrbR = Matrix.CreateRotationY((orbRotY));
-
-            //matOrbTX = Matrix.CreateTranslation(this.orbitAngle, this.orbitAngle, 0);
-            //orbRotX += this.orbitAngle * (float)gt.ElapsedGameTime.Milliseconds / 5000.0f;
-            //orbRotX = orbRotX % (float)(2 * Math.PI);
-            //matOrbRX = Matrix.CreateRotationX((orbRotX));
             matOrbRX = Matrix.CreateRotationX(this.orbitAngle);
 
+
             matTrans = Matrix.CreateTranslation(0.0f, 0.0f, 0.0f);
-            //matTrans = Matrix.CreateTranslation(this.orbitAngle, this.orbitAngle, this.orbitAngle);
             
             //Kumulativ world‐matrise;
             if (parent == null)
@@ -183,7 +178,7 @@ namespace XNAProject
 
 
         /// <summary>
-        /// Tegner model, den metoden kalles fra draw i main class
+        /// Tegner model
         /// </summary>
         public override void Draw(GameTime gt)
         {
@@ -205,10 +200,15 @@ namespace XNAProject
 
         }//end of draw
 
+        /// <summary>
+        /// Setter teknikk som skal brukes i shaderen
+        /// </summary>
+        /// <param name="_Technique"></param>
         public void setShaderTechnique(String _Technique)
         {
             this.currentTechnique = _Technique;
         }
+
 
         public Effect getEffect()
         {

@@ -7,28 +7,25 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace XNAProject
 {
-    class AsteroidBelt : DrawableGameComponent
+    class AsteroidBelt 
     {
-        private float frontBorder;
-        private float backBorder;
-        private int quantity;
-        private Vector3 pivote;
-        //private SpaceObject[] asteroidBelt;
-        private Random generator;
+        private int width = MainClass.WIDTH;
+        private int height = MainClass.HEIGHT;
+        Texture2D asteroidTexture;
 
-        public AsteroidBelt(float _frontBorder, float _backBorder, int _quantity, Effect _effect, Game _game) : base(_game)
+        List<Asteroid> asteroidList;
+
+        public AsteroidBelt(MainClass _game)
         {
-            //this.asteroidBelt = new SpaceObject[_quantity];
-            generator = new Random();
-            for (int i = 0; i < _quantity; i++)
-            {
-                SpaceObject asteroid = new SpaceObject(_game, (float)generator.NextDouble(), (float)generator.Next((int)frontBorder, (int)backBorder), 1f, (float)generator.NextDouble() + 0.01f, 1f, (float)generator.NextDouble(), null);
-                asteroid.load(_effect, _game.Content.Load<Model>("models/planet"), _game.Content.Load<Texture2D>("textures-planets/moonmap"));
-                _game.Components.Add(asteroid);
-
-            }
+            this.asteroidList = new List<Asteroid>();
+            this.asteroidTexture = _game.Content.Load<Texture2D>(@"/textures-planets/ASTEROIDS");
         }
 
-        
+    }
+
+    struct Asteroid
+    {
+        public Vector3 position;
+        public Quaternion rotation;
     }
 }
