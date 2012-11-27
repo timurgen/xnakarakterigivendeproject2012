@@ -354,7 +354,7 @@ namespace XNAProject
             textureSkyboxBottom = Content.Load<Texture2D>(@"textures-skybox/sky5");
             textureSkyboxBack = Content.Load<Texture2D>(@"textures-skybox/sky1f");
 
-            skybox = new Skybox("textures-skybox/EmptySpace", Content);//"textures-skybox/Sunset", Content   
+            skybox = new Skybox("textures-skybox/skyh", Content);//"textures-skybox/Sunset", Content   
         }
 
         private void loadSpaceObjects()

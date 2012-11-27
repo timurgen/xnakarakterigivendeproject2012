@@ -21,7 +21,7 @@ namespace XNAProject
             /// <summary>
             /// The actual skybox texture
             /// </summary>
-            private TextureCube skyBoxTexture;
+            private Texture2D skyBoxTexture;
 
             /// <summary>
             /// The effect file that the skybox will use to render
@@ -32,7 +32,7 @@ namespace XNAProject
             /// The size of the cube, used so that we can resize the box
             /// for different sized environments.
             /// </summary>
-            private float size = 1000.0f;
+            private float size = 10000.0f;
 
             /// <summary>
             /// Creates a new skybox
@@ -41,7 +41,7 @@ namespace XNAProject
             public Skybox(string skyboxTexture, ContentManager Content)
             {
                 skyBox = Content.Load<Model>("models/cubemk2");
-                skyBoxTexture = Content.Load<TextureCube>(skyboxTexture);
+                skyBoxTexture = Content.Load<Texture2D>(skyboxTexture);
                 skyBoxEffect = Content.Load<Effect>("effects/Skybox");
             }
 
@@ -67,7 +67,7 @@ namespace XNAProject
                         foreach (ModelMeshPart part in mesh.MeshParts)
                         {
                             part.Effect = skyBoxEffect;
-                            part.Effect.Parameters["World"].SetValue(Matrix.CreateScale(size) * Matrix.Identity);
+                            part.Effect.Parameters["World"].SetValue(Matrix.CreateScale(size) * Matrix.CreateTranslation(-100000f,-100000f,-100000f));
                             part.Effect.Parameters["View"].SetValue(view);
                             part.Effect.Parameters["Projection"].SetValue(projection);
                             part.Effect.Parameters["SkyBoxTexture"].SetValue(skyBoxTexture);
