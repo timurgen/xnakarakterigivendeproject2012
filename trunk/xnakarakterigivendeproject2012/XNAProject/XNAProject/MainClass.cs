@@ -24,6 +24,7 @@ namespace XNAProject
         Effect effectSky;
         BasicEffect basicEffect;
         Effect spaceObjectEffect;
+        Effect effect;
 
         Matrix matrixView;
         Matrix matrixProjection;
@@ -130,8 +131,12 @@ namespace XNAProject
 
         private Random g; //generator av tilfeldige tall
 
-        Skybox skybox;
+        //Skybox mk2
+        //Skybox skybox;
 
+        //Skybox mk3
+        Texture2D[] skyboxTextures;
+        Model skyboxModel;
 
         public MainClass()
         {
@@ -345,16 +350,45 @@ namespace XNAProject
             //
             loadSpaceObjects();
 
-            effectSky = Content.Load<Effect>("effects/effectsRiemersTut");
+            effect = Content.Load<Effect>("effects/effects");
 
+            effectSky = Content.Load<Effect>("effects/effectsRiemersTut");
+            /*
             textureSkyboxFront = Content.Load<Texture2D>(@"textures-skybox/sky1f");
             textureSkyboxLeft = Content.Load<Texture2D>(@"textures-skybox/sky2s");
             textureSkyboxRight = Content.Load<Texture2D>(@"textures-skybox/sky3i");
             textureSkyboxTop = Content.Load<Texture2D>(@"textures-skybox/sky4s");
             textureSkyboxBottom = Content.Load<Texture2D>(@"textures-skybox/sky5");
             textureSkyboxBack = Content.Load<Texture2D>(@"textures-skybox/sky1f");
+            */
+            //Skybox ver 2
+            //skybox = new Skybox("textures-skybox/spacemk3", Content);//"textures-skybox/Sunset", Content  
 
-            skybox = new Skybox("textures-skybox/skyh", Content);//"textures-skybox/Sunset", Content   
+            //skybox mk3
+            skyboxModel = LoadModel("textures-skybox/skybox2", out skyboxTextures);
+        }
+
+        /// <summary>
+        /// Skybox mk3
+        /// </summary>
+        /// <param name="assetName"></param>
+        /// <param name="textures"></param>
+        /// <returns></returns>
+        private Model LoadModel(string assetName, out Texture2D[] textures)
+        {
+
+            Model newModel = Content.Load<Model>(assetName);
+            textures = new Texture2D[newModel.Meshes.Count];
+            int i = 0;
+            foreach (ModelMesh mesh in newModel.Meshes)
+                foreach (BasicEffect currentEffect in mesh.Effects)
+                    textures[i++] = currentEffect.Texture;
+
+            foreach (ModelMesh mesh in newModel.Meshes)
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                    meshPart.Effect = effect.Clone();
+
+            return newModel;
         }
 
         private void loadSpaceObjects()
@@ -514,14 +548,52 @@ namespace XNAProject
             //this.DrawSkybox();
             //this.DrawInfo(gameTime);
 
+            //skybox ver2
             //graphics.GraphicsDevice.RasterizerState.CullMode = CullMode.CullClockwiseFace;
             //skybox.Draw(matrixView, matrixProjection, cameraPosition);
             //graphics.GraphicsDevice.RasterizerState.CullMode = CullMode.CullCounterClockwiseFace;
 
+            //skybox ver3
+            DrawSkybox();
+
             base.Draw(gameTime);
         }
 
+        private void DrawSkybox()
+        {
+            SamplerState ss = new SamplerState();
+            ss.AddressU = TextureAddressMode.Clamp;
+            ss.AddressV = TextureAddressMode.Clamp;
+            device.SamplerStates[0] = ss;
 
+            DepthStencilState dss = new DepthStencilState();
+            dss.DepthBufferEnable = false;
+            device.DepthStencilState = dss;
+
+            Matrix[] skyboxTransforms = new Matrix[skyboxModel.Bones.Count];
+            skyboxModel.CopyAbsoluteBoneTransformsTo(skyboxTransforms);
+            int i = 0;
+            foreach (ModelMesh mesh in skyboxModel.Meshes)
+            {
+                foreach (Effect effect in mesh.Effects)
+                {
+                    Matrix worldMatrix = skyboxTransforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(cameraPosition);
+                    effect.CurrentTechnique = effect.Techniques["Textured"];
+                    effect.Parameters["xWorld"].SetValue(worldMatrix);
+                    effect.Parameters["xView"].SetValue(matrixView);
+                    effect.Parameters["xProjection"].SetValue(matrixProjection);
+                    effect.Parameters["xTexture"].SetValue(skyboxTextures[i++]);
+                }
+                mesh.Draw();
+            }
+
+            dss = new DepthStencilState();
+            dss.DepthBufferEnable = true;
+            device.DepthStencilState = dss;
+        }
+
+        #region skyboxmk1
+        /*
         private void DrawSkybox()
         {
             const float kfDrop = -1.2f;
@@ -582,19 +654,21 @@ namespace XNAProject
                     device.DrawUserPrimitives(PrimitiveType.TriangleStrip, vericesSkyBox, 0, 2);
                 }//end of foreach
                 */
-
+        /*
                 foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
                 {
                     pass.Apply();
                     device.DrawUserPrimitives(PrimitiveType.TriangleStrip, vericesSkyBox, 0, 2);
                     this.DrawOverlayText(basicEffect.Texture.ToString(), 0, 150);
                 }//end of foreach
-
-
+        */
+        /*
             }//end of for
 
 
         }//end of DrawSkybox
+*/
+        #endregion
 
         #region Spritebatch
         private void DrawInfo(GameTime _gameTime)
