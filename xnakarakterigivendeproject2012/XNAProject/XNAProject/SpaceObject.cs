@@ -14,24 +14,68 @@ namespace XNAProject
     class SpaceObject : DrawableGameComponent
     {
         /// <summary>
-        /// Nødvendige variabler
+        /// Parent spaceobject, brukes dersom en object er "child element" i systemmet
         /// </summary>
         private SpaceObject parent;
+        /// <summary>
+        /// 3d model som brukes ved tegning 
+        /// </summary>
         private Model model;
+        /// <summary>
+        /// Matriser til grunnlegende transformasjoner
+        /// </summary>
         private Matrix world, view, projection;
+        /// <summary>
+        /// Størrelse av objekt
+        /// </summary>
         private float size;
+        /// <summary>
+        /// baneradius 
+        /// </summary>
         private float orbitRadius;
+        /// <summary>
+        /// Vunkel fra y akse til objekt
+        /// </summary>
         private float akseAngle;
+        /// <summary>
+        /// Banehastighet
+        /// </summary>
         private float orbitalSpeed;
+        /// <summary>
+        /// 
+        /// </summary>
         private float orbitAngle;
+        /// <summary>
+        /// Rotasjonshastighet (om y akse)
+        /// </summary>
         private float rotSpeed;
+        /// <summary>
+        /// Texture til objekt
+        /// </summary>
         private Texture2D texture;
+        /// <summary>
+        /// Shader som brukes ved tegning
+        /// </summary>
         private Effect effect;
+        /// <summary>
+        /// Spill som bojekt tilhører
+        /// </summary>
         private MainClass game;
+        /// <summary>
+        /// Shaderteknikk som brukes
+        /// </summary>
         private String currentTechnique;
+        /// <summary>
+        /// Settes til <code>true</code>dersom objekt må bruke emissiv belysning, ellers <code>false</code>
+        /// </summary>
         public bool isEmissive { get; set; }
-
+        /// <summary>
+        /// Brukes ved beregning av startpunkt i bane
+        /// </summary>
         private Matrix orbitStart;
+        /// <summary>
+        /// Tilfeldig tall generatør 
+        /// </summary>
         private Random g;
 
         /// <summary>
@@ -84,6 +128,9 @@ namespace XNAProject
         }//end of load
 
 
+        /// <summary>
+        /// hjelpematriser
+        /// </summary>
         float RotY, orbRotY;
         float orbRotX;
         /// <summary>
@@ -124,12 +171,10 @@ namespace XNAProject
             if (parent == null)
             {
                 world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT  * matOrbR * orbitStart) * matTrans*matOrbRX;
-                //world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR ) * matTrans * matOrbRX;
             }
             else
             {
                 world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans *matOrbRX* parent.world;
-                //world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR ) * matTrans * matOrbRX * parent.world;
             }
 
             view = game.getEffect().Parameters["xView"].GetValueMatrix();
@@ -150,7 +195,7 @@ namespace XNAProject
                     e.Parameters["xWorld"].SetValue(this.world);
                     e.Parameters["xView"].SetValue(view);
                     e.Parameters["xTexture"].SetValue(this.texture);
-                    e.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
+                    e.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 0f));
                     e.Parameters["isEmissive"].SetValue(isEmissive);
                     e.Parameters["xLightsWorldViewProjection"].SetValue(this.world * effect.Parameters["xView"].GetValueMatrix() * effect.Parameters["xProjection"].GetValueMatrix()); 
                 }
