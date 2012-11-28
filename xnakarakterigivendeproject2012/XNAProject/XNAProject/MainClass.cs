@@ -50,7 +50,6 @@ namespace XNAProject
         private float cameraZ = 50000;
 
         private CoordinateAxes cAxes;
-        private AsteroidBelt asteroidBelt;
 
         public const int WIDTH = 1280;
 
@@ -108,6 +107,10 @@ namespace XNAProject
 
         //StarWars star of death
         SpaceObject StarOfDeath;
+
+        //Asteroids 
+        //AsteroidBelt asteroidBelt;
+        AsteroidManager astman;
         /*********************************************************/
 
         private int maxAsteroid = 3000;
@@ -254,7 +257,7 @@ namespace XNAProject
             this.saturn = new SpaceObject(this, 0.5f, 1500f, 1f, 0.7f, 0, 1.0f, this.Sol);
             this.Components.Add(this.saturn);
 
-            this.saturnRing = new SpaceObject(this, 5.5f, 0f, 0f, 0.7f, 0, 0.0f, this.saturn);
+            this.saturnRing = new SpaceObject(this, 5.5f, 0f, 0f, 0.0f, 0, 0.0f, this.saturn);
             this.Components.Add(this.saturnRing);
 
             this.uran = new SpaceObject(this, 0.45f, 1700f, 1f, 1f, 0, 1.0f, this.Sol);
@@ -355,6 +358,11 @@ namespace XNAProject
             //små satellitter, antall 12
             this.smallSatelitesOfNeptune = new SpaceObject[12];
             //TODO add to components
+
+            //Asteroidbelt
+            //this.asteroidBelt = new AsteroidBelt(this, 0.25f, 900f, 1f, 0.3f, 0, 1.0f, this.Sol);
+            //this.Components.Add(asteroidBelt);
+            astman = new AsteroidManager(this, 200, 200, 100);
         }
         #endregion
 
@@ -422,8 +430,12 @@ namespace XNAProject
             return newModel;
         }
 
+        /// <summary>
+        /// Laster alle objekter i Solarsystemmet
+        /// </summary>
         private void loadSpaceObjects()
         {
+
             spaceObjectEffect = Content.Load<Effect>("effects/effectsRiemersTut");
             spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
             spaceObjectEffect.Parameters["xProjection"].SetValue(this.matrixProjection);
@@ -432,6 +444,7 @@ namespace XNAProject
             spaceObjectEffect.Parameters["xAmbient"].SetValue(0.1f);
 
             Model planet = Content.Load<Model>("models/planet");
+            
             //Sola
             this.Sol.load(spaceObjectEffect.Clone(), planet, Content.Load<Texture2D>("textures-planets/sunmap"));
             
@@ -468,6 +481,9 @@ namespace XNAProject
             this.Titania.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
             this.Oberon.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
             this.Triton.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/moonmap"));
+
+            //asteroidbelt
+            //this.asteroidBelt.load(spaceObjectEffect, planet, Content.Load<Texture2D>("textures-planets/ASTEROIDS"));
         }
 
 
@@ -581,6 +597,8 @@ namespace XNAProject
                     this.cAxes.draw(this.device);
                 }
             }
+            //tegner asteroidbelt
+            this.astman.Draw(gameTime, spaceObjectEffect);
 
             //this.DrawSkybox();
             //this.DrawInfo(gameTime);
