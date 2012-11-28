@@ -15,11 +15,19 @@ namespace XNAProject
 
     public partial class MainClass : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        SpriteFont spriteFont;
+        public GraphicsDeviceManager graphics;
+        public SpriteBatch spriteBatch;
+        public SpriteFont spriteFont;
 
         GraphicsDevice device { get; set; }
+
+        public enum GameState
+        {
+            MainMenu,
+            About,
+            Playing,
+            Ship,
+        }
 
         Effect effectSky;
         BasicEffect basicEffect;
@@ -44,9 +52,9 @@ namespace XNAProject
         private CoordinateAxes cAxes;
         private AsteroidBelt asteroidBelt;
 
-        public const int WIDTH = 1900;
+        public const int WIDTH = 1280;
 
-        public const int HEIGHT = 1080;
+        public const int HEIGHT = 800;
 
         #region variabler til planetter og måner
         /*********************************************************/
@@ -140,6 +148,10 @@ namespace XNAProject
 
         //Space ships
         Model shipModel;
+
+        Menu menu;
+
+        public GameState CurrentGameState = GameState.MainMenu;
 
         public MainClass()
         {
@@ -353,6 +365,8 @@ namespace XNAProject
             //
             loadSpaceObjects();
 
+            IsMouseVisible = true;
+
             effect = Content.Load<Effect>("effects/effects");
 
             effectSky = Content.Load<Effect>("effects/effectsRiemersTut");
@@ -371,6 +385,9 @@ namespace XNAProject
             skyboxModel = LoadModel("textures-skybox/skybox2", out skyboxTextures);
 
             shipModel = LoadShipModel("models/spaceone");
+
+            menu = new Menu(this);
+            menu.LoadContent();
         }
 
         /// <summary>
@@ -471,8 +488,7 @@ namespace XNAProject
                 cameraY = cameraPosition.Y;
                 cameraZ = cameraPosition.Z;
                 spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
-                basicEffect.View = matrixView;
-                
+                basicEffect.View = matrixView; 
             }
             if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.PageDown))
             {
@@ -536,6 +552,10 @@ namespace XNAProject
 
             }
 
+            menu.Update(gameTime);
+            CurrentGameState = (MainClass.GameState)menu.getCurrentGameState();
+            Console.WriteLine("" + CurrentGameState.ToString());
+
             base.Update(gameTime);
         }
 
@@ -550,26 +570,30 @@ namespace XNAProject
             device.RasterizerState = rs;
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
+            menu.Draw(gameTime);
             
             //tegner koordinater
-            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+            if (CurrentGameState.Equals(GameState.Playing))
             {
-                pass.Apply();
-                this.cAxes.draw(this.device);
+                foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+                {
+                    pass.Apply();
+                    this.cAxes.draw(this.device);
+                }
             }
-
 
             //this.DrawSkybox();
             //this.DrawInfo(gameTime);
 
-            //skybox ver2
-            //graphics.GraphicsDevice.RasterizerState.CullMode = CullMode.CullClockwiseFace;
-            //skybox.Draw(matrixView, matrixProjection, cameraPosition);
-            //graphics.GraphicsDevice.RasterizerState.CullMode = CullMode.CullCounterClockwiseFace;
+
+
 
             //skybox ver3
-            DrawSkybox();
-            DrawSpaceshipModel();
+            if (CurrentGameState.Equals(GameState.Playing))
+            {
+                DrawSkybox();
+            }
+            //DrawSpaceshipModel();
 
             base.Draw(gameTime);
         }
@@ -625,84 +649,6 @@ namespace XNAProject
                 mesh.Draw();
             }
         }
-
-        #region skyboxmk1
-        /*
-        private void DrawSkybox()
-        {
-            const float kfDrop = -1.2f;
-
-            for (int i = 0; i < 5; i++)
-            {
-                switch (i)
-                { 
-                    case 0:
-                        matrixTranslation = Matrix.CreateTranslation(0.0f, kfDrop, EDGE);
-                        basicEffect.Texture = textureSkyboxFront;
-                        effectSky.Parameters["xTexture"].SetValue(textureSkyboxFront);
-                        break;
-                    
-                    case 1:
-                        matrixTranslation = Matrix.CreateTranslation(-EDGE, kfDrop, 0.0f);
-                        matrixRotationY = Matrix.CreateRotationY(-(float)Math.PI / 2.0f);
-                        basicEffect.Texture = textureSkyboxFront;
-                        effectSky.Parameters["xTexture"].SetValue(textureSkyboxLeft);
-                        break;
-                    case 2:
-                        matrixTranslation = Matrix.CreateTranslation(0.0f, kfDrop, -EDGE);
-                        matrixRotationY = Matrix.CreateRotationY((float)Math.PI);
-                        basicEffect.Texture = textureSkyboxFront;
-                        effectSky.Parameters["xTexture"].SetValue(textureSkyboxBack);
-                        break;
-                    case 3:
-                        matrixTranslation = Matrix.CreateTranslation(EDGE, kfDrop, 0.0f);
-                        matrixRotationY = Matrix.CreateRotationY((float)Math.PI / 2.0f);
-                        basicEffect.Texture = textureSkyboxFront;
-                        effectSky.Parameters["xTexture"].SetValue(textureSkyboxRight);
-                        break;
-                    case 4:
-                        matrixTranslation = Matrix.CreateTranslation(0.0f, EDGE + kfDrop, 0.0f);
-                        matrixRotationX = Matrix.CreateRotationX(-(float)Math.PI / 2.0f);
-                        matrixRotationY = Matrix.CreateRotationY(-(3.0f/2.0f) * (float)Math.PI);
-                        matrixScale = Matrix.CreateScale(1.0f, 1.0f, 1.0f);
-                        basicEffect.Texture = textureSkyboxFront;
-                        effectSky.Parameters["xTexture"].SetValue(textureSkyboxTop);
-                        break;
-                    case 5:
-                        break;
-                }//end of switch
-
-                matrixWorld = matrixIdentity * matrixScale * matrixRotationX * matrixRotationY * matrixTranslation;
-
-                /*
-                effectSky.CurrentTechnique = effectSky.Techniques["Textured"];
-                effectSky.Parameters["xWorld"].SetValue(matrixWorld);
-                effectSky.Parameters["xView"].SetValue(matrixView);
-                effectSky.Parameters["xProjection"].SetValue(matrixProjection);
-                
-                 
-                foreach (EffectPass pass in effectSky.CurrentTechnique.Passes)
-                {
-                    pass.Apply();
-
-                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, vericesSkyBox, 0, 2);
-                }//end of foreach
-                */
-        /*
-                foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-                {
-                    pass.Apply();
-                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, vericesSkyBox, 0, 2);
-                    this.DrawOverlayText(basicEffect.Texture.ToString(), 0, 150);
-                }//end of foreach
-        */
-        /*
-            }//end of for
-
-
-        }//end of DrawSkybox
-*/
-        #endregion
 
         #region Spritebatch
         private void DrawInfo(GameTime _gameTime)
