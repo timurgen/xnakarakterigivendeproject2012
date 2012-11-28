@@ -24,7 +24,7 @@ namespace XNAProject
         /// <summary>
         /// Matriser til grunnlegende transformasjoner
         /// </summary>
-        private Matrix world, view, projection;
+        protected Matrix world, view, projection;
         /// <summary>
         /// Størrelse av objekt
         /// </summary>
@@ -56,7 +56,7 @@ namespace XNAProject
         /// <summary>
         /// Shader som brukes ved tegning
         /// </summary>
-        private Effect effect;
+        protected Effect effect;
         /// <summary>
         /// Spill som bojekt tilhører
         /// </summary>
@@ -95,7 +95,8 @@ namespace XNAProject
         /// <param name="orbitalSpeed">banehastiget</param>
         /// <param name="orbitAngle">banevinkel i forhold til xz plane</param>
         /// <param name="parent">parent planet</param>
-        public SpaceObject(Game _game, float _size, float _orbitRadius, float _akseAngle, float _orbitalSpeed, float _orbitAngle, float _rotSpeed, SpaceObject _parent): base(_game)
+        public SpaceObject(Game _game, float _size, float _orbitRadius, float _akseAngle, float _orbitalSpeed, float _orbitAngle, float _rotSpeed, SpaceObject _parent)
+            : base(_game)
         {
             this.size = _size;
             this.orbitRadius = _orbitRadius;
@@ -119,12 +120,12 @@ namespace XNAProject
         ///  Metode skal kalles i load metode av main class
         /// </summary>
         /// <param name="game">reference til spill, objekt tilhører</param>
-        public void load(Effect _effect, Model _model, Texture2D _texture)
+        public virtual void load(Effect _effect, Model _model, Texture2D _texture)
         {
             this.effect = _effect;
             this.model = _model;
             this.texture = _texture;
-            
+
             foreach (ModelMesh mesh in this.model.Meshes)
             {
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
@@ -132,7 +133,7 @@ namespace XNAProject
                     meshPart.Effect = this.effect.Clone();
                 }
             }
-            
+
         }//end of load
 
 
@@ -147,11 +148,11 @@ namespace XNAProject
         public override void Update(GameTime gt)
         {
             Matrix matIdentity, matTrans, matRotateY, matRotateX, matScale, matOrbT, matOrbR, matOrbTX, matOrbRX;
-            
+
             matIdentity = Matrix.Identity;
-            
+
             matScale = Matrix.CreateScale(this.size);
-            
+
             //rotasjon om y akse
             RotY += this.rotSpeed * (float)gt.ElapsedGameTime.Milliseconds / 1000f;
             RotY = RotY % (float)(2 * Math.PI);
@@ -169,15 +170,15 @@ namespace XNAProject
 
 
             matTrans = Matrix.CreateTranslation(0.0f, 0.0f, 0.0f);
-            
+
             //Kumulativ world‐matrise;
             if (parent == null)
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT  * matOrbR * orbitStart) * matTrans*matOrbRX;
+                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans * matOrbRX;
             }
             else
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans *matOrbRX* parent.world;
+                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans * matOrbRX * parent.world;
             }
 
             view = game.getEffect().Parameters["xView"].GetValueMatrix();
@@ -190,7 +191,7 @@ namespace XNAProject
         /// </summary>
         public override void Draw(GameTime gt)
         {
-            if(game.CurrentGameState.Equals(GameState.Playing))
+            if (game.CurrentGameState == (MainClass.GameState)GameState.Playing)
             {
             foreach (ModelMesh mesh in model.Meshes)
             {
@@ -202,9 +203,9 @@ namespace XNAProject
                     e.Parameters["xTexture"].SetValue(this.texture);
                     e.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 0f));
                     e.Parameters["isEmissive"].SetValue(isEmissive);
-                    e.Parameters["xLightsWorldViewProjection"].SetValue(this.world * effect.Parameters["xView"].GetValueMatrix() * effect.Parameters["xProjection"].GetValueMatrix()); 
+                    e.Parameters["xLightsWorldViewProjection"].SetValue(this.world * effect.Parameters["xView"].GetValueMatrix() * effect.Parameters["xProjection"].GetValueMatrix());
                 }
-                
+
                 mesh.Draw();
             }
             }
