@@ -36,7 +36,9 @@ namespace XNAProject
             rectangel = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
 
             if (mouse.LeftButton == ButtonState.Pressed)
+
             {
+                System.Threading.Thread.Sleep(100);
                 Rectangle mouseRectangle = new Rectangle(mouse.X, mouse.Y, 1, 1);
                 if (mouseRectangle.Intersects(rectangel))
                 {
