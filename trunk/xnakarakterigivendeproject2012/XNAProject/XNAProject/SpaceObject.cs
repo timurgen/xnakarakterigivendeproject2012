@@ -78,6 +78,14 @@ namespace XNAProject
         /// </summary>
         private Random g;
 
+        public enum GameState
+        {
+            MainMenu,
+            About,
+            Playing,
+            Ship,
+        }
+
         /// <summary>
         /// Brukes til å lage nytt objekt
         /// </summary>
@@ -182,6 +190,8 @@ namespace XNAProject
         /// </summary>
         public override void Draw(GameTime gt)
         {
+            if(game.CurrentGameState.Equals(GameState.Playing))
+            {
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (Effect e in mesh.Effects)
@@ -196,6 +206,7 @@ namespace XNAProject
                 }
                 
                 mesh.Draw();
+            }
             }
 
         }//end of draw
