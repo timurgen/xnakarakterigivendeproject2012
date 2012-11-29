@@ -107,24 +107,32 @@ namespace XNAProject
 
                     if (buttonSpaceOne.isClicked == true)
                     {
-                        Console.WriteLine("SpaceOne");
+                        game.LoadShipModel("models/SpaceOne");
+                        Console.WriteLine();
                         buttonSpaceOne.isClicked = false;
                         CurrentGameState = GameState.Playing;
                         //CurrentGameState = GameState.MainMenu;
+                        
                     }
                     if (buttonSpaceTwo.isClicked == true)
                     {
+                        game.LoadShipModel("models/SpaceOne");
                         Console.WriteLine("SpaceTwo");
                         buttonSpaceTwo.isClicked = false;
                         CurrentGameState = GameState.Playing;
                         //CurrentGameState = GameState.MainMenu;
+                        
+
                     }
                     if (buttonSpaceThree.isClicked == true)
                     {
+                        game.LoadShipModel("models/SpaceOne");
                         Console.WriteLine("SpaceThree");
                         buttonSpaceThree.isClicked = false;
                         CurrentGameState = GameState.Playing;
                         //CurrentGameState = GameState.MainMenu;
+                       
+
                     }
 
                     buttonSpaceOne.Update(mouse);
