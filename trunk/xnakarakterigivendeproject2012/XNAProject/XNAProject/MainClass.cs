@@ -593,7 +593,7 @@ namespace XNAProject
             menu.Draw(gameTime);
             
             //tegner koordinater
-            if (CurrentGameState.Equals(GameState.Playing))
+            if (CurrentGameState == GameState.Playing)
             {
                 foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
                 {
@@ -609,7 +609,7 @@ namespace XNAProject
 
 
             //skybox ver3
-            if (CurrentGameState.Equals(GameState.Playing))
+            if (CurrentGameState == GameState.Playing)
             {
                 DrawSkybox();
             }

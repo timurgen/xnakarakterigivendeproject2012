@@ -17,13 +17,6 @@ namespace XNAProject
         public Vector2 size;
         Color color = new Color(255, 255, 255, 255);
 
-        public MyButton(Texture2D _texture, GraphicsDevice _graphics)
-        {
-            texture = _texture;
-
-            size = new Vector2(_graphics.Viewport.Width / 8, _graphics.Viewport.Height / 30);
-        }
-
         public MyButton(Texture2D _texture, GraphicsDevice _graphics, Vector2 _size)
         {
             texture = _texture;
@@ -36,7 +29,6 @@ namespace XNAProject
             rectangel = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
 
             if (mouse.LeftButton == ButtonState.Pressed)
-
             {
                 System.Threading.Thread.Sleep(100);
                 Rectangle mouseRectangle = new Rectangle(mouse.X, mouse.Y, 1, 1);
