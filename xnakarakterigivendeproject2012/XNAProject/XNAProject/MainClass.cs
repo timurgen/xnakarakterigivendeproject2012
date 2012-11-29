@@ -592,7 +592,7 @@ namespace XNAProject
 
             menu.Update(gameTime);
             CurrentGameState = (MainClass.GameState)menu.getCurrentGameState();
-            Console.WriteLine("MainClass gamestate: " + CurrentGameState.ToString());
+            //Console.WriteLine("MainClass gamestate: " + CurrentGameState.ToString());
 
             UpdateExplosions(gameTime);
 

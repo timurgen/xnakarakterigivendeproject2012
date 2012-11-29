@@ -15,7 +15,7 @@ namespace XNAProject
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont spriteFont;
+        SpriteFont spriteFont, spriteFontAbout;
 
         ContentManager Content;
 
@@ -46,6 +46,7 @@ namespace XNAProject
             graphics = game.graphics;
             spriteBatch = game.spriteBatch;
             spriteFont = game.Content.Load<SpriteFont>(@"Fonts\MenuFont");
+            spriteFontAbout = game.Content.Load<SpriteFont>(@"Fonts\About");
             Content = new ContentManager(game.Services);
             Content.RootDirectory = "Content";
         }
@@ -98,6 +99,12 @@ namespace XNAProject
                     }
                     if (buttonExit.isClicked == true)
                         game.Exit();
+                    if (buttonAbout.isClicked == true)
+                    {
+                        CurrentGameState = GameState.About;
+                        buttonAbout.isClicked = false;
+                    }
+
                     buttonPlay.Update(mouse);
                     buttonAbout.Update(mouse);
                     buttonExit.Update(mouse);
@@ -152,9 +159,12 @@ namespace XNAProject
                     break;
 
                 case GameState.About:
-                    buttonPlay.Update(mouse);
-                    buttonAbout.Update(mouse);
-                    buttonExit.Update(mouse);
+                    buttonBack.Update(mouse);
+                    if (buttonBack.isClicked == true)
+                    {
+                        buttonBack.isClicked = false;
+                        CurrentGameState = GameState.MainMenu;
+                    }
                     break;
 
                 case GameState.Playing:
@@ -197,7 +207,14 @@ namespace XNAProject
                     break;
 
                 case GameState.About:
+                    spriteBatch.Draw(Content.Load<Texture2D>("textures-menu/Menu"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                    spriteBatch.DrawString(spriteFont, "Solar System", new Vector2(270, 10), Color.PaleVioletRed);
 
+                    spriteBatch.DrawString(spriteFontAbout, "Obligatorisk og karaktergivende oppgave nr 1", new Vector2(290, 300), Color.Green);
+                    spriteBatch.DrawString(spriteFontAbout, "Datamaskingrafikk", new Vector2(500, 350), Color.Green);
+                    spriteBatch.DrawString(spriteFontAbout, "Hoegskolen i Narvik, Hoesten 2012", new Vector2(380, 400), Color.Green);
+
+                    buttonBack.Draw(spriteBatch);
                     break;
 
                 case GameState.Playing:

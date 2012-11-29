@@ -27,7 +27,7 @@ namespace XNAProject
         Matrix matrixView;
         Matrix matrixProjection;
 
-        Vector3 shipPosition = new Vector3(500.0f, 500.0f, 500.0f);
+        Vector3 shipPosition = new Vector3(0.0f, 0.0f, 0.0f);
         Quaternion shipRotation;
 
         private MainClass game;
@@ -47,7 +47,7 @@ namespace XNAProject
         {
             ProcessKeyboard(_gametime);
 
-            float moveSpeed = _gametime.ElapsedGameTime.Milliseconds / 500.0f * gameSpeed * 10000;
+            float moveSpeed = _gametime.ElapsedGameTime.Milliseconds / 500.0f * gameSpeed * 10;
             MoveForward(ref shipPosition, shipRotation, moveSpeed);
 
             UpdateCamera();
@@ -57,7 +57,7 @@ namespace XNAProject
         {
             float leftRightRot = 0;
             float turningSpeed = (float)_gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-            turningSpeed *= 100.6f * gameSpeed;
+            turningSpeed *= 1.6f * gameSpeed;
 
             KeyboardState keys = Keyboard.GetState();
             if (keys.IsKeyDown(Keys.Right))
@@ -93,7 +93,7 @@ namespace XNAProject
 
         private void UpdateCamera()
         {
-            cameraPosition = new Vector3(100f, 100.0f, 0.0f);
+            cameraPosition = new Vector3(100.0f, 100.0f, 10.0f);
             cameraPosition = Vector3.Transform(cameraPosition, Matrix.CreateFromQuaternion(shipRotation));
             cameraPosition += shipPosition;
 
@@ -114,8 +114,8 @@ namespace XNAProject
             {
                 foreach (Effect e in mesh.Effects)
                 {
-
-                    Matrix matrixWorld = Matrix.CreateScale(1f) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
+                    Matrix matrixWorld = Matrix.CreateScale(0.1f) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
+                    //Console.WriteLine(matrixWorld);
                     e.CurrentTechnique = e.Techniques["Textured"];
                     e.Parameters["xWorld"].SetValue(spaceShipTransforms[mesh.ParentBone.Index] * matrixWorld);
                     e.Parameters["xView"].SetValue(matrixView);
