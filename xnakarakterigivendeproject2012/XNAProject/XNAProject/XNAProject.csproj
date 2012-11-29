@@ -108,8 +108,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsteroidBelt.cs" />
+    <Compile Include="AsteroidManager.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="CoordinateAxes.cs" />
+    <Compile Include="FirstPersonCamera.cs" />
+    <Compile Include="InputHandler.cs" />
+    <Compile Include="MainClassUpdate.cs" />
     <Compile Include="MainClassVar.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="MyButton.cs" />
+    <Compile Include="Particle.cs" />
+    <Compile Include="ParticleExplosion.cs" />
+    <Compile Include="ParticleSettings.cs" />
+    <Compile Include="ParticleVertex.cs" />
     <Compile Include="Skybox.cs" />
     <Compile Include="SpaceObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

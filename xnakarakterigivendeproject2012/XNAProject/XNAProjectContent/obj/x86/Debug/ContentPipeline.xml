@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline" xmlns:Framework="Microsoft.Xna.Framework" xmlns:Processors="Microsoft.Xna.Framework.Content.Pipeline.Processors">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
       <Source>textures-planets\earthmap1k.jpg</Source>
@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\earthmap1k.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\earthmap1k.xnb</Output>
+      <Time>2012-11-25T13:31:18.551511+01:00</Time>
     </Item>
     <Item>
       <Source>textures-planets\jupitermap.jpg</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\jupitermap.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\jupitermap.xnb</Output>
+      <Time>2012-11-25T13:31:18.5203109+01:00</Time>
     </Item>
     <Item>
       <Source>textures-planets\mars_1k_color.jpg</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\mars_1k_color.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\mars_1k_color.xnb</Output>
+      <Time>2012-11-25T13:31:18.535911+01:00</Time>
     </Item>
     <Item>
       <Source>textures-planets\mercurymap.jpg</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\mercurymap.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\mercurymap.xnb</Output>
+      <Time>2012-11-25T13:31:18.535911+01:00</Time>
     </Item>
     <Item>
       <Source>textures-planets\neptunemap.jpg</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\neptunemap.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\neptunemap.xnb</Output>
+      <Time>2012-11-25T13:31:18.551511+01:00</Time>
     </Item>
     <Item>
       <Source>textures-planets\plutomap1k.jpg</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\plutomap1k.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\plutomap1k.xnb</Output>
+      <Time>2012-11-25T13:31:18.551511+01:00</Time>
     </Item>
     <Item>
       <Source>textures-planets\saturnmap.jpg</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\saturnmap.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\saturnmap.xnb</Output>
+      <Time>2012-11-25T13:31:18.535911+01:00</Time>
     </Item>
     <Item>
       <Source>textures-planets\saturnringcolor.jpg</Source>
@@ -70,8 +70,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\saturnringcolor.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\saturnringcolor.xnb</Output>
+      <Time>2012-11-25T13:31:18.535911+01:00</Time>
     </Item>
     <Item>
       <Source>textures-planets\sunmap.jpg</Source>
@@ -79,8 +79,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\sunmap.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\sunmap.xnb</Output>
+      <Time>2012-11-25T13:31:18.5203109+01:00</Time>
     </Item>
     <Item>
       <Source>textures-planets\uranusmap.jpg</Source>
@@ -88,8 +88,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\uranusmap.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\uranusmap.xnb</Output>
+      <Time>2012-11-25T13:31:18.535911+01:00</Time>
     </Item>
     <Item>
       <Source>textures-planets\venusmap.jpg</Source>
@@ -97,53 +97,156 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-planets\venusmap.xnb</Output>
-      <Time>2012-11-09T10:56:29.4953824+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\venusmap.xnb</Output>
+      <Time>2012-11-25T13:31:18.551511+01:00</Time>
     </Item>
     <Item>
-      <Source>textures-skybox\sky1f.jpg</Source>
-      <Name>textures-skybox\sky1f</Name>
+      <Source>textures-planets\moonmap.jpg</Source>
+      <Name>textures-planets\moonmap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-skybox\sky1f.xnb</Output>
-      <Time>2012-11-14T11:12:14.7843096+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\moonmap.xnb</Output>
+      <Time>2012-11-25T13:31:18.535911+01:00</Time>
     </Item>
     <Item>
-      <Source>textures-skybox\sky2s.jpg</Source>
-      <Name>textures-skybox\sky2s</Name>
+      <Source>textures-skybox\skybox_back.jpg</Source>
+      <Name>textures-skybox\skybox_back</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ResizeToPowerOfTwo">True</Data>
+        <Data Key="PremultiplyAlpha">False</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\skybox_back.xnb</Output>
+      <Time>2012-11-27T17:48:50.554196+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-skybox\skybox_bottom.jpg</Source>
+      <Name>textures-skybox\skybox_bottom</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-skybox\sky2s.xnb</Output>
-      <Time>2012-11-14T11:12:14.8333124+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\skybox_bottom.xnb</Output>
+      <Time>2012-11-27T17:48:49.9031587+01:00</Time>
     </Item>
     <Item>
-      <Source>textures-skybox\sky3i.jpg</Source>
-      <Name>textures-skybox\sky3i</Name>
+      <Source>textures-skybox\skybox_front.jpg</Source>
+      <Name>textures-skybox\skybox_front</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-skybox\sky3i.xnb</Output>
-      <Time>2012-11-14T11:12:14.8713146+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\skybox_front.xnb</Output>
+      <Time>2012-11-27T17:48:50.0581676+01:00</Time>
     </Item>
     <Item>
-      <Source>textures-skybox\sky4s.jpg</Source>
-      <Name>textures-skybox\sky4s</Name>
+      <Source>textures-skybox\skybox_left.jpg</Source>
+      <Name>textures-skybox\skybox_left</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-skybox\sky4s.xnb</Output>
-      <Time>2012-11-14T11:12:14.8733147+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\skybox_left.xnb</Output>
+      <Time>2012-11-27T17:48:50.2421781+01:00</Time>
     </Item>
     <Item>
-      <Source>textures-skybox\sky5.jpg</Source>
-      <Name>textures-skybox\sky5</Name>
+      <Source>textures-skybox\skybox_right.jpg</Source>
+      <Name>textures-skybox\skybox_right</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\textures-skybox\sky5.xnb</Output>
-      <Time>2012-11-14T11:12:14.8753148+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\skybox_right.xnb</Output>
+      <Time>2012-11-27T17:48:50.3751857+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-skybox\skybox_top.jpg</Source>
+      <Name>textures-skybox\skybox_top</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\skybox_top.xnb</Output>
+      <Time>2012-11-27T17:48:49.8991585+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\ASTEROIDS.png</Source>
+      <Name>textures-planets\ASTEROIDS</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-planets\ASTEROIDS.xnb</Output>
+      <Time>2012-11-27T13:30:49.9787577+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-menu\About.jpg</Source>
+      <Name>textures-menu\About</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-menu\About.xnb</Output>
+      <Time>2012-11-28T22:10:35.113847+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-menu\back.jpg</Source>
+      <Name>textures-menu\back</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-menu\back.xnb</Output>
+      <Time>2012-11-28T22:10:35.1168472+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-menu\Exit.jpg</Source>
+      <Name>textures-menu\Exit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-menu\Exit.xnb</Output>
+      <Time>2012-11-28T22:10:35.1188473+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-menu\Menu.jpg</Source>
+      <Name>textures-menu\Menu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-menu\Menu.xnb</Output>
+      <Time>2012-11-28T22:10:35.1208474+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-menu\Play.jpg</Source>
+      <Name>textures-menu\Play</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-menu\Play.xnb</Output>
+      <Time>2012-11-28T22:10:35.1228476+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-menu\spaceone.jpg</Source>
+      <Name>textures-menu\spaceone</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-menu\spaceone.xnb</Output>
+      <Time>2012-11-28T22:10:35.1238476+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-menu\spacethree.jpg</Source>
+      <Name>textures-menu\spacethree</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-menu\spacethree.xnb</Output>
+      <Time>2012-11-28T22:10:35.1258477+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-menu\spacetwo.jpg</Source>
+      <Name>textures-menu\spacetwo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-menu\spacetwo.xnb</Output>
+      <Time>2012-11-28T22:10:35.1268478+01:00</Time>
     </Item>
     <Item>
       <Source>effects\effectsRiemersTut.fx</Source>
@@ -151,8 +254,35 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\effects\effectsRiemersTut.xnb</Output>
-      <Time>2012-11-09T10:58:29.8588954+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\effects\effectsRiemersTut.xnb</Output>
+      <Time>2012-11-27T13:57:42.401983+01:00</Time>
+    </Item>
+    <Item>
+      <Source>effects\LightPoint.fx</Source>
+      <Name>effects\LightPoint</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\effects\LightPoint.xnb</Output>
+      <Time>2012-11-25T13:50:04.7546991+01:00</Time>
+    </Item>
+    <Item>
+      <Source>effects\Skybox.fx</Source>
+      <Name>effects\Skybox</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\effects\Skybox.xnb</Output>
+      <Time>2012-11-26T22:41:24.4114507+01:00</Time>
+    </Item>
+    <Item>
+      <Source>effects\effects.fx</Source>
+      <Name>effects\effects</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\effects\effects.xnb</Output>
+      <Time>2012-11-27T17:48:50.5981985+01:00</Time>
     </Item>
     <Item>
       <Source>models\planet.X</Source>
@@ -160,11 +290,11 @@
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\models\planet.xnb</Output>
-      <Time>2012-11-09T10:59:18.450394+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\models\planet.xnb</Output>
+      <Time>2012-11-25T13:31:18.0991102+01:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\planet_0.xml</Key>
-        <Value>2012-11-19T13:58:33.0732583+01:00</Value>
+        <Value>2012-11-28T23:17:19.0718603+01:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -173,11 +303,78 @@
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\models\ring.xnb</Output>
-      <Time>2012-11-19T13:34:09.9386432+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\models\ring.xnb</Output>
+      <Time>2012-11-25T13:31:18.0991102+01:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\models\ring_0.xml</Key>
-        <Value>2012-11-19T13:58:33.1232584+01:00</Value>
+        <Value>2012-11-28T23:17:19.2638713+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\cubemk2.X</Source>
+      <Name>models\cubemk2</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\models\cubemk2.xnb</Output>
+      <Time>2012-11-26T22:41:27.4690561+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\cubemk2_0.xml</Key>
+        <Value>2012-11-28T23:17:19.3068738+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>textures-skybox\skybox2.x</Source>
+      <Name>textures-skybox\skybox2</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\skybox2.xnb</Output>
+      <Time>2012-11-27T17:48:50.0621678+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\textures-skybox\skybox2_0.xml</Key>
+        <Value>2012-11-28T23:17:19.3488762+01:00</Value>
+      </Dependency>
+      <Request>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Top_0.xnb</Request>
+      <Request>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Right_0.xnb</Request>
+      <Request>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Left_0.xnb</Request>
+      <Request>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Front_0.xnb</Request>
+      <Request>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Back_0.xnb</Request>
+      <Request>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Bottom_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>models\spaceone.X</Source>
+      <Name>models\spaceone</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\models\spaceone.xnb</Output>
+      <Time>2012-11-27T18:19:56.8729433+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\spaceone_0.xml</Key>
+        <Value>2012-11-28T23:17:29.6114632+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Fonts\Arial.spritefont</Source>
+      <Name>Fonts\Arial</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\Fonts\Arial.xnb</Output>
+      <Time>2012-11-26T22:41:27.4846561+01:00</Time>
+    </Item>
+    <Item>
+      <Source>models\cube.fbx</Source>
+      <Name>models\cube</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\models\cube.xnb</Output>
+      <Time>2012-11-26T22:41:27.4690561+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\cube_0.xml</Key>
+        <Value>2012-11-28T23:17:30.0734896+01:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -185,23 +382,165 @@
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\models\planet_0.xml</Output>
-      <Time>2012-11-09T10:59:18.450394+01:00</Time>
+      <Time>2012-11-25T13:31:18.0991102+01:00</Time>
     </Item>
     <Item>
       <Source>models\ring.x</Source>
       <Importer>XImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\models\ring_0.xml</Output>
-      <Time>2012-11-19T13:34:09.9386432+01:00</Time>
+      <Time>2012-11-25T13:31:18.0991102+01:00</Time>
     </Item>
     <Item>
-      <Source>effects\LightPoint.fx</Source>
-      <Name>effects\LightPoint</Name>
+      <Source>models\cubemk2.X</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\cubemk2_0.xml</Output>
+      <Time>2012-11-26T22:41:27.4690561+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-skybox\skybox2.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\textures-skybox\skybox2_0.xml</Output>
+      <Time>2012-11-27T17:48:50.0621678+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-skybox\SkyBox_Top.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Top_0.xnb</Output>
+      <Time>2012-11-27T17:48:49.8991585+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-skybox\SkyBox_Right.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Right_0.xnb</Output>
+      <Time>2012-11-27T17:48:50.3751857+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-skybox\SkyBox_Left.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Left_0.xnb</Output>
+      <Time>2012-11-27T17:48:50.2421781+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-skybox\SkyBox_Front.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Front_0.xnb</Output>
+      <Time>2012-11-27T17:48:50.0581676+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-skybox\SkyBox_Back.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Back_0.xnb</Output>
+      <Time>2012-11-27T17:48:50.554196+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-skybox\SkyBox_Bottom.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-skybox\SkyBox_Bottom_0.xnb</Output>
+      <Time>2012-11-27T17:48:49.9031587+01:00</Time>
+    </Item>
+    <Item>
+      <Source>models\spaceone.X</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\spaceone_0.xml</Output>
+      <Time>2012-11-27T18:19:56.8729433+01:00</Time>
+    </Item>
+    <Item>
+      <Source>models\cube.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\cube_0.xml</Output>
+      <Time>2012-11-26T22:41:27.4690561+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\MenuFont.spritefont</Source>
+      <Name>Fonts\MenuFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\Fonts\MenuFont.xnb</Output>
+      <Time>2012-11-29T16:43:30.6668084+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-particles\fire.png</Source>
+      <Name>textures-particles\fire</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\textures-particles\fire.xnb</Output>
+      <Time>2012-11-29T17:10:08.0981763+01:00</Time>
+    </Item>
+    <Item>
+      <Source>effects\Particle2.fx</Source>
+      <Name>effects\Particle2</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\effects\LightPoint.xnb</Output>
-      <Time>2012-11-20T11:32:12.665848+01:00</Time>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\effects\Particle2.xnb</Output>
+      <Time>2012-11-29T17:10:33.0156015+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -209,10 +548,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProjectContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProjectContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject\xnakarakterigivendeproject2012\XNAProject\XNAProject\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProjectContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProjectContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\XNAProject\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

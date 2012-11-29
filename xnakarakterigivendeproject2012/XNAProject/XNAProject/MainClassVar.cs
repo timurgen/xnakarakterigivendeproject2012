@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XNAProject
 {
-    public partial class MainClass
+    public partial class MainClass : Microsoft.Xna.Framework.Game
     {
     }
 }
