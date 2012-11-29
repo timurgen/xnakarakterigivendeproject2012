@@ -117,6 +117,8 @@ namespace XNAProject
         List<VertexPositionNormalTexture[]> asteroids;
         #endregion
 
+
+        #region Skybox
         //skybox
         Matrix matrixWorld = Matrix.Identity;
         Matrix matrixIdentity = Matrix.Identity;
@@ -148,6 +150,7 @@ namespace XNAProject
         //Skybox mk3
         Texture2D[] skyboxTextures;
         Model skyboxModel;
+        #endregion
 
         //Space ships
         Model shipModel;
@@ -391,9 +394,6 @@ namespace XNAProject
 
             //skybox mk3
             skyboxModel = LoadModel("textures-skybox/skybox2", out skyboxTextures);
-
-            shipModel = LoadShipModel("models/spaceone");
-
             menu = new Menu(this);
             menu.LoadContent();
         }
@@ -421,13 +421,13 @@ namespace XNAProject
             return newModel;
         }
 
-        private Model LoadShipModel(string assetName)
+        public void LoadShipModel(string assetName)
         {
 
             Model newModel = Content.Load<Model>(assetName); foreach (ModelMesh mesh in newModel.Meshes)
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
                     meshPart.Effect = effect.Clone();
-            return newModel;
+            this.shipModel = newModel;
         }
 
         /// <summary>
@@ -576,15 +576,18 @@ namespace XNAProject
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
             //felles ting
             RasterizerState rs = new RasterizerState();
             rs.CullMode = CullMode.None;
-            rs.FillMode = FillMode.Solid;
+            rs.FillMode = FillMode.WireFrame;
             device.RasterizerState = rs;
-            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.White, 1.0f, 0);
 
             menu.Draw(gameTime);
             
@@ -611,7 +614,7 @@ namespace XNAProject
             {
                 DrawSkybox();
             }
-            //DrawSpaceshipModel();
+            DrawSpaceshipModel();
 
             base.Draw(gameTime);
         }
@@ -651,21 +654,21 @@ namespace XNAProject
 
         private void DrawSpaceshipModel()
         {
-            //Matrix worldMatrix = Matrix.CreateScale(1.5f, 1.5f, 1.5f) * Matrix.CreateRotationY(MathHelper.Pi) * Matrix.CreateTranslation(new Vector3(1, 1, 1));
-
-            //Matrix[] xwingTransforms = new Matrix[shipModel.Bones.Count];
-            //shipModel.CopyAbsoluteBoneTransformsTo(xwingTransforms);
-            foreach (ModelMesh mesh in shipModel.Meshes)
+            if (CurrentGameState == GameState.Playing)
             {
-                foreach (Effect effect in mesh.Effects)
+                foreach (ModelMesh mesh in shipModel.Meshes)
                 {
-                    effect.CurrentTechnique = effect.Techniques["Textured"];
-                    effect.Parameters["xWorld"].SetValue(matrixWorld);
-                    effect.Parameters["xView"].SetValue(matrixView);
-                    effect.Parameters["xProjection"].SetValue(matrixProjection);
+                    foreach (Effect effect in mesh.Effects)
+                    {
+                        effect.CurrentTechnique = effect.Techniques["Textured"];
+                        effect.Parameters["xWorld"].SetValue(matrixWorld * Matrix.CreateScale(10f));
+                        effect.Parameters["xView"].SetValue(matrixView);
+                        effect.Parameters["xProjection"].SetValue(matrixProjection);
+                    }
+                    mesh.Draw();
                 }
-                mesh.Draw();
             }
+
         }
 
         #region Spritebatch
