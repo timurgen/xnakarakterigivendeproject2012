@@ -157,6 +157,15 @@ namespace XNAProject
 
         Menu menu;
 
+        //Kamera
+        private FirstPersonCamera camera;
+        private InputHandler input;
+        List<ParticleExplosion> explosions = new List<ParticleExplosion>();
+        ParticleExplosionSettings particleExplosionSettings = new ParticleExplosionSettings();
+        ParticleSettings particleSettings = new ParticleSettings();
+        Effect explosionEffect;
+        Texture2D explosionTexture;
+
         public GameState CurrentGameState = GameState.MainMenu;
 
         public MainClass()
@@ -164,6 +173,7 @@ namespace XNAProject
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             g = new Random(this.GetHashCode());
+            camera = new FirstPersonCamera(this);
         }
 
 
@@ -203,6 +213,8 @@ namespace XNAProject
             basicEffect.Projection = matrixProjection;
             basicEffect.View = matrixView;
             basicEffect.VertexColorEnabled = true;
+            camera.View = matrixView;
+            camera.Projection = matrixProjection;
         }
 
         private void initializeSkyBox()
@@ -386,6 +398,11 @@ namespace XNAProject
             skyboxModel = LoadModel("textures-skybox/skybox2", out skyboxTextures);
             menu = new Menu(this);
             menu.LoadContent();
+
+            explosionTexture = Content.Load<Texture2D>(@"textures-planets/sunmap");
+            explosionEffect = Content.Load<Effect>(@"effects/Particle2");
+            explosionEffect.CurrentTechnique = explosionEffect.Techniques["Technique1"];
+            explosionEffect.Parameters["theTexture"].SetValue(explosionTexture);
         }
 
         /// <summary>
@@ -573,6 +590,8 @@ namespace XNAProject
             CurrentGameState = (MainClass.GameState)menu.getCurrentGameState();
             Console.WriteLine("MainClass gamestate: " + CurrentGameState.ToString());
 
+            UpdateExplosions(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -612,6 +631,17 @@ namespace XNAProject
             if (CurrentGameState == GameState.Playing)
             {
                 DrawSkybox();
+            }
+
+            foreach (EffectPass pass in explosionEffect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                //this.cAxes.draw(this.device);
+                foreach (ParticleExplosion p in explosions)
+                {
+                    p.Draw(explosionEffect, camera);
+                }
+
             }
 
 
@@ -671,6 +701,7 @@ namespace XNAProject
                         e.Parameters["xWorld"].SetValue(World);
                         e.Parameters["xView"].SetValue(matrixView);
                         e.Parameters["xProjection"].SetValue(matrixProjection);
+                        e.Parameters["xTexture"].SetValue(Content.Load<Texture2D>("textures-planets/ASTEROIDS"));
                     }
                     mesh.Draw();
                 }
