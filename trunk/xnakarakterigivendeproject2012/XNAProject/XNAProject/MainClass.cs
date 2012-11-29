@@ -381,16 +381,6 @@ namespace XNAProject
             effect = Content.Load<Effect>("effects/effects");
 
             effectSky = Content.Load<Effect>("effects/effectsRiemersTut");
-            /*
-            textureSkyboxFront = Content.Load<Texture2D>(@"textures-skybox/sky1f");
-            textureSkyboxLeft = Content.Load<Texture2D>(@"textures-skybox/sky2s");
-            textureSkyboxRight = Content.Load<Texture2D>(@"textures-skybox/sky3i");
-            textureSkyboxTop = Content.Load<Texture2D>(@"textures-skybox/sky4s");
-            textureSkyboxBottom = Content.Load<Texture2D>(@"textures-skybox/sky5");
-            textureSkyboxBack = Content.Load<Texture2D>(@"textures-skybox/sky1f");
-            */
-            //Skybox ver 2
-            //skybox = new Skybox("textures-skybox/spacemk3", Content);//"textures-skybox/Sunset", Content  
 
             //skybox mk3
             skyboxModel = LoadModel("textures-skybox/skybox2", out skyboxTextures);
@@ -399,9 +389,10 @@ namespace XNAProject
         }
 
         /// <summary>
-        /// Skybox mk3
+        /// Metoden som brukes til å laste ned skybox til programmet
+        /// 
         /// </summary>
-        /// <param name="assetName"></param>
+        /// <param name="assetName">Path til skybox model</param>
         /// <param name="textures"></param>
         /// <returns></returns>
         private Model LoadModel(string assetName, out Texture2D[] textures)
@@ -580,7 +571,7 @@ namespace XNAProject
 
             menu.Update(gameTime);
             CurrentGameState = (MainClass.GameState)menu.getCurrentGameState();
-            Console.WriteLine("" + CurrentGameState.ToString());
+            Console.WriteLine("MainClass gamestate: " + CurrentGameState.ToString());
 
             base.Update(gameTime);
         }
@@ -595,9 +586,9 @@ namespace XNAProject
             //felles ting
             RasterizerState rs = new RasterizerState();
             rs.CullMode = CullMode.None;
-            rs.FillMode = FillMode.WireFrame;
+            rs.FillMode = FillMode.Solid;
             device.RasterizerState = rs;
-            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.White, 1.0f, 0);
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
             menu.Draw(gameTime);
             
@@ -615,8 +606,6 @@ namespace XNAProject
 
             //this.DrawSkybox();
             //this.DrawInfo(gameTime);
-
-
 
 
             //skybox ver3
