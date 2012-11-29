@@ -421,14 +421,24 @@ namespace XNAProject
             return newModel;
         }
 
+
         public void LoadShipModel(string assetName)
         {
 
-            Model newModel = Content.Load<Model>(assetName); foreach (ModelMesh mesh in newModel.Meshes)
+            Model newModel = Content.Load<Model>(assetName);
+            foreach (ModelMesh mesh in newModel.Meshes)
+            {
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
                     meshPart.Effect = effect.Clone();
+                }
+                    
+            }
+
             this.shipModel = newModel;
         }
+
+
 
         /// <summary>
         /// Laster alle objekter i Solarsystemmet
@@ -614,8 +624,10 @@ namespace XNAProject
             {
                 DrawSkybox();
             }
-            DrawSpaceshipModel();
 
+
+            //tegner romferge
+            DrawSpaceshipModel();
             base.Draw(gameTime);
         }
 
@@ -628,6 +640,7 @@ namespace XNAProject
 
             DepthStencilState dss = new DepthStencilState();
             dss.DepthBufferEnable = false;
+            
             device.DepthStencilState = dss;
 
             Matrix[] skyboxTransforms = new Matrix[skyboxModel.Bones.Count];
@@ -652,18 +665,23 @@ namespace XNAProject
             device.DepthStencilState = dss;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void DrawSpaceshipModel()
         {
             if (CurrentGameState == GameState.Playing)
             {
                 foreach (ModelMesh mesh in shipModel.Meshes)
                 {
-                    foreach (Effect effect in mesh.Effects)
+                    foreach (Effect e in mesh.Effects)
                     {
-                        effect.CurrentTechnique = effect.Techniques["Textured"];
-                        effect.Parameters["xWorld"].SetValue(matrixWorld * Matrix.CreateScale(10f));
-                        effect.Parameters["xView"].SetValue(matrixView);
-                        effect.Parameters["xProjection"].SetValue(matrixProjection);
+                        Matrix World = Matrix.Identity * Matrix.CreateScale(150f);
+                        e.CurrentTechnique = e.Techniques["Textured"];
+                        e.Parameters["xWorld"].SetValue(World);
+                        e.Parameters["xView"].SetValue(matrixView);
+                        e.Parameters["xProjection"].SetValue(matrixProjection);
                     }
                     mesh.Draw();
                 }
