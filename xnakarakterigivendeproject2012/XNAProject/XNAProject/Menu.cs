@@ -45,7 +45,7 @@ namespace XNAProject
             game = (MainClass)_game;
             graphics = game.graphics;
             spriteBatch = game.spriteBatch;
-            spriteFont = game.spriteFont;
+            spriteFont = game.Content.Load<SpriteFont>(@"Fonts\MenuFont");
             Content = new ContentManager(game.Services);
             Content.RootDirectory = "Content";
         }
@@ -71,7 +71,7 @@ namespace XNAProject
             buttonExit.setPosition(new Vector2(570, 700));
 
             buttonBack = new MyButton(buttonBackTexture, graphics.GraphicsDevice, new Vector2(500, 100));
-            buttonBack.setPosition(new Vector2(1100, 750));
+            buttonBack.setPosition(new Vector2(900, 700));
 
             buttonSpaceOne = new MyButton(buttonSpaceOneTexture, graphics.GraphicsDevice, new Vector2(360, 260));
             buttonSpaceOne.setPosition(new Vector2(100, 300));
@@ -108,7 +108,7 @@ namespace XNAProject
                     if (buttonSpaceOne.isClicked == true)
                     {
                         game.LoadShipModel("models/SpaceOne");
-                        Console.WriteLine();
+                        Console.WriteLine("spaceone");
                         buttonSpaceOne.isClicked = false;
                         CurrentGameState = GameState.Playing;
                         //CurrentGameState = GameState.MainMenu;
@@ -135,13 +135,13 @@ namespace XNAProject
 
                     }
 
+                    buttonBack.Update(mouse);
+
                     buttonSpaceOne.Update(mouse);
                     buttonSpaceTwo.Update(mouse);
                     buttonSpaceThree.Update(mouse);
-
-                    buttonBack.Update(mouse);
-                    buttonExit.Update(mouse);
                     break;
+
                 case GameState.About:
                     buttonPlay.Update(mouse);
                     buttonAbout.Update(mouse);
@@ -155,7 +155,7 @@ namespace XNAProject
                     
             }
 
-            Console.WriteLine(CurrentGameState);
+            Console.WriteLine("Menu gamestate: " + CurrentGameState);
         }
 
         public void Draw(GameTime gameTime)
@@ -177,7 +177,7 @@ namespace XNAProject
                     break;
 
                 case GameState.Ship:
-                    spriteBatch.Draw(Content.Load<Texture2D>("textures-menu/Menu"), new Rectangle(0, 0, graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), Color.White);
+                    spriteBatch.Draw(Content.Load<Texture2D>("textures-menu/Menu"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
                     spriteBatch.DrawString(spriteFont, "Solar System", new Vector2(190, 10), Color.PaleVioletRed);
 
                     buttonSpaceOne.Draw(spriteBatch);
