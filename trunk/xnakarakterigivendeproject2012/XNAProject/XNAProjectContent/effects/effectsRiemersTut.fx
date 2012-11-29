@@ -124,6 +124,8 @@ VertexToPixel ShadowVS( float4 inPos : POSITION)
     return Output;    
 }
 
+
+///////////////////////////////////////////////////////////
 PixelToFrame ShadowPS(VertexToPixel PSIn)
 {
     PixelToFrame Output = (PixelToFrame)0;        
