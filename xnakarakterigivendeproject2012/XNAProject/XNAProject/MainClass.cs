@@ -34,8 +34,8 @@ namespace XNAProject
         Effect spaceObjectEffect;
         Effect effect;
 
-        Matrix matrixView;
-        Matrix matrixProjection;
+        public Matrix matrixView;
+        public Matrix matrixProjection;
 
         /// <summary>
         /// Variabler til kamera
@@ -153,9 +153,11 @@ namespace XNAProject
         #endregion
 
         //Space ships
-        Model shipModel;
+        public Model shipModel;
 
         Menu menu;
+
+        SpaceShip spaceShip;
 
         //Kamera
         private FirstPersonCamera camera;
@@ -201,6 +203,8 @@ namespace XNAProject
             this.Window.Title = "Prosjekt";
             this.basicEffect = new BasicEffect(graphics.GraphicsDevice);
         }
+
+        
 
         private void initCamera()
         {
@@ -403,6 +407,8 @@ namespace XNAProject
             explosionEffect = Content.Load<Effect>(@"effects/Particle2");
             explosionEffect.CurrentTechnique = explosionEffect.Techniques["Technique1"];
             explosionEffect.Parameters["theTexture"].SetValue(explosionTexture);
+
+            spaceShip = new SpaceShip(this);
         }
 
         /// <summary>
@@ -432,7 +438,6 @@ namespace XNAProject
 
         public void LoadShipModel(string assetName)
         {
-
             Model newModel = Content.Load<Model>(assetName);
             foreach (ModelMesh mesh in newModel.Meshes)
             {
@@ -442,7 +447,6 @@ namespace XNAProject
                 }
                     
             }
-
             this.shipModel = newModel;
         }
 
@@ -592,6 +596,11 @@ namespace XNAProject
 
             UpdateExplosions(gameTime);
 
+            if (CurrentGameState == GameState.Playing)
+            {
+                spaceShip.update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -646,7 +655,13 @@ namespace XNAProject
 
 
             //tegner romferge
-            DrawSpaceshipModel();
+            //DrawSpaceshipModel();
+            if (CurrentGameState == GameState.Playing)
+            {
+                spaceShip.draw();
+            }
+
+
             base.Draw(gameTime);
         }
 
@@ -688,6 +703,7 @@ namespace XNAProject
         /// <summary>
         /// 
         /// </summary>
+        /*
         private void DrawSpaceshipModel()
         {
             if (CurrentGameState == GameState.Playing)
@@ -708,7 +724,7 @@ namespace XNAProject
             }
 
         }
-
+        */
         #region Spritebatch
         private void DrawInfo(GameTime _gameTime)
         {
