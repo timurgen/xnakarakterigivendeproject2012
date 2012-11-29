@@ -27,7 +27,7 @@ namespace XNAProject
         Matrix matrixView;
         Matrix matrixProjection;
 
-        Vector3 shipPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        Vector3 shipPosition = new Vector3(1000.0f, 2000.0f, 3000.0f);
         Quaternion shipRotation;
 
         private MainClass game;
@@ -35,6 +35,12 @@ namespace XNAProject
         SpriteBatch spriteBatch;
 
         float gameSpeed = 1.0f;
+        float turningSpeed;
+        float leftRightRot;
+        float upDownRot;
+        float moveSpeed;
+        Quaternion additionalRot;
+        Vector3 addVector;
 
         public SpaceShip(MainClass _game)
         {
@@ -47,7 +53,7 @@ namespace XNAProject
         {
             ProcessKeyboard(_gametime);
 
-            float moveSpeed = _gametime.ElapsedGameTime.Milliseconds / 500.0f * gameSpeed * 10;
+            moveSpeed = _gametime.ElapsedGameTime.Milliseconds / 500.0f * gameSpeed * 10000;
             MoveForward(ref shipPosition, shipRotation, moveSpeed);
 
             UpdateCamera();
@@ -55,9 +61,9 @@ namespace XNAProject
 
         private void ProcessKeyboard(GameTime _gameTime)
         {
-            float leftRightRot = 0;
-            float turningSpeed = (float)_gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-            turningSpeed *= 1.6f * gameSpeed;
+            leftRightRot = 0;
+            turningSpeed = (float)_gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
+            turningSpeed *= 1000.6f * gameSpeed;
 
             KeyboardState keys = Keyboard.GetState();
             if (keys.IsKeyDown(Keys.Right))
@@ -70,9 +76,9 @@ namespace XNAProject
                 leftRightRot -= turningSpeed;
             }
 
-            float upDownRot = 0;
+            upDownRot = 0;
             if (keys.IsKeyDown(Keys.Down))
-            {
+            {           
                 upDownRot += turningSpeed;
             }
             if (keys.IsKeyDown(Keys.Up))
@@ -80,13 +86,13 @@ namespace XNAProject
                 upDownRot -= turningSpeed;
             }
 
-            Quaternion additionalRot = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, -1), leftRightRot) * Quaternion.CreateFromAxisAngle(new Vector3(1, 0, 0), upDownRot);
+            additionalRot = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, -1), leftRightRot) * Quaternion.CreateFromAxisAngle(new Vector3(1, 0, 0), upDownRot);
             shipRotation *= additionalRot;
         }
 
         private void MoveForward(ref Vector3 position, Quaternion rotationQuat, float speed)
         {
-            Vector3 addVector = Vector3.Transform(new Vector3(0, 0, -1), rotationQuat);
+            addVector = Vector3.Transform(new Vector3(0, 0, -1), rotationQuat);
             position += addVector * speed;
         }
 
@@ -102,10 +108,12 @@ namespace XNAProject
 
             matrixView = Matrix.CreateLookAt(cameraPosition, shipPosition, cameraUpVector);
             matrixProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, game.GraphicsDevice.Viewport.AspectRatio, 1f, 2000000.0f);
+            
         }
 
         public void draw()
         {
+            matrixWorld = Matrix.CreateScale(0.1f) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
 
             Matrix[] spaceShipTransforms = new Matrix[game.shipModel.Bones.Count];
             game.shipModel.CopyAbsoluteBoneTransformsTo(spaceShipTransforms);
@@ -114,7 +122,7 @@ namespace XNAProject
             {
                 foreach (Effect e in mesh.Effects)
                 {
-                    Matrix matrixWorld = Matrix.CreateScale(0.1f) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
+                    
                     //Console.WriteLine(matrixWorld);
                     e.CurrentTechnique = e.Techniques["Textured"];
                     e.Parameters["xWorld"].SetValue(spaceShipTransforms[mesh.ParentBone.Index] * matrixWorld);
@@ -124,7 +132,35 @@ namespace XNAProject
                 }
                 mesh.Draw();
             }
+
+            drawInfo();
         }
+        
+
+
+        private void drawInfo()
+        {
+            this.DrawOverlayText("Ship World", 0, 0);
+            this.DrawOverlayText(matrixWorld.ToString(), 0, 15);
+            this.DrawOverlayText(Matrix.CreateFromQuaternion(shipRotation).ToString(), 0, 30);
+            this.DrawOverlayText("turning speed" + turningSpeed.ToString(), 0, 45);
+            this.DrawOverlayText("left right:" + leftRightRot.ToString(), 0, 60);
+            this.DrawOverlayText("upDownRot:" + upDownRot.ToString(), 0, 75);
+            this.DrawOverlayText("moveSpeed:" + moveSpeed.ToString(), 0, 90);
+            this.DrawOverlayText("additionalRot:" + additionalRot.ToString(), 0, 105);
+            this.DrawOverlayText("Matrix.CreateTranslation:" + Matrix.CreateTranslation(shipPosition).ToString(), 0, 120);
+            this.DrawOverlayText("addVector:" +  addVector, 0, 135);
+            this.DrawOverlayText("shipRotation" + shipRotation, 0, 150);
+        }
+
+        private void DrawOverlayText(String _text, int _x, int _y)
+        {
+            spriteBatch.Begin();
+
+            spriteBatch.DrawString(game.spriteFont, _text, new Vector2(_x, _y), Color.Red);
+
+            spriteBatch.End();
+        }//end of DrawOverlayText
 
     }
 }

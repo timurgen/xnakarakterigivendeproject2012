@@ -567,11 +567,11 @@ namespace XNAProject
             ///Zooming
             if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.PageUp))
             {
-                cameraX += 0.0001f;
-                cameraY += 0.0001f;
-                cameraZ += 0.0001f;
-                cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateTranslation(cameraX, cameraY, cameraZ)) + cameraTarget;
-                //cameraPosition = new Vector3(cameraX, cameraY, cameraZ);
+                cameraX += 1000.0001f;
+                cameraY += 1000.0001f;
+                cameraZ += 1000.0001f;
+                //cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateTranslation(cameraX, cameraY, cameraZ)) + cameraTarget;
+                cameraPosition = new Vector3(cameraX, cameraY, cameraZ);
                 Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
                 
                 spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
@@ -580,10 +580,11 @@ namespace XNAProject
             }
             if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.Insert))
             {
-                cameraX += 0.0001f;
-                cameraY += 0.0001f;
-                cameraZ += 0.0001f;
-                cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateTranslation(-cameraX, -cameraY, -cameraZ)) + cameraTarget;
+                cameraX -= 1000.0001f;
+                cameraY -= 1000.0001f;
+                cameraZ -= 1000.0001f;
+                //cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateTranslation(-cameraX, -cameraY, -cameraZ)) + cameraTarget;
+                cameraPosition = new Vector3(cameraX, cameraY, cameraZ);
                 Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrixView);
                 spaceObjectEffect.Parameters["xView"].SetValue(this.matrixView);
                 basicEffect.View = matrixView;
