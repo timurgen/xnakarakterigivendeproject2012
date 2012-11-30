@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectFinal
 {
+    /// <summary>
+    /// Fra Datamaskingrafikk forelesningsnotater
+    /// </summary>
     class ParticleExplosion
     {
         // Array med Particle-objekter, opprettes i konstr.

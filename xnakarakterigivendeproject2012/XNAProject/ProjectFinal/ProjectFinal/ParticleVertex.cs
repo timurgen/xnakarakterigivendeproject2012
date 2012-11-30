@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectFinal
 {
+    /// <summary>
+    /// Fra Datamaskingrafikk forelesningsnotater
+    /// </summary>
     struct ParticleVertex
     {
         public Vector3 position;

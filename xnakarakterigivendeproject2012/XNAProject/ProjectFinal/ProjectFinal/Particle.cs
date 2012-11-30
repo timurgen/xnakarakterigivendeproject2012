@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace ProjectFinal
 {
+    /// <summary>
+    /// Fra Datamaskingrafikk forelesningsnotater
+    /// </summary>
     struct Particle
     {
         public float size;

@@ -87,12 +87,16 @@ namespace ProjectFinal
         //Bounding frustum
         BoundingFrustum bfs;
 
+        //navn til objekt
         public String name
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Viser tilstand som spill tilhører
+        /// </summary>
         public enum GameState
         {
             MainMenu,
@@ -214,7 +218,7 @@ namespace ProjectFinal
             {
                 BoundingSphere s1 = (BoundingSphere)this.model.Tag;
                 s1 = s1.Transform(this.world);
-                if (bfs.Intersects(s1) || 1 == 1)
+                if (bfs.Intersects(s1) || 1 == 1) // 1 == 1 står sånn på grunn av at BoundingFrustum beregnes (kanskje) med feil og elementer som er på skjermen kan plutselig forsvynne
                 {
                     foreach (ModelMesh mesh in model.Meshes)
                     {

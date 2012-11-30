@@ -5,12 +5,18 @@ using System.Text;
 
 namespace ProjectFinal
 {
+    /// <summary>
+    /// Fra Datamaskingrafikk forelesningsnotater
+    /// </summary>
     class ParticleSettings
     {
         // Size of particle
         public int maxSize = 20;
     }
 
+    /// <summary>
+    /// Fra Datamaskingrafikk forelesningsnotater
+    /// </summary>
     class ParticleExplosionSettings
     {
         // Life of particles

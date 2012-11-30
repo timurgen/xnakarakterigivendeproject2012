@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace ProjectFinal
 {
+    /// <summary>
+    /// Her ligger metoder som beregner partikkeleffekt
+    /// </summary>
     public partial class MainClass
     {
         List<ParticleExplosion> explosions = new List<ParticleExplosion>();

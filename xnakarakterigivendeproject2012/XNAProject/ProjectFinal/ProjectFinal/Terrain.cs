@@ -86,7 +86,11 @@ namespace ProjectFinal
             this.game = _game;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_effect"></param>
+        /// <param name="_heightMap"></param>
         public void LoadContent(Effect _effect, Texture2D _heightMap)
         {
             effect = _effect;
@@ -135,7 +139,6 @@ namespace ProjectFinal
                 for (int y = 0; y < terrainHeight; y++)
                 {
                     vertices[x + y * terrainWidth].Position = new Vector3(x, heightData[x, y], -y);
-                    //vertices[x + y * terrainWidth].Color = new Color((float)colorGen.NextDouble(), (float)colorGen.NextDouble(), (float)colorGen.NextDouble());
                     vertices[x + y * terrainWidth].Color = Color.RoyalBlue;
                 }
             }
@@ -159,25 +162,17 @@ namespace ProjectFinal
                     heightData[x, y] = heightMapColors[x + y * terrainWidth].R / 5.0f;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private void SetUpCamera()
-        {
-            viewMatrix = Matrix.CreateLookAt(new Vector3(80, 60, 0), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 300.0f);
-        }
-
         public override void Update(GameTime gameTime)
         {
 
         }
 
+        /// <summary>
+        /// Tegner terrain 
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
-
-
-
             Matrix worldMatrix = Matrix.CreateTranslation(-terrainWidth / 2.0f, 0, terrainHeight / 2.0f);
             effect.Parameters["xWorld"].SetValue(Matrix.Identity* worldMatrix);
             effect.Parameters["xView"].SetValue(game.view);
