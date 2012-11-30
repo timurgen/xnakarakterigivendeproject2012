@@ -193,7 +193,6 @@ namespace ProjectFinal
         {
 
             // TODO: Add your drawing code here
-
             spriteBatch.Begin();
 
             switch (CurrentGameState)
