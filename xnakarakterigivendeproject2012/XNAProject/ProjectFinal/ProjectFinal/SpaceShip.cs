@@ -14,10 +14,16 @@ namespace ProjectFinal
         MainClass game;
         Effect effect;
         Matrix view, projection;
-        public Vector3 shipPosition = new Vector3(500, 500, 500);
+        public Vector3 shipPosition = new Vector3(1000, 1000, 1000);
         public Quaternion shipRotation = Quaternion.Identity;
         Matrix worldMatrix;
         BoundingSphere spaceship_bound;
+
+        //Materiser som holder "akkumulerte" bone-transformasjonene
+        public Matrix[] matrixBoneTr;
+
+        //Tar vare på opprinnelig Bone-transformasjoner:
+        public Matrix[] matrixOriginBoneTr;
 
         public enum GameState
         {
@@ -144,6 +150,9 @@ namespace ProjectFinal
                         mesh.Draw();
                     }
                 }
+
+                
+
                 base.Draw(gameTime);
             }
 
@@ -158,6 +167,7 @@ namespace ProjectFinal
                 obj_boundSphere = (BoundingSphere)obj.model.Tag;
                 if (obj_boundSphere.Intersects((BoundingSphere)model.Tag)) 
                 {
+                    Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     return obj;
                 }
             }

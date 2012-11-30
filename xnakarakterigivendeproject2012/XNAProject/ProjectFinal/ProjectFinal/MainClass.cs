@@ -284,10 +284,11 @@ namespace ProjectFinal
             spriteBatch = new SpriteBatch(GraphicsDevice);
             loadSolarSystem();
             loadSolaParticles();
-            this.spaceShip.load(this.effect, Content.Load<Model>(@"models/testa1"), Content.Load <Texture2D>("textures-planets/ship"));
-            this.Components.Add(this.spaceShip);
             this.skybox.load(this.effectskybox, Content.Load<Model>(@"textures-skybox/skybox2"));
             this.Components.Add(this.skybox);
+            this.spaceShip.load(this.effect, Content.Load<Model>(@"models/testa1"), Content.Load <Texture2D>("textures-planets/ship"));
+            this.Components.Add(this.spaceShip);
+            
 
             //skyboxModel = LoadModel("textures-skybox/skybox2", out skyboxTextures);
 
@@ -508,9 +509,9 @@ namespace ProjectFinal
         {
             RasterizerState rs = new RasterizerState();
             rs.CullMode = CullMode.None;
-            rs.FillMode = FillMode.WireFrame;
+            rs.FillMode = FillMode.Solid;
             device.RasterizerState = rs;
-            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.White, 1.0f, 0);
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
             //DrawSkybox();
 

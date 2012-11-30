@@ -9,7 +9,7 @@ namespace ProjectFinal
 {
     public partial class MainClass : Microsoft.Xna.Framework.Game
     {
-        private Model LoadModelWithBoundingSphere(String modelName, ref Matrix[] matrix, ref Matrix[] originalTransforms)
+        public Model LoadModelWithBoundingSphere(String modelName, ref Matrix[] matrix, ref Matrix[] originalTransforms)
         {
             Model model = Content.Load<Model>(modelName);
             matrix = new Matrix[model.Bones.Count];
