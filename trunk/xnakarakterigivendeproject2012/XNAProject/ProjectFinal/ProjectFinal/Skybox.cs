@@ -20,6 +20,7 @@ namespace ProjectFinal
             About,
             Playing,
             Ship,
+            Info,
         }
 
         public Skybox(MainClass _game, Effect _effect): base(_game)

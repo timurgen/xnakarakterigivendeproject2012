@@ -99,7 +99,8 @@ namespace ProjectFinal
             About,
             Playing,
             Ship,
-        } 
+            Info,
+        }
 
         /// <summary>
         /// Brukes til å lage nytt objekt
