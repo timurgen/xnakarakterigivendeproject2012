@@ -17,6 +17,7 @@ namespace ProjectFinal
         public Vector3 shipPosition = new Vector3(500, 500, 500);
         public Quaternion shipRotation = Quaternion.Identity;
         Matrix worldMatrix;
+        BoundingSphere spaceship_bound;
 
         public enum GameState
         {
@@ -79,10 +80,16 @@ namespace ProjectFinal
 
                 if ((ShipType)game.menu.CurrenShipType == ShipType.ShipThree)
                 {
+                    spaceship_bound = new BoundingSphere();
                     foreach (ModelMesh mesh in model.Meshes)
                     {
+                        BoundingSphere orig_bound = mesh.BoundingSphere;
                         foreach (Effect currentEffect in mesh.Effects)
                         {
+                            orig_bound = mesh.BoundingSphere;
+                            orig_bound = this.game.TransformBoundingSphere(orig_bound, worldMatrix);
+                            spaceship_bound = BoundingSphere.CreateMerged(spaceship_bound, orig_bound);
+
                             currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
                             currentEffect.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
                             currentEffect.Parameters["isEmissive"].SetValue(true);
@@ -110,15 +117,22 @@ namespace ProjectFinal
                             }
                             
                         }
+                        model.Tag = spaceship_bound;
                         mesh.Draw();
                     }
                 }
                 else
                 {
+                    spaceship_bound = new BoundingSphere();
                     foreach (ModelMesh mesh in model.Meshes)
                     {
+                        BoundingSphere orig_bound = mesh.BoundingSphere;
                         foreach (Effect currentEffect in mesh.Effects)
                         {
+                            orig_bound = mesh.BoundingSphere;
+                            orig_bound = this.game.TransformBoundingSphere(orig_bound, worldMatrix);
+                            spaceship_bound = BoundingSphere.CreateMerged(spaceship_bound, orig_bound);
+
                             currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
                             currentEffect.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
                             currentEffect.Parameters["isEmissive"].SetValue(true);
@@ -136,7 +150,19 @@ namespace ProjectFinal
         }
 
 
-
+        private SpaceObject DetectCollision() 
+        {
+            BoundingSphere obj_boundSphere;
+            foreach (SpaceObject obj in game.Components) 
+            {
+                obj_boundSphere = (BoundingSphere)obj.model.Tag;
+                if (obj_boundSphere.Intersects((BoundingSphere)model.Tag)) 
+                {
+                    return obj;
+                }
+            }
+            return null;
+        }
 
 
 

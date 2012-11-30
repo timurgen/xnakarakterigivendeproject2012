@@ -33,7 +33,7 @@ namespace ProjectFinal
             return model;
         }
 
-        private BoundingSphere TransformBoundingSphere(BoundingSphere originalBoundingSphere, Matrix transformationMatrix)
+        public BoundingSphere TransformBoundingSphere(BoundingSphere originalBoundingSphere, Matrix transformationMatrix)
         {
             Vector3 scaling;
             Quaternion rot;
