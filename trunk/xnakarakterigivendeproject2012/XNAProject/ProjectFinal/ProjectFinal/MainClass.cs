@@ -137,37 +137,49 @@ namespace ProjectFinal
             this.Sol = new SpaceObject(this, 10f, 0, 0, 0, 0, 0.0f, null, ref this.view, ref this.projection);
             this.Sol.isEmissive = true;
             this.Components.Add(this.Sol);
+            this.Sol.name = "Sol";
 
             //Planetter
             this.mercury = new SpaceObject(this, 0.1f, 300f, 1f, 0.75f, 0.0f, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.mercury);
+            this.mercury.name = "mercury";
+            
 
             this.venus = new SpaceObject(this, 0.2f, 500f, 1f, -0.75f, 0.0f, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.venus);
+            this.venus.name = "venus";
 
             this.earth = new SpaceObject(this, 0.3f, 700f, 1f, 0.75f, 0.0f, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.earth);
+            this.earth.name = "earth";
 
             this.mars = new SpaceObject(this, 0.25f, 900f, 1f, 0.3f, 0, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.mars);
+            this.mars.name = "mars";
 
             this.jupiter = new SpaceObject(this, 0.6f, 1200f, 1f, 0.2f, 0, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.jupiter);
+            this.jupiter.name = "jupiter";
 
             this.saturn = new SpaceObject(this, 0.5f, 1500f, 1f, 0.7f, 0, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.saturn);
+            this.saturn.name = "saturn";
 
             this.saturnRing = new SpaceObject(this, 5.5f, 0f, 0f, 0.0f, 0, 0.0f, this.saturn, ref this.view, ref this.projection);
             this.Components.Add(this.saturnRing);
+            this.saturnRing.name = "saturnRing";
 
             this.uran = new SpaceObject(this, 0.45f, 1700f, 1f, 1f, 0, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.uran);
+            this.uran.name = "uran";
 
             this.neptun = new SpaceObject(this, 0.4f, 2100f, 1f, 0.2f, 0, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.neptun);
+            this.neptun.name = "neptun";
 
             this.pluto = new SpaceObject(this, 0.05f, 2400f, 1f, 0.1f, 0, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.pluto);
+            this.pluto.name = "pluto";
 
 
             //satellitter
@@ -253,7 +265,7 @@ namespace ProjectFinal
             Vector3 cameraTarget = Vector3.Zero;
             Vector3 cameraUpVector = new Vector3(0.0f, 1.0f, 0.0f);
             float aspectRatio = (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height;
-            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 100f, 200000.0f, out projection);
+            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 1f, 2000000.0f, out projection);
             Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out view);
         }
 
@@ -270,7 +282,7 @@ namespace ProjectFinal
 
         private void initSkybox()
         {
-            effectskybox = Content.Load<Effect>(@"effects/effects");
+            effectskybox = Content.Load<Effect>(@"effects/effectsRiemersTut");
             this.skybox = new Skybox(this, effectskybox);
         }
 
@@ -303,6 +315,7 @@ namespace ProjectFinal
             textures = new Texture2D[newModel.Meshes.Count];
             int i = 0;
             foreach (ModelMesh mesh in newModel.Meshes)
+                
                 foreach (BasicEffect currentEffect in mesh.Effects)
                     textures[i++] = currentEffect.Texture;
 
@@ -436,10 +449,11 @@ namespace ProjectFinal
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            addAsteroid(gameTime);
             if (CurrentGameState == GameState.Playing)
             {
                 UpdateExplosions(gameTime);
-                addAsteroid(gameTime);
+                
                 UpdateCamera();
                 ProcessKeyboard(gameTime);
                 moveSpeed = gameTime.ElapsedGameTime.Milliseconds / 500.0f * gameSpeed;
@@ -462,7 +476,7 @@ namespace ProjectFinal
             Vector3 camup = new Vector3(0, 1, 0);
             camup = Vector3.Transform(camup, Matrix.CreateFromQuaternion(this.spaceShip.shipRotation));
             this.view = Matrix.CreateLookAt(campos, this.spaceShip.shipPosition, camup);
-            this.projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, device.Viewport.AspectRatio, 0.2f, 200000.0f);
+            this.projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, device.Viewport.AspectRatio, 1f, 2000000.0f);
             cameraPosition = campos;
         }
 
@@ -554,6 +568,9 @@ namespace ProjectFinal
                     effect.Parameters["xView"].SetValue(view);
                     effect.Parameters["xProjection"].SetValue(projection);
                     effect.Parameters["xTexture"].SetValue(skyboxTextures[i++]);
+                    effect.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 0f));
+                    effect.Parameters["isEmissive"].SetValue(false);
+                    effect.Parameters["xLightsWorldViewProjection"].SetValue(worldMatrix * this.view * this.projection);
                 }
                 mesh.Draw();
             }

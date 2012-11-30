@@ -87,6 +87,12 @@ namespace ProjectFinal
         //Bounding frustum
         BoundingFrustum bfs;
 
+        public String name
+        {
+            get;
+            set;
+        }
+
         public enum GameState
         {
             MainMenu,
@@ -116,7 +122,7 @@ namespace ProjectFinal
             this.game = (MainClass)_game;
             this.view = _view;
             this.projection = _projection;
-            this.bfs = new BoundingFrustum(this.view * this.projection);
+            this.bfs = new BoundingFrustum(game.view * game.projection);
 
             if (_parent != null)
             {
