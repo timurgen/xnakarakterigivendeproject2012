@@ -26,6 +26,7 @@ namespace ProjectFinal
             Playing,
             Ship,
             Info,
+            Keyboard,
         }
 
         public enum ShipType
@@ -43,6 +44,8 @@ namespace ProjectFinal
         MyButton buttonSpaceOne;
         MyButton buttonSpaceTwo;
         MyButton buttonSpaceThree;
+
+        MyButton buttonKeyboard;
 
         private MainClass game;
 
@@ -71,6 +74,8 @@ namespace ProjectFinal
             Texture2D buttonSpaceTwoTexture = Content.Load<Texture2D>("textures-menu/spacetwo");
             Texture2D buttonSpaceThreeTexture = Content.Load<Texture2D>("textures-menu/spacethree");
 
+            Texture2D buttonKeyboardTexture = Content.Load<Texture2D>("textures-menu/info");
+
             buttonPlay = new MyButton(buttonPlayTexture, graphics.GraphicsDevice, new Vector2(500, 100));
             buttonPlay.setPosition(new Vector2(400, 500));
 
@@ -91,6 +96,9 @@ namespace ProjectFinal
 
             buttonSpaceThree = new MyButton(buttonSpaceThreeTexture, graphics.GraphicsDevice, new Vector2(360, 260));
             buttonSpaceThree.setPosition(new Vector2(820, 300));
+
+            buttonKeyboard = new MyButton(buttonKeyboardTexture, graphics.GraphicsDevice, new Vector2(128, 128));
+            buttonKeyboard.setPosition(new Vector2(0, 0));
         }
 
         public void Update(GameTime gameTime)
@@ -113,9 +121,15 @@ namespace ProjectFinal
                         CurrentGameState = GameState.About;
                         buttonAbout.isClicked = false;
                     }
+                    if (buttonKeyboard.isClicked == true)
+                    {
+                        CurrentGameState = GameState.Keyboard;
+                        buttonKeyboard.isClicked = false;
+                    }
 
                     buttonPlay.Update(mouse);
                     buttonAbout.Update(mouse);
+                    buttonKeyboard.Update(mouse);
                     buttonExit.Update(mouse);
 
                     break;
@@ -204,6 +218,14 @@ namespace ProjectFinal
                         }
                     }
                     break;
+                case GameState.Keyboard:
+                     buttonBack.Update(mouse);
+                    if (buttonBack.isClicked == true)
+                    {
+                        buttonBack.isClicked = false;
+                        CurrentGameState = GameState.MainMenu;
+                    }
+                    break;
 
 
             }
@@ -226,6 +248,9 @@ namespace ProjectFinal
                     spriteBatch.DrawString(spriteFont, "Solar System", new Vector2(270, 10), Color.PaleVioletRed);
                     buttonPlay.Draw(spriteBatch);
                     buttonAbout.Draw(spriteBatch);
+
+                    buttonKeyboard.Draw(spriteBatch);
+
                     buttonExit.Draw(spriteBatch);
                     break;
 
@@ -262,7 +287,7 @@ namespace ProjectFinal
                     else if (game.spaceShip.collisionName.Equals("venus"))
                         spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/venusinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
                     else if (game.spaceShip.collisionName.Equals("earth"))
-                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/earthinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White); 
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/earthinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
                     else if (game.spaceShip.collisionName.Equals("mars"))
                         spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/marsinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
                     else if (game.spaceShip.collisionName.Equals("jupiter"))
@@ -275,8 +300,25 @@ namespace ProjectFinal
                         spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/neptuneinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
                     else if (game.spaceShip.collisionName.Equals("pluto"))
                         spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/plutoinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
-                    
+                    else if (game.spaceShip.collisionName.Equals("saturnring"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/paaskeegg"), new Rectangle(331, 196, 618, 407), Color.White);
+
                         buttonBack.Draw(spriteBatch);
+                    break;
+
+                case GameState.Keyboard:
+                    spriteBatch.Draw(Content.Load<Texture2D>("textures-menu/Menu"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+
+                    spriteBatch.DrawString(spriteFontAbout, "Controls:", new Vector2(550, 300), Color.Green);
+                    spriteBatch.DrawString(spriteFontAbout, "W - akselererende fremover", new Vector2(400, 350), Color.Green);
+                    spriteBatch.DrawString(spriteFontAbout, "S - stoppe", new Vector2(400, 400), Color.Green);
+                    spriteBatch.DrawString(spriteFontAbout, "X - akselerasjon siden", new Vector2(400, 450), Color.Green);
+                    spriteBatch.DrawString(spriteFontAbout, "Up - fly ned", new Vector2(400, 500), Color.Green);
+                    spriteBatch.DrawString(spriteFontAbout, "Down - fly opp", new Vector2(400, 550), Color.Green);
+                    spriteBatch.DrawString(spriteFontAbout, "Left - fly til venstre", new Vector2(400, 600), Color.Green);
+                    spriteBatch.DrawString(spriteFontAbout, "Right - fly til hoeyre", new Vector2(400, 650), Color.Green);
+
+                    buttonBack.Draw(spriteBatch);
                     break;
             }
 

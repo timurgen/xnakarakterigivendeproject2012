@@ -218,6 +218,7 @@ namespace ProjectFinal
             {
                 BoundingSphere s1 = (BoundingSphere)this.model.Tag;
                 s1 = s1.Transform(this.world);
+
                 if (bfs.Intersects(s1) || 1 == 1) // 1 == 1 står sånn på grunn av at BoundingFrustum beregnes (kanskje) med feil og elementer som er på skjermen kan plutselig forsvynne
                 {
                     foreach (ModelMesh mesh in model.Meshes)
