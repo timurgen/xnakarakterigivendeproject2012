@@ -91,6 +91,8 @@ namespace ProjectFinal
         public GameState CurrentGameState = GameState.MainMenu;
         public Menu menu;
 
+        float moveSpeed;
+        float speedFactor = 0;
         #endregion
 
         #endregion
@@ -439,7 +441,9 @@ namespace ProjectFinal
                 addAsteroid(gameTime);
                 UpdateCamera();
                 ProcessKeyboard(gameTime);
-                float moveSpeed = gameTime.ElapsedGameTime.Milliseconds / 500.0f * gameSpeed;
+                moveSpeed = gameTime.ElapsedGameTime.Milliseconds / 500.0f * gameSpeed;
+                moveSpeed *= speedFactor;
+                
                 MoveForward(ref spaceShip.shipPosition, spaceShip.shipRotation, moveSpeed);
             }
 
@@ -478,6 +482,13 @@ namespace ProjectFinal
                 upDownRot += turningSpeed;
             if (keys.IsKeyDown(Keys.Up))
                 upDownRot -= turningSpeed;
+
+            if (keys.IsKeyDown(Keys.W))
+                speedFactor += 1;
+            if (keys.IsKeyDown(Keys.S))
+                speedFactor = 0;
+            if (keys.IsKeyDown(Keys.X))
+                speedFactor -= 1;
 
             Quaternion additionalRot = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, -1), leftRightRot) * Quaternion.CreateFromAxisAngle(new Vector3(1, 0, 0), upDownRot);
             this.spaceShip.shipRotation *= additionalRot;      
