@@ -16,6 +16,7 @@ namespace ProjectFinal
         Matrix view, projection;
         public Vector3 shipPosition = new Vector3(500, 500, 500);
         public Quaternion shipRotation = Quaternion.Identity;
+        Matrix worldMatrix;
 
         public enum GameState
         {
@@ -23,7 +24,14 @@ namespace ProjectFinal
             About,
             Playing,
             Ship,
-        } 
+        }
+
+        public enum ShipType
+        {
+            ShipOne,
+            ShipTo,
+            ShipThree,
+        }
 
         public SpaceShip(MainClass _game,  Matrix _view,  Matrix _projection) : base(_game)
         {
@@ -59,7 +67,13 @@ namespace ProjectFinal
         {
             if ((GameState)game.CurrentGameState == GameState.Playing)
             {
-                Matrix worldMatrix = Matrix.CreateRotationY(0) * Matrix.CreateRotationX(MathHelper.Pi) * Matrix.CreateRotationZ(MathHelper.Pi) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
+                if((ShipType)game.menu.CurrenShipType == ShipType.ShipOne)
+                    worldMatrix = Matrix.CreateRotationY(0) * Matrix.CreateRotationX(MathHelper.Pi) * Matrix.CreateRotationZ(MathHelper.Pi) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
+                if ((ShipType)game.menu.CurrenShipType == ShipType.ShipTo)
+                    worldMatrix = Matrix.CreateRotationY(MathHelper.Pi * 2) * Matrix.CreateRotationX(1.4f) * Matrix.CreateRotationZ(0) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
+                if ((ShipType)game.menu.CurrenShipType == ShipType.ShipThree)
+                    worldMatrix = Matrix.CreateRotationY(0) * Matrix.CreateRotationX(-MathHelper.Pi / 2) * Matrix.CreateRotationZ(0) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
+
                 foreach (ModelMesh mesh in model.Meshes)
                 {
                     foreach (Effect currentEffect in mesh.Effects)

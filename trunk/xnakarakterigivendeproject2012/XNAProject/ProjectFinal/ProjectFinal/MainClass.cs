@@ -25,7 +25,7 @@ namespace ProjectFinal
         SpriteFont spriteFont;
         public Matrix view, projection;
         Random g;
-        Effect effect;
+        public Effect effect { get; set; }
         Effect effectskybox;
         public SpaceShip spaceShip { get; set; }
         float gameSpeed = 1.0f;
@@ -89,7 +89,7 @@ namespace ProjectFinal
             Ship,
         } 
         public GameState CurrentGameState = GameState.MainMenu;
-        Menu menu;
+        public Menu menu;
 
         #endregion
 
