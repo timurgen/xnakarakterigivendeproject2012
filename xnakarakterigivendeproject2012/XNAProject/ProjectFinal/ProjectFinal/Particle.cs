@@ -42,6 +42,9 @@ namespace ProjectFinal
             pvs[2].normal = new Vector3(1, 1, 1);
         }
 
+        /// <summary>
+        /// Oppdatere partikkel posisjon
+        /// </summary>
         public void UpdatePosition()
         {
             pvs[0].position += this.direction;
@@ -49,6 +52,10 @@ namespace ProjectFinal
             pvs[2].position += this.direction;
         }
 
+        /// <summary>
+        /// oppdatere koordinate til teksture
+        /// </summary>
+        /// <param name="newCoordinates"></param>
         public void UpdateTextureCoordinate(Vector2 newCoordinates)
         {
             Vector2 tc1, tc2, tc3;

@@ -9,11 +9,15 @@ namespace ProjectFinal
 {
     class Skybox : DrawableGameComponent
     {
+        ///Videreutviklet metode fra Riemers tutorial
+
+        //Variabler
         Model model;
         Texture2D [] texture;
         MainClass game;
         Effect effect;
 
+        //Spill state
         public enum GameState
         {
             MainMenu,
@@ -23,20 +27,27 @@ namespace ProjectFinal
             Info,
         }
 
+        //Konstuktør
         public Skybox(MainClass _game, Effect _effect): base(_game)
         {
             this.game = _game;
             effect = _effect;
         }
 
+        //Metode som laste net model
         public void load(Effect _effect, Model _model)
         {
             model = LoadModel(_model, out texture);
         }
 
+        /// <summary>
+        /// Metode fra Riemers tutorial som laster net skybox modelen og setter texturer
+        /// </summary>
+        /// <param name="_model"></param>
+        /// <param name="textures"></param>
+        /// <returns></returns>
         private Model LoadModel(Model _model, out Texture2D[] textures)
         {
-
             Model newModel = _model;
             textures = new Texture2D[newModel.Meshes.Count];
             int i = 0;
@@ -51,6 +62,10 @@ namespace ProjectFinal
             return newModel;
         }
 
+        /// <summary>
+        /// Metode fra Riemers tutorial som tegner skybox
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
             if ((GameState)game.CurrentGameState == GameState.Playing)

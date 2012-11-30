@@ -9,8 +9,9 @@ namespace ProjectFinal
 {
     public class SpaceShip : DrawableGameComponent
     {
+        //Variabler
         public Model model { get; set; }
-        Texture2D texture, texture_purple, texture_red, texture_yellow;
+        Texture2D texture, texture_purple, texture_red, texture_yellow;//model texturer
         MainClass game;
         Effect effect;
         Matrix view, projection;
@@ -25,6 +26,9 @@ namespace ProjectFinal
         //Tar vare på opprinnelig Bone-transformasjoner:
         public Matrix[] matrixOriginBoneTr;
 
+        /// <summary>
+        /// Viser tilstand som spill tilhører
+        /// </summary>
         public enum GameState
         {
             MainMenu,
@@ -34,6 +38,9 @@ namespace ProjectFinal
             Info,
         }
 
+        /// <summary>
+        /// romskip typer
+        /// </summary>
         public enum ShipType
         {
             ShipOne,
@@ -41,6 +48,12 @@ namespace ProjectFinal
             ShipThree,
         }
 
+        /// <summary>
+        /// konstruktør
+        /// </summary>
+        /// <param name="_game">MainClass spill</param>
+        /// <param name="_view">view matrix</param>
+        /// <param name="_projection">projection matrix</param>
         public SpaceShip(MainClass _game,  Matrix _view,  Matrix _projection) : base(_game)
         {
             this.game = _game;
@@ -49,8 +62,14 @@ namespace ProjectFinal
         }
 
         BoundingSphere s1;
-        public String collisionName;
+        public String collisionName;//Navn til object som kolidert siste gang
 
+        /// <summary>
+        /// load metode
+        /// </summary>
+        /// <param name="_effect">shader</param>
+        /// <param name="_model">model</param>
+        /// <param name="_texture">2d teksture</param>
         public void load(Effect _effect, Model _model, Texture2D _texture)
         {
             this.model = _model;
@@ -70,15 +89,22 @@ namespace ProjectFinal
       
         }
 
+
         public override void Update(GameTime gameTime)
         {
             //base.Update(gameTime);
         }
 
+        /// <summary>
+        /// metode som tegner romskip
+        /// metode inneholder ikke brukte variabler på grunn kollisjon detektion utvikling
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
             if ((GameState)game.CurrentGameState == GameState.Playing)
             {
+                //stilling av romskipet, avhengig av romskip type
                 if((ShipType)game.menu.CurrenShipType == ShipType.ShipOne)
                     worldMatrix = Matrix.CreateRotationY(0) * Matrix.CreateRotationX(MathHelper.Pi) * Matrix.CreateRotationZ(MathHelper.Pi) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
                 if ((ShipType)game.menu.CurrenShipType == ShipType.ShipTo)
@@ -88,7 +114,6 @@ namespace ProjectFinal
 
                 if ((ShipType)game.menu.CurrenShipType == ShipType.ShipThree)
                 {
-                    
                     spaceship_bound = new BoundingSphere();
 
                     s1 = (BoundingSphere)this.model.Tag;
@@ -169,7 +194,10 @@ namespace ProjectFinal
 
         }
 
-
+        /// <summary>
+        /// Kolisjon detektion
+        /// sammenligne posisjonen av romskipet plasseringen av alle de andre romobjektene
+        /// </summary>
         private void DetectCollision() 
         {
             try
@@ -184,8 +212,7 @@ namespace ProjectFinal
                         if (s1.Intersects(s2))
                         {
                             if(collisionName == obj.name)
-                            {
-                               
+                            {  
                             }
                             else
                             {
@@ -197,6 +224,8 @@ namespace ProjectFinal
 
                 }
             }
+            //bare planeter har sin navn og info slide
+            //når romskip koliderer med andre objekter settes navn til null så for vi InvalidCastException
             catch (System.InvalidCastException e)
             {
                 //Console.WriteLine(e);

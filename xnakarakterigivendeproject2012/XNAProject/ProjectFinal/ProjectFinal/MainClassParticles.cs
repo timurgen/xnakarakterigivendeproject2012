@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 namespace ProjectFinal
 {
     /// <summary>
-    /// Her ligger metoder som beregner partikkeleffekt
+    /// Her ligger metoder som beregner partikkeleffekt fra forelesninger
     /// </summary>
     public partial class MainClass
     {
@@ -40,6 +40,9 @@ namespace ProjectFinal
             }
         }
 
+        /// <summary>
+        /// adderer partikeler
+        /// </summary>
         private void addExplotion()
         {
             BoundingSphere s2 = (BoundingSphere)this.Sol.model.Tag;
