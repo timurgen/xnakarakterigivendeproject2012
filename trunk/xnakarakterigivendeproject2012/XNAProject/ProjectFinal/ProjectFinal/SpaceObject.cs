@@ -207,7 +207,7 @@ namespace ProjectFinal
             {
                 BoundingSphere s1 = (BoundingSphere)this.model.Tag;
                 s1 = s1.Transform(this.world);
-                if (bfs.Intersects(s1))
+                if (bfs.Intersects(s1) || 1 == 1)
                 {
                     foreach (ModelMesh mesh in model.Meshes)
                     {

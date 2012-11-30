@@ -60,7 +60,7 @@ namespace ProjectFinal
                 this.game.device.SamplerStates[0] = ss;
 
                 DepthStencilState dss = new DepthStencilState();
-                dss.DepthBufferEnable = false;
+                dss.DepthBufferEnable = true;
 
                 this.game.device.DepthStencilState = dss;
 
@@ -71,7 +71,7 @@ namespace ProjectFinal
                 {
                     foreach (Effect effect in mesh.Effects)
                     {
-                        Matrix worldMatrix = Matrix.CreateScale(10.0f) * skyboxTransforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(this.game.cameraPosition);
+                        Matrix worldMatrix = Matrix.CreateScale(5000.0f) * skyboxTransforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(this.game.cameraPosition);
                         effect.CurrentTechnique = effect.Techniques["Textured"];
                         effect.Parameters["xWorld"].SetValue(worldMatrix);
                         effect.Parameters["xView"].SetValue(game.view);

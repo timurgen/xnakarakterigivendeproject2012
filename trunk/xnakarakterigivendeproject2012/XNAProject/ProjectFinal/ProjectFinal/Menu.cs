@@ -17,6 +17,8 @@ namespace ProjectFinal
 
         ContentManager Content;
 
+        Model model;
+
         public enum GameState
         {
             MainMenu,
@@ -134,7 +136,9 @@ namespace ProjectFinal
                     if (buttonSpaceOne.isClicked == true)
                     {
                         //game.spaceShip.model = game.Content.Load<Model>(@"models/testa1");
-                        game.spaceShip.load(game.effect, game.Content.Load<Model>(@"models/testa1"), Content.Load<Texture2D>("textures-planets/ship"));
+                        model = game.LoadModelWithBoundingSphere(@"models/testa1", ref  game.spaceShip.matrixBoneTr, ref game.spaceShip.matrixOriginBoneTr);
+                        game.spaceShip.load(game.effect, model, Content.Load<Texture2D>("textures-planets/ship"));
+                        //game.spaceShip.load(game.effect, game.Content.Load<Model>(@"models/testa1"), Content.Load<Texture2D>("textures-planets/ship"));
                         //Console.WriteLine("spaceone");
                         buttonSpaceOne.isClicked = false;
                         CurrenShipType = ShipType.ShipOne;
@@ -145,7 +149,8 @@ namespace ProjectFinal
                     if (buttonSpaceTwo.isClicked == true)
                     {
                         //game.spaceShip.model = game.Content.Load<Model>(@"models/spaceto");
-                        game.spaceShip.load(game.effect, game.Content.Load<Model>(@"models/spaceto"), Content.Load<Texture2D>("textures-planets/ship"));
+                        model = game.LoadModelWithBoundingSphere(@"models/spaceto", ref  game.spaceShip.matrixBoneTr, ref game.spaceShip.matrixOriginBoneTr);
+                        game.spaceShip.load(game.effect, model, Content.Load<Texture2D>("textures-planets/ship"));
                         //Console.WriteLine("SpaceTwo");
                         buttonSpaceTwo.isClicked = false;
                         CurrenShipType = ShipType.ShipTo;
@@ -157,7 +162,8 @@ namespace ProjectFinal
                     if (buttonSpaceThree.isClicked == true)
                     {
                         //game.spaceShip.model = game.Content.Load<Model>(@"models/spaceship33");
-                        game.spaceShip.load(game.effect, game.Content.Load<Model>(@"models/spaceship33"), Content.Load<Texture2D>("textures-planets/ship"));
+                        model = game.LoadModelWithBoundingSphere(@"models/spaceship33", ref  game.spaceShip.matrixBoneTr, ref game.spaceShip.matrixOriginBoneTr);
+                        game.spaceShip.load(game.effect, model, Content.Load<Texture2D>("textures-planets/ship"));
                         //Console.WriteLine("SpaceThree");
                         buttonSpaceThree.isClicked = false;
                         CurrenShipType = ShipType.ShipThree;
