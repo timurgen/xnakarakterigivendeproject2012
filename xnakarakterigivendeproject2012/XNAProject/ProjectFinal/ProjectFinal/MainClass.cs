@@ -97,6 +97,10 @@ namespace ProjectFinal
         float speedFactor = 0;
         #endregion
 
+        #region terreng
+        Terrain terra;
+        #endregion
+
         #endregion
 
 
@@ -118,6 +122,7 @@ namespace ProjectFinal
         {
             // TODO: Add your initialization logic here
             g = new Random(this.GetHashCode());
+            terra = new Terrain(this);
             initDevice();
             initCamera();
             initSolarSystem();
@@ -126,12 +131,18 @@ namespace ProjectFinal
             base.Initialize();      
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void initSpaceShip()
         {
             this.spaceShip = new SpaceShip(this, this.view, this.projection);         
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         #region Solar System init
         private void initSolarSystem()
         {
@@ -259,7 +270,9 @@ namespace ProjectFinal
 
         }
         #endregion
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void initCamera()
         {
             cameraPosition = new Vector3(10000, 10000, 10000);
@@ -270,6 +283,9 @@ namespace ProjectFinal
             Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out view);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void initDevice()
         {
             this.device = graphics.GraphicsDevice;
@@ -281,6 +297,9 @@ namespace ProjectFinal
             this.Window.Title = "Prosjekt";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void initSkybox()
         {
             effectskybox = Content.Load<Effect>(@"effects/effectsRiemersTut");
@@ -309,6 +328,12 @@ namespace ProjectFinal
             menu.LoadContent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="assetName"></param>
+        /// <param name="textures"></param>
+        /// <returns></returns>
         private Model LoadModel(string assetName, out Texture2D[] textures)
         {
 
@@ -327,6 +352,9 @@ namespace ProjectFinal
             return newModel;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         #region load solar  system
         private void loadSolarSystem()
         {
@@ -430,6 +458,11 @@ namespace ProjectFinal
 
             model = LoadModelWithBoundingSphere(@"models/planet", ref Triton.matrixBoneTr, ref Triton.matrixOriginBoneTr);
             this.Triton.load(effect, model, Content.Load<Texture2D>(@"textures-planets/moonmap"));
+
+
+            //XNA klarer ikke tegne så mange elementer på ein gong =( så må fjerne terreng
+            //terra.LoadContent(effect, Content.Load<Texture2D>(@"textures-skybox/skybox_back"));
+            //this.Components.Add(terra);
 
         }
         #endregion
