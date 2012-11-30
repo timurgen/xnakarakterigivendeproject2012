@@ -11,6 +11,7 @@ namespace ProjectFinal
 {
     public class Menu
     {
+        //Variabler
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont, spriteFontAbout;
@@ -19,6 +20,7 @@ namespace ProjectFinal
 
         Model model;
 
+        //Viser tilstand som spill tilhører
         public enum GameState
         {
             MainMenu,
@@ -29,6 +31,7 @@ namespace ProjectFinal
             Keyboard,
         }
 
+        //romskip typer
         public enum ShipType
         { 
             ShipOne,
@@ -36,6 +39,7 @@ namespace ProjectFinal
             ShipThree,
         }
 
+        //Knapper
         MyButton buttonPlay;
         MyButton buttonAbout;
         MyButton buttonExit;
@@ -49,9 +53,11 @@ namespace ProjectFinal
 
         private MainClass game;
 
+        //Spill tilstand og romskip type
         public GameState CurrentGameState = GameState.MainMenu;
         public ShipType CurrenShipType = ShipType.ShipOne;
 
+        //Konstruktør
         public Menu(Game _game)
         {
             game = (MainClass)_game;
@@ -63,8 +69,12 @@ namespace ProjectFinal
             Content.RootDirectory = "Content";
         }
 
+        /// <summary>
+        /// laste spill kontent
+        /// </summary>
         public void LoadContent()
         {
+            //teksturer til knapper
             Texture2D buttonPlayTexture = Content.Load<Texture2D>("textures-menu/Play");
             Texture2D buttonAboutTexture = Content.Load<Texture2D>("textures-menu/About");
             Texture2D buttonExitTexture = Content.Load<Texture2D>("textures-menu/Exit");
@@ -76,6 +86,7 @@ namespace ProjectFinal
 
             Texture2D buttonKeyboardTexture = Content.Load<Texture2D>("textures-menu/info");
 
+            //Knapper inisialisasjon
             buttonPlay = new MyButton(buttonPlayTexture, graphics.GraphicsDevice, new Vector2(500, 100));
             buttonPlay.setPosition(new Vector2(400, 500));
 
@@ -101,11 +112,16 @@ namespace ProjectFinal
             buttonKeyboard.setPosition(new Vector2(0, 0));
         }
 
+        /// <summary>
+        /// Oppdatering metode
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-
+            //mouse listener
             MouseState mouse = Mouse.GetState();
 
+            //Sjekker spill tilstand
             switch (CurrentGameState)
             {
                 case GameState.MainMenu:
@@ -148,6 +164,7 @@ namespace ProjectFinal
                         CurrentGameState = GameState.MainMenu;
                     }
 
+                    //Skekker romskip model
                     if (buttonSpaceOne.isClicked == true)
                     {
                         //game.spaceShip.model = game.Content.Load<Model>(@"models/testa1");
@@ -233,7 +250,10 @@ namespace ProjectFinal
             //Console.WriteLine("Menu gamestate: " + CurrentGameState);
         }
 
-
+        /// <summary>
+        /// Tegne metode
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
 
@@ -325,6 +345,10 @@ namespace ProjectFinal
             spriteBatch.End();
         }
 
+        /// <summary>
+        /// Returnenerer spill tilstand
+        /// </summary>
+        /// <returns></returns>
         public GameState getCurrentGameState()
         {
             return CurrentGameState;
