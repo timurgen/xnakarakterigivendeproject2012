@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Graphics="Microsoft.Xna.Framework.Content.Pipeline.Graphics" xmlns:Framework="Microsoft.Xna.Framework">
+  <Asset Type="Graphics:NodeContent">
+    <Name>Box001</Name>
+    <Identity>
+      <SourceFilename>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinalContent\models\cubemk2.X</SourceFilename>
+      <SourceTool>XImporter</SourceTool>
+    </Identity>
+    <Transform>1 0 0 0 0 1 0 0 0 0 1 0 1.777467 0 -19.463892 1</Transform>
+    <Children>
+      <Child Type="Graphics:MeshContent">
+        <Name></Name>
+        <Transform>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</Transform>
+        <Positions>-50 0 50 50 0 50 -50 0 -50 50 0 -50 -50 100 50 50 100 50 -50 100 -50 50 100 -50</Positions>
+        <Geometry>
+          <Batch>
+            <Indices>0 1 2 1 0 3 4 5 6 5 4 7 8 9 10 9 8 11 12 13 14 13 12 15 16 17 18 17 16 19 20 21 22 21 20 23</Indices>
+            <Vertices>
+              <PositionIndices>0 3 2 1 4 7 5 6 0 5 1 4 1 7 3 5 3 6 2 7 2 4 0 6</PositionIndices>
+              <Channels>
+                <VertexChannel Name="Normal0" ElementType="Framework:Vector3">0 -1 -0 0 -1 -0 0 -1 -0 0 -1 -0 0 1 0 0 1 0 0 1 0 0 1 0 0 0 1 0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 -1 0 0</VertexChannel>
+                <VertexChannel Name="TextureCoordinate0" ElementType="Framework:Vector2">1 1 0 0 1 0 0 1 0 1 1 0 1 1 0 0 0 1 1 0 1 1 0 0 0 1 1 0 1 1 0 0 0 1 1 0 1 1 0 0 0 1 1 0 1 1 0 0</VertexChannel>
+              </Channels>
+            </Vertices>
+          </Batch>
+        </Geometry>
+      </Child>
+    </Children>
+  </Asset>
+</XnaContent>
