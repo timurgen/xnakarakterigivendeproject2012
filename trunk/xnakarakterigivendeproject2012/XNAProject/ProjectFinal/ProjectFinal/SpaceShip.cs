@@ -36,6 +36,7 @@ namespace ProjectFinal
             Playing,
             Ship,
             Info,
+            Keyboard,
         }
 
         /// <summary>

@@ -89,6 +89,7 @@ namespace ProjectFinal
             Playing,
             Ship,
             Info,
+            Keyboard,
         }
 
         public GameState CurrentGameState = GameState.MainMenu;//spill tilstad
