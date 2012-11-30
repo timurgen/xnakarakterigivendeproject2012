@@ -78,6 +78,8 @@ namespace ProjectFinal
                         effect.Parameters["xView"].SetValue(game.view);
                         effect.Parameters["xProjection"].SetValue(game.projection);
                         effect.Parameters["xTexture"].SetValue(texture[i++]);
+                        effect.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 0f));
+                        effect.Parameters["isEmissive"].SetValue(true);
                     }
                     mesh.Draw();
                 }

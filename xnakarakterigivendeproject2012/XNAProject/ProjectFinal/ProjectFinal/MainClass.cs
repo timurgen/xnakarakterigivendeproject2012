@@ -180,6 +180,7 @@ namespace ProjectFinal
 
             this.saturnRing = new SpaceObject(this, 5.5f, 0f, 0f, 0.0f, 0, 0.0f, this.saturn, ref this.view, ref this.projection);
             this.Components.Add(this.saturnRing);
+            this.saturnRing.name = "saturnring";
 
             this.uran = new SpaceObject(this, 0.45f, 1700f, 1f, 1f, 0, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.uran);
