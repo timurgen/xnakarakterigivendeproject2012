@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace ProjectFinal
 {
+    /// <summary>
+    /// Her ligger metoder som beregner boundingsphere til objekter
+    /// </summary>
     public partial class MainClass : Microsoft.Xna.Framework.Game
     {
         public Model LoadModelWithBoundingSphere(String modelName, ref Matrix[] matrix, ref Matrix[] originalTransforms)
