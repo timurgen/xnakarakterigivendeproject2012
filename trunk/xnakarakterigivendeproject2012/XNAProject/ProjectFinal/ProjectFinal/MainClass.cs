@@ -18,15 +18,16 @@ namespace ProjectFinal
     {
         #region fields
         public const int HEIGHT = 800;
-        public const int WIDTH = 1200;
-        GraphicsDeviceManager graphics;
-        GraphicsDevice device;
-        SpriteBatch spriteBatch;
+        public const int WIDTH = 1280;
+        public GraphicsDeviceManager graphics {get; set;}
+        public GraphicsDevice device {get; set;}
+        public SpriteBatch spriteBatch {get; set;}
         SpriteFont spriteFont;
         public Matrix view, projection;
         Random g;
         Effect effect;
-        SpaceShip spaceShip;
+        Effect effectskybox;
+        public SpaceShip spaceShip { get; set; }
         float gameSpeed = 1.0f;
 
 
@@ -71,6 +72,27 @@ namespace ProjectFinal
 
         #endregion
 
+        #region variabler til skybox
+        Skybox skybox;
+        Texture2D[] skyboxTextures;
+        Model skyboxModel;
+
+        public Model spaceShipMode {get; set;}
+
+        public Vector3 cameraPosition;
+
+        public enum GameState
+        {
+            MainMenu,
+            About,
+            Playing,
+            Ship,
+        } 
+        public GameState CurrentGameState = GameState.MainMenu;
+        Menu menu;
+
+        #endregion
+
         #endregion
 
 
@@ -96,14 +118,13 @@ namespace ProjectFinal
             initCamera();
             initSolarSystem();
             initSpaceShip();
-            base.Initialize();
-            
+            //initSkybox();
+            base.Initialize();      
         }
 
         private void initSpaceShip()
         {
-            this.spaceShip = new SpaceShip(this, this.view, this.projection);
-            
+            this.spaceShip = new SpaceShip(this, this.view, this.projection);         
         }
 
 
@@ -226,11 +247,11 @@ namespace ProjectFinal
 
         private void initCamera()
         {
-            Vector3 cameraPosition = new Vector3(10000, 10000, 10000);
+            cameraPosition = new Vector3(10000, 10000, 10000);
             Vector3 cameraTarget = Vector3.Zero;
             Vector3 cameraUpVector = new Vector3(0.0f, 1.0f, 0.0f);
             float aspectRatio = (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height;
-            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 1000f, 100000.0f, out projection);
+            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 100f, 200000.0f, out projection);
             Matrix.CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out view);
         }
 
@@ -245,6 +266,12 @@ namespace ProjectFinal
             this.Window.Title = "Prosjekt";
         }
 
+        private void initSkybox()
+        {
+            effectskybox = Content.Load<Effect>(@"effects/effects");
+            this.skybox = new Skybox(this, effectskybox);
+        }
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -255,8 +282,32 @@ namespace ProjectFinal
             spriteBatch = new SpriteBatch(GraphicsDevice);
             loadSolarSystem();
             loadSolaParticles();
-            this.spaceShip.load(this.effect, Content.Load<Model>(@"models/spaceto"), Content.Load <Texture2D>("textures-planets/ASTEROIDS"));
+            this.spaceShip.load(this.effect, Content.Load<Model>(@"models/testa1"), Content.Load <Texture2D>("textures-planets/ship"));
             this.Components.Add(this.spaceShip);
+            //this.skybox.load(this.effectskybox, Content.Load<Model>(@"textures-skybox/skybox2"));
+            //this.Components.Add(this.skybox);
+
+            skyboxModel = LoadModel("textures-skybox/skybox2", out skyboxTextures);
+
+            menu = new Menu(this);
+            menu.LoadContent();
+        }
+
+        private Model LoadModel(string assetName, out Texture2D[] textures)
+        {
+
+            Model newModel = Content.Load<Model>(assetName);
+            textures = new Texture2D[newModel.Meshes.Count];
+            int i = 0;
+            foreach (ModelMesh mesh in newModel.Meshes)
+                foreach (BasicEffect currentEffect in mesh.Effects)
+                    textures[i++] = currentEffect.Texture;
+
+            foreach (ModelMesh mesh in newModel.Meshes)
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                    meshPart.Effect = effect.Clone();
+
+            return newModel;
         }
 
         #region load solar  system
@@ -382,12 +433,18 @@ namespace ProjectFinal
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            UpdateExplosions(gameTime);
-            addAsteroid(gameTime);
-            UpdateCamera();
-            ProcessKeyboard(gameTime);
-            float moveSpeed = gameTime.ElapsedGameTime.Milliseconds / 500.0f * gameSpeed;
-            MoveForward(ref spaceShip.shipPosition, spaceShip.shipRotation, moveSpeed);
+            if (CurrentGameState == GameState.Playing)
+            {
+                UpdateExplosions(gameTime);
+                addAsteroid(gameTime);
+                UpdateCamera();
+                ProcessKeyboard(gameTime);
+                float moveSpeed = gameTime.ElapsedGameTime.Milliseconds / 500.0f * gameSpeed;
+                MoveForward(ref spaceShip.shipPosition, spaceShip.shipRotation, moveSpeed);
+            }
+
+            CurrentGameState = (MainClass.GameState)menu.getCurrentGameState();
+            menu.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -444,11 +501,49 @@ namespace ProjectFinal
             device.RasterizerState = rs;
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
+            DrawSkybox();
+
+            menu.Draw(gameTime);
+
             foreach (ParticleExplosion p in explosions)
             {
                 p.Draw(this.effect, ref this.view, ref this.projection, this.StraalTexture);
             }
             base.Draw(gameTime);
+        }
+
+        private void DrawSkybox()
+        {
+            SamplerState ss = new SamplerState();
+            ss.AddressU = TextureAddressMode.Clamp;
+            ss.AddressV = TextureAddressMode.Clamp;
+            device.SamplerStates[0] = ss;
+
+            DepthStencilState dss = new DepthStencilState();
+            dss.DepthBufferEnable = false;
+
+            device.DepthStencilState = dss;
+
+            Matrix[] skyboxTransforms = new Matrix[skyboxModel.Bones.Count];
+            skyboxModel.CopyAbsoluteBoneTransformsTo(skyboxTransforms);
+            int i = 0;
+            foreach (ModelMesh mesh in skyboxModel.Meshes)
+            {
+                foreach (Effect effect in mesh.Effects)
+                {
+                    Matrix worldMatrix = skyboxTransforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(cameraPosition);
+                    effect.CurrentTechnique = effect.Techniques["Textured"];
+                    effect.Parameters["xWorld"].SetValue(worldMatrix);
+                    effect.Parameters["xView"].SetValue(view);
+                    effect.Parameters["xProjection"].SetValue(projection);
+                    effect.Parameters["xTexture"].SetValue(skyboxTextures[i++]);
+                }
+                mesh.Draw();
+            }
+
+            dss = new DepthStencilState();
+            dss.DepthBufferEnable = true;
+            device.DepthStencilState = dss;
         }
 
 
