@@ -87,6 +87,14 @@ namespace ProjectFinal
         //Bounding frustum
         BoundingFrustum bfs;
 
+        public enum GameState
+        {
+            MainMenu,
+            About,
+            Playing,
+            Ship,
+        } 
+
         /// <summary>
         /// Brukes til å lage nytt objekt
         /// </summary>
@@ -151,38 +159,41 @@ namespace ProjectFinal
         /// </summary>
         public override void Update(GameTime gt)
         {
-            Matrix matIdentity, matTrans, matRotateY, matRotateX, matScale, matOrbT, matOrbR, matOrbRX;
-
-            matIdentity = Matrix.Identity;
-
-            matScale = Matrix.CreateScale(this.size);
-
-            //rotasjon om y akse
-            RotY += this.rotSpeed * (float)gt.ElapsedGameTime.Milliseconds / 1000f;
-            RotY = RotY % (float)(2 * Math.PI);
-            matRotateY = Matrix.CreateRotationY(RotY);
-
-            //vinkel til jordakse
-            matRotateX = Matrix.CreateRotationX(this.akseAngle);
-
-            //orbital rotasjon
-            matOrbT = Matrix.CreateTranslation(this.orbitRadius, 0, this.orbitRadius);
-            orbRotY += this.orbitalSpeed * (float)gt.ElapsedGameTime.Milliseconds / 5000.0f;
-            orbRotY = orbRotY % (float)(2 * Math.PI);
-            matOrbR = Matrix.CreateRotationY((orbRotY));
-            matOrbRX = Matrix.CreateRotationX(this.orbitAngle);
-
-
-            matTrans = Matrix.CreateTranslation(0.0f, 0.0f, 0.0f);
-
-            //Kumulativ world‐matrise;
-            if (parent == null)
+            if ((GameState)game.CurrentGameState == GameState.Playing)
             {
-                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans * matOrbRX;
-            }
-            else
-            {
-                world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans * matOrbRX * parent.world;
+                Matrix matIdentity, matTrans, matRotateY, matRotateX, matScale, matOrbT, matOrbR, matOrbRX;
+
+                matIdentity = Matrix.Identity;
+
+                matScale = Matrix.CreateScale(this.size);
+
+                //rotasjon om y akse
+                RotY += this.rotSpeed * (float)gt.ElapsedGameTime.Milliseconds / 1000f;
+                RotY = RotY % (float)(2 * Math.PI);
+                matRotateY = Matrix.CreateRotationY(RotY);
+
+                //vinkel til jordakse
+                matRotateX = Matrix.CreateRotationX(this.akseAngle);
+
+                //orbital rotasjon
+                matOrbT = Matrix.CreateTranslation(this.orbitRadius, 0, this.orbitRadius);
+                orbRotY += this.orbitalSpeed * (float)gt.ElapsedGameTime.Milliseconds / 5000.0f;
+                orbRotY = orbRotY % (float)(2 * Math.PI);
+                matOrbR = Matrix.CreateRotationY((orbRotY));
+                matOrbRX = Matrix.CreateRotationX(this.orbitAngle);
+
+
+                matTrans = Matrix.CreateTranslation(0.0f, 0.0f, 0.0f);
+
+                //Kumulativ world‐matrise;
+                if (parent == null)
+                {
+                    world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans * matOrbRX;
+                }
+                else
+                {
+                    world = matIdentity * matScale * matRotateY * matRotateX * (matOrbT * matOrbR * orbitStart) * matTrans * matOrbRX * parent.world;
+                }
             }
         }//end of update
 
@@ -192,27 +203,29 @@ namespace ProjectFinal
         /// </summary>
         public override void Draw(GameTime gt)
         {
-            BoundingSphere s1 = (BoundingSphere)this.model.Tag;
-            s1 = s1.Transform(this.world);
-            if (bfs.Intersects(s1))
+            if ((GameState)game.CurrentGameState == GameState.Playing)
             {
-                foreach (ModelMesh mesh in model.Meshes)
+                BoundingSphere s1 = (BoundingSphere)this.model.Tag;
+                s1 = s1.Transform(this.world);
+                if (bfs.Intersects(s1))
                 {
-                    foreach (Effect e in mesh.Effects)
+                    foreach (ModelMesh mesh in model.Meshes)
                     {
-                        e.Parameters["xWorld"].SetValue(this.world);
-                        e.Parameters["xView"].SetValue(game.view);
-                        e.Parameters["xProjection"].SetValue(game.projection);
-                        e.Parameters["xTexture"].SetValue(this.texture);
-                        e.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 0f));
-                        e.Parameters["isEmissive"].SetValue(isEmissive);
-                        e.Parameters["xLightsWorldViewProjection"].SetValue(this.world * this.view * this.projection);
-                    }
+                        foreach (Effect e in mesh.Effects)
+                        {
+                            e.Parameters["xWorld"].SetValue(this.world);
+                            e.Parameters["xView"].SetValue(game.view);
+                            e.Parameters["xProjection"].SetValue(game.projection);
+                            e.Parameters["xTexture"].SetValue(this.texture);
+                            e.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 0f));
+                            e.Parameters["isEmissive"].SetValue(isEmissive);
+                            e.Parameters["xLightsWorldViewProjection"].SetValue(this.world * this.view * this.projection);
+                        }
 
-                    mesh.Draw();
+                        mesh.Draw();
+                    }
                 }
-            }
-            
+            }   
         }//end of draw
 
     }

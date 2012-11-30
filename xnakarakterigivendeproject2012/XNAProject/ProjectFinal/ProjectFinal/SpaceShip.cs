@@ -7,15 +7,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectFinal
 {
-    class SpaceShip : DrawableGameComponent
+    public class SpaceShip : DrawableGameComponent
     {
-        Model model;
+        public Model model { get; set; }
         Texture2D texture;
         MainClass game;
         Effect effect;
         Matrix view, projection;
         public Vector3 shipPosition = new Vector3(500, 500, 500);
-        public Quaternion shipRotation = Quaternion.Identity; 
+        public Quaternion shipRotation = Quaternion.Identity;
+
+        public enum GameState
+        {
+            MainMenu,
+            About,
+            Playing,
+            Ship,
+        } 
 
         public SpaceShip(MainClass _game,  Matrix _view,  Matrix _projection) : base(_game)
         {
@@ -39,9 +47,7 @@ namespace ProjectFinal
                     meshPart.Effect = effect.Clone();
                 }
             }
-                
-                    
-            
+      
         }
 
         public override void Update(GameTime gameTime)
@@ -51,22 +57,26 @@ namespace ProjectFinal
 
         public override void Draw(GameTime gameTime)
         {
-            Matrix worldMatrix =  Matrix.CreateRotationY(MathHelper.Pi*2)*Matrix.CreateRotationX(1.4f)* Matrix.CreateRotationZ(0) *Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
-            foreach (ModelMesh mesh in model.Meshes)
+            if ((GameState)game.CurrentGameState == GameState.Playing)
             {
-                foreach (Effect currentEffect in mesh.Effects)
+                Matrix worldMatrix = Matrix.CreateRotationY(0) * Matrix.CreateRotationX(MathHelper.Pi) * Matrix.CreateRotationZ(MathHelper.Pi) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
+                foreach (ModelMesh mesh in model.Meshes)
                 {
-                    currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
-                    currentEffect.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
-                    currentEffect.Parameters["isEmissive"].SetValue(true);
-                    currentEffect.Parameters["xWorld"].SetValue(worldMatrix);
-                    currentEffect.Parameters["xView"].SetValue(game.view);
-                    currentEffect.Parameters["xProjection"].SetValue(game.projection);
-                    currentEffect.Parameters["xTexture"].SetValue(this.texture);
+                    foreach (Effect currentEffect in mesh.Effects)
+                    {
+                        currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
+                        currentEffect.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
+                        currentEffect.Parameters["isEmissive"].SetValue(true);
+                        currentEffect.Parameters["xWorld"].SetValue(worldMatrix);
+                        currentEffect.Parameters["xView"].SetValue(game.view);
+                        currentEffect.Parameters["xProjection"].SetValue(game.projection);
+                        currentEffect.Parameters["xTexture"].SetValue(this.texture);
+                    }
+                    mesh.Draw();
                 }
-                mesh.Draw();
+                base.Draw(gameTime);
             }
-            base.Draw(gameTime);
+
         }
 
 
