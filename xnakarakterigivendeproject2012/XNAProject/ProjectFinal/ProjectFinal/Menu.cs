@@ -25,6 +25,7 @@ namespace ProjectFinal
             About,
             Playing,
             Ship,
+            Info,
         }
 
         public enum ShipType
@@ -188,6 +189,22 @@ namespace ProjectFinal
                 case GameState.Playing:
                     break;
 
+                case GameState.Info:
+                    if (game.spaceShip.collisionName == null)
+                    {
+                        CurrentGameState = GameState.Playing;
+                    }
+                    else
+                    {
+                        buttonBack.Update(mouse);
+                        if (buttonBack.isClicked == true)
+                        {
+                            buttonBack.isClicked = false;
+                            CurrentGameState = GameState.Playing;
+                        }
+                    }
+                    break;
+
 
             }
 
@@ -235,6 +252,31 @@ namespace ProjectFinal
                     break;
 
                 case GameState.Playing:
+                    break;
+
+                case GameState.Info:
+                    if (game.spaceShip.collisionName.Equals("Sol"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/suninfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                    else if (game.spaceShip.collisionName.Equals("mercury"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/mercuryinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                    else if (game.spaceShip.collisionName.Equals("venus"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/venusinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                    else if (game.spaceShip.collisionName.Equals("earth"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/earthinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White); 
+                    else if (game.spaceShip.collisionName.Equals("mars"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/marsinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                    else if (game.spaceShip.collisionName.Equals("jupiter"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/jupiterinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                    else if (game.spaceShip.collisionName.Equals("saturn"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/saturninfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                    else if (game.spaceShip.collisionName.Equals("uran"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/uranusinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                    else if (game.spaceShip.collisionName.Equals("neptun"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/neptuneinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                    else if (game.spaceShip.collisionName.Equals("pluto"))
+                        spriteBatch.Draw(Content.Load<Texture2D>("textures-planets/plutoinfo"), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                    
+                        buttonBack.Draw(spriteBatch);
                     break;
             }
 

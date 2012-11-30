@@ -31,6 +31,7 @@ namespace ProjectFinal
             About,
             Playing,
             Ship,
+            Info,
         }
 
         public enum ShipType
@@ -48,6 +49,7 @@ namespace ProjectFinal
         }
 
         BoundingSphere s1;
+        public String collisionName;
 
         public void load(Effect _effect, Model _model, Texture2D _texture)
         {
@@ -88,6 +90,10 @@ namespace ProjectFinal
                 {
                     
                     spaceship_bound = new BoundingSphere();
+
+                    s1 = (BoundingSphere)this.model.Tag;
+                    s1 = s1.Transform(this.worldMatrix);
+
                     foreach (ModelMesh mesh in model.Meshes)
                     {
                         BoundingSphere orig_bound = mesh.BoundingSphere;
@@ -177,7 +183,16 @@ namespace ProjectFinal
 
                         if (s1.Intersects(s2))
                         {
-                            Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                            if(collisionName == obj.name)
+                            {
+                               
+                            }
+                            else
+                            {
+                            this.game.menu.CurrentGameState = (ProjectFinal.Menu.GameState)GameState.Info;
+                            collisionName = obj.name;
+                            //Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                            }
                         }
 
                 }
