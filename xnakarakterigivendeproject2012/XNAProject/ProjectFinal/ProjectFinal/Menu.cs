@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ProjectFinal
 {
-    class Menu
+    public class Menu
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -25,6 +25,13 @@ namespace ProjectFinal
             Ship,
         }
 
+        public enum ShipType
+        { 
+            ShipOne,
+            ShipTo,
+            ShipThree,
+        }
+
         MyButton buttonPlay;
         MyButton buttonAbout;
         MyButton buttonExit;
@@ -37,6 +44,7 @@ namespace ProjectFinal
         private MainClass game;
 
         public GameState CurrentGameState = GameState.MainMenu;
+        public ShipType CurrenShipType = ShipType.ShipOne;
 
         public Menu(Game _game)
         {
@@ -56,7 +64,7 @@ namespace ProjectFinal
             Texture2D buttonExitTexture = Content.Load<Texture2D>("textures-menu/Exit");
             Texture2D buttonBackTexture = Content.Load<Texture2D>("textures-menu/back");
 
-            Texture2D buttonSpaceOneTexture = Content.Load<Texture2D>("textures-menu/spaceone");
+            Texture2D buttonSpaceOneTexture = Content.Load<Texture2D>("textures-menu/shipmk2");
             Texture2D buttonSpaceTwoTexture = Content.Load<Texture2D>("textures-menu/spacetwo");
             Texture2D buttonSpaceThreeTexture = Content.Load<Texture2D>("textures-menu/spacethree");
 
@@ -125,18 +133,22 @@ namespace ProjectFinal
 
                     if (buttonSpaceOne.isClicked == true)
                     {
-                        game.spaceShip.model = game.Content.Load<Model>(@"models/testa1");
+                        //game.spaceShip.model = game.Content.Load<Model>(@"models/testa1");
+                        game.spaceShip.load(game.effect, game.Content.Load<Model>(@"models/testa1"), Content.Load<Texture2D>("textures-planets/ship"));
                         //Console.WriteLine("spaceone");
                         buttonSpaceOne.isClicked = false;
+                        CurrenShipType = ShipType.ShipOne;
                         CurrentGameState = GameState.Playing;
                         //CurrentGameState = GameState.MainMenu;
 
                     }
                     if (buttonSpaceTwo.isClicked == true)
                     {
-                        game.spaceShip.model = game.Content.Load<Model>(@"models/spaceto");
+                        //game.spaceShip.model = game.Content.Load<Model>(@"models/spaceto");
+                        game.spaceShip.load(game.effect, game.Content.Load<Model>(@"models/spaceto"), Content.Load<Texture2D>("textures-planets/ship"));
                         //Console.WriteLine("SpaceTwo");
                         buttonSpaceTwo.isClicked = false;
+                        CurrenShipType = ShipType.ShipTo;
                         CurrentGameState = GameState.Playing;
                         //CurrentGameState = GameState.MainMenu;
 
@@ -144,9 +156,11 @@ namespace ProjectFinal
                     }
                     if (buttonSpaceThree.isClicked == true)
                     {
-                        game.spaceShip.model = game.Content.Load<Model>(@"models/testa1");
+                        //game.spaceShip.model = game.Content.Load<Model>(@"models/spaceship33");
+                        game.spaceShip.load(game.effect, game.Content.Load<Model>(@"models/spaceship33"), Content.Load<Texture2D>("textures-planets/ship"));
                         //Console.WriteLine("SpaceThree");
                         buttonSpaceThree.isClicked = false;
+                        CurrenShipType = ShipType.ShipThree;
                         CurrentGameState = GameState.Playing;
                         //CurrentGameState = GameState.MainMenu;
 
