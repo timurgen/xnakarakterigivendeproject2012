@@ -505,6 +505,11 @@ namespace ProjectFinal
 
             menu.Draw(gameTime);
 
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+            GraphicsDevice.SamplerStates[0] = SamplerState.LinearWrap;
+
             foreach (ParticleExplosion p in explosions)
             {
                 p.Draw(this.effect, ref this.view, ref this.projection, this.StraalTexture);
