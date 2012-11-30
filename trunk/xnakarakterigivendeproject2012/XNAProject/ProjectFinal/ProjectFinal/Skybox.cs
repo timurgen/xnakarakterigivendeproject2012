@@ -32,8 +32,8 @@ namespace ProjectFinal
             textures = new Texture2D[newModel.Meshes.Count];
             int i = 0;
             foreach (ModelMesh mesh in newModel.Meshes)
-                foreach (BasicEffect currentEffect in mesh.Effects)
-                    textures[i++] = currentEffect.Texture;
+                foreach (Effect currentEffect in mesh.Effects)
+                    textures[i++] = currentEffect.Parameters["xTexture"].GetValueTexture2D();
 
             foreach (ModelMesh mesh in newModel.Meshes)
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
