@@ -14,6 +14,14 @@ namespace ProjectFinal
         MainClass game;
         Effect effect;
 
+        public enum GameState
+        {
+            MainMenu,
+            About,
+            Playing,
+            Ship,
+        }
+
         public Skybox(MainClass _game, Effect _effect): base(_game)
         {
             this.game = _game;
@@ -32,8 +40,8 @@ namespace ProjectFinal
             textures = new Texture2D[newModel.Meshes.Count];
             int i = 0;
             foreach (ModelMesh mesh in newModel.Meshes)
-                foreach (Effect currentEffect in mesh.Effects)
-                    textures[i++] = currentEffect.Parameters["xTexture"].GetValueTexture2D();
+                foreach (BasicEffect currentEffect in mesh.Effects)
+                    textures[i++] = currentEffect.Texture;
 
             foreach (ModelMesh mesh in newModel.Meshes)
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
@@ -44,36 +52,39 @@ namespace ProjectFinal
 
         public override void Draw(GameTime gameTime)
         {
-            SamplerState ss = new SamplerState();
-            ss.AddressU = TextureAddressMode.Clamp;
-            ss.AddressV = TextureAddressMode.Clamp;
-            this.game.device.SamplerStates[0] = ss;
-
-            DepthStencilState dss = new DepthStencilState();
-            dss.DepthBufferEnable = false;
-
-            this.game.device.DepthStencilState = dss;
-
-            Matrix[] skyboxTransforms = new Matrix[model.Bones.Count];
-            model.CopyAbsoluteBoneTransformsTo(skyboxTransforms);
-            int i = 0;
-            foreach (ModelMesh mesh in model.Meshes)
+            if ((GameState)game.CurrentGameState == GameState.Playing)
             {
-                foreach (Effect effect in mesh.Effects)
-                {
-                    Matrix worldMatrix = skyboxTransforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(this.game.cameraPosition);
-                    effect.CurrentTechnique = effect.Techniques["Textured"];
-                    effect.Parameters["xWorld"].SetValue(worldMatrix);
-                    effect.Parameters["xView"].SetValue(game.view);
-                    effect.Parameters["xProjection"].SetValue(game.projection);
-                    effect.Parameters["xTexture"].SetValue(texture[i++]);
-                }
-                mesh.Draw();
-            }
+                SamplerState ss = new SamplerState();
+                ss.AddressU = TextureAddressMode.Clamp;
+                ss.AddressV = TextureAddressMode.Clamp;
+                this.game.device.SamplerStates[0] = ss;
 
-            dss = new DepthStencilState();
-            dss.DepthBufferEnable = true;
-            this.game.device.DepthStencilState = dss;
+                DepthStencilState dss = new DepthStencilState();
+                dss.DepthBufferEnable = false;
+
+                this.game.device.DepthStencilState = dss;
+
+                Matrix[] skyboxTransforms = new Matrix[model.Bones.Count];
+                model.CopyAbsoluteBoneTransformsTo(skyboxTransforms);
+                int i = 0;
+                foreach (ModelMesh mesh in model.Meshes)
+                {
+                    foreach (Effect effect in mesh.Effects)
+                    {
+                        Matrix worldMatrix = Matrix.CreateScale(10.0f) * skyboxTransforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(this.game.cameraPosition);
+                        effect.CurrentTechnique = effect.Techniques["Textured"];
+                        effect.Parameters["xWorld"].SetValue(worldMatrix);
+                        effect.Parameters["xView"].SetValue(game.view);
+                        effect.Parameters["xProjection"].SetValue(game.projection);
+                        effect.Parameters["xTexture"].SetValue(texture[i++]);
+                    }
+                    mesh.Draw();
+                }
+
+                dss = new DepthStencilState();
+                dss.DepthBufferEnable = true;
+                this.game.device.DepthStencilState = dss;
+            }
             base.Draw(gameTime);
         }
 

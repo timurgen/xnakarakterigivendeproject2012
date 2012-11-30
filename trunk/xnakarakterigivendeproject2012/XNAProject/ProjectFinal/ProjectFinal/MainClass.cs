@@ -120,7 +120,7 @@ namespace ProjectFinal
             initCamera();
             initSolarSystem();
             initSpaceShip();
-            //initSkybox();
+            initSkybox();
             base.Initialize();      
         }
 
@@ -286,10 +286,10 @@ namespace ProjectFinal
             loadSolaParticles();
             this.spaceShip.load(this.effect, Content.Load<Model>(@"models/testa1"), Content.Load <Texture2D>("textures-planets/ship"));
             this.Components.Add(this.spaceShip);
-            //this.skybox.load(this.effectskybox, Content.Load<Model>(@"textures-skybox/skybox2"));
-            //this.Components.Add(this.skybox);
+            this.skybox.load(this.effectskybox, Content.Load<Model>(@"textures-skybox/skybox2"));
+            this.Components.Add(this.skybox);
 
-            skyboxModel = LoadModel("textures-skybox/skybox2", out skyboxTextures);
+            //skyboxModel = LoadModel("textures-skybox/skybox2", out skyboxTextures);
 
             menu = new Menu(this);
             menu.LoadContent();
@@ -462,7 +462,7 @@ namespace ProjectFinal
             camup = Vector3.Transform(camup, Matrix.CreateFromQuaternion(this.spaceShip.shipRotation));
             this.view = Matrix.CreateLookAt(campos, this.spaceShip.shipPosition, camup);
             this.projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, device.Viewport.AspectRatio, 0.2f, 200000.0f);
-
+            cameraPosition = campos;
         }
 
         private void ProcessKeyboard(GameTime gameTime)
@@ -508,11 +508,11 @@ namespace ProjectFinal
         {
             RasterizerState rs = new RasterizerState();
             rs.CullMode = CullMode.None;
-            rs.FillMode = FillMode.Solid;
+            rs.FillMode = FillMode.WireFrame;
             device.RasterizerState = rs;
-            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.White, 1.0f, 0);
 
-            DrawSkybox();
+            //DrawSkybox();
 
             menu.Draw(gameTime);
 
