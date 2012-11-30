@@ -14,6 +14,8 @@ namespace ProjectFinal
 
     public class Terrain : DrawableGameComponent
     {
+        //videreutvilket riemers tutorial klass
+
         /************************VARIABLER****************************************************************************/
         Random colorGen;
         //adderer struct som støtter normalvektore
@@ -51,9 +53,9 @@ namespace ProjectFinal
         /*****************************METODER********************************************************************************/
 
 
-        //beregner normalvektore
+        
         /// <summary>
-        /// 
+        /// beregner normalvektore
         /// </summary>
         private void CalculateNormals()
         {

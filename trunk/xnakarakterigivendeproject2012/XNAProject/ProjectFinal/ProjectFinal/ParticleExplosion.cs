@@ -166,6 +166,13 @@ namespace ProjectFinal
             }
         }
 
+        /// <summary>
+        /// Tegne metode
+        /// </summary>
+        /// <param name="effect"></param>
+        /// <param name="_view"></param>
+        /// <param name="_projection"></param>
+        /// <param name="_texture"></param>
         public void Draw(Effect effect, ref Matrix _view, ref Matrix _projection, Texture2D _texture)
         {
             // Only draw if there are live particles

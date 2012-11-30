@@ -17,17 +17,17 @@ namespace ProjectFinal
     public partial class MainClass : Microsoft.Xna.Framework.Game
     {
         #region fields
-        public const int HEIGHT = 800;
-        public const int WIDTH = 1280;
+        public const int HEIGHT = 800;//sjerm oppløsning
+        public const int WIDTH = 1280;//sjerm oppløsning
         public GraphicsDeviceManager graphics {get; set;}
         public GraphicsDevice device {get; set;}
         public SpriteBatch spriteBatch {get; set;}
         SpriteFont spriteFont;
         public Matrix view, projection;
-        Random g;
+        Random g;                   //tilfeldig tall generator
         public Effect effect { get; set; }
         Effect effectskybox;
-        public SpaceShip spaceShip { get; set; }
+        public SpaceShip spaceShip { get; set; }    //styrbar model
         float gameSpeed = 1.0f;
 
 
@@ -81,6 +81,7 @@ namespace ProjectFinal
 
         public Vector3 cameraPosition;
 
+        //Spill tilstand typer
         public enum GameState
         {
             MainMenu,
@@ -90,11 +91,11 @@ namespace ProjectFinal
             Info,
         }
 
-        public GameState CurrentGameState = GameState.MainMenu;
+        public GameState CurrentGameState = GameState.MainMenu;//spill tilstad
         public Menu menu;
 
         float moveSpeed;
-        float speedFactor = 0;
+        float speedFactor = 0;  //variabel som påvirker på akselerasjon
         #endregion
 
         #region terreng
@@ -105,7 +106,9 @@ namespace ProjectFinal
 
 
 
-
+        /// <summary>
+        /// Konstuktør
+        /// </summary>
         public MainClass()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -132,7 +135,7 @@ namespace ProjectFinal
         }
 
         /// <summary>
-        /// 
+        /// Inisialisere spaceship object
         /// </summary>
         private void initSpaceShip()
         {
@@ -141,7 +144,7 @@ namespace ProjectFinal
 
 
         /// <summary>
-        /// 
+        /// inisialisere solsystem objekter
         /// </summary>
         #region Solar System init
         private void initSolarSystem()
@@ -157,7 +160,6 @@ namespace ProjectFinal
             this.Components.Add(this.mercury);
             this.mercury.name = "mercury";
             
-
             this.venus = new SpaceObject(this, 0.2f, 500f, 1f, -0.75f, 0.0f, 1.0f, this.Sol, ref this.view, ref this.projection);
             this.Components.Add(this.venus);
             this.venus.name = "venus";
@@ -272,11 +274,11 @@ namespace ProjectFinal
         }
         #endregion
         /// <summary>
-        /// 
+        /// Inisialisere kamera objekt
         /// </summary>
         private void initCamera()
         {
-            cameraPosition = new Vector3(10000, 10000, 10000);
+            cameraPosition = new Vector3(10000, 10000, 10000);//oppringelig posisjon
             Vector3 cameraTarget = Vector3.Zero;
             Vector3 cameraUpVector = new Vector3(0.0f, 1.0f, 0.0f);
             float aspectRatio = (float)graphics.GraphicsDevice.Viewport.Width / (float)graphics.GraphicsDevice.Viewport.Height;
@@ -285,7 +287,7 @@ namespace ProjectFinal
         }
 
         /// <summary>
-        /// 
+        /// setter opp devise
         /// </summary>
         private void initDevice()
         {
@@ -299,7 +301,7 @@ namespace ProjectFinal
         }
 
         /// <summary>
-        /// 
+        /// setter opp skybox
         /// </summary>
         private void initSkybox()
         {
@@ -330,31 +332,7 @@ namespace ProjectFinal
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="assetName"></param>
-        /// <param name="textures"></param>
-        /// <returns></returns>
-        private Model LoadModel(string assetName, out Texture2D[] textures)
-        {
-
-            Model newModel = Content.Load<Model>(assetName);
-            textures = new Texture2D[newModel.Meshes.Count];
-            int i = 0;
-            foreach (ModelMesh mesh in newModel.Meshes)
-                
-                foreach (BasicEffect currentEffect in mesh.Effects)
-                    textures[i++] = currentEffect.Texture;
-
-            foreach (ModelMesh mesh in newModel.Meshes)
-                foreach (ModelMeshPart meshPart in mesh.MeshParts)
-                    meshPart.Effect = effect.Clone();
-
-            return newModel;
-        }
-
-        /// <summary>
-        /// 
+        /// setter opp solar sistem
         /// </summary>
         #region load solar  system
         private void loadSolarSystem()
@@ -502,7 +480,9 @@ namespace ProjectFinal
             base.Update(gameTime);
         }
 
-
+        /// <summary>
+        /// oppdaterer kamera objekt
+        /// </summary>
         private void UpdateCamera()
         {
             Vector3 campos = new Vector3(0, 0f, 600f);
@@ -515,6 +495,10 @@ namespace ProjectFinal
             cameraPosition = campos;
         }
 
+        /// <summary>
+        /// Videreutviklet metode fra Riemers tutorial som brukes som tastatur handler
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void ProcessKeyboard(GameTime gameTime)
         {
             float leftRightRot = 0;
@@ -544,6 +528,12 @@ namespace ProjectFinal
             this.spaceShip.shipRotation *= additionalRot;      
         }
 
+        /// <summary>
+        /// Metode fra Riemers tutorial som påvirker på posisjon
+        /// </summary>
+        /// <param name="position">objekt position</param>
+        /// <param name="rotationQuat">objekt rotasjon</param>
+        /// <param name="speed">fart</param>
         private void MoveForward(ref Vector3 position, Quaternion rotationQuat, float speed)
         {
             Vector3 addVector = Vector3.Transform(new Vector3(0, 0, -400), rotationQuat);
@@ -577,45 +567,6 @@ namespace ProjectFinal
             }
             base.Draw(gameTime);
         }
-
-        private void DrawSkybox()
-        {
-            SamplerState ss = new SamplerState();
-            ss.AddressU = TextureAddressMode.Clamp;
-            ss.AddressV = TextureAddressMode.Clamp;
-            device.SamplerStates[0] = ss;
-
-            DepthStencilState dss = new DepthStencilState();
-            dss.DepthBufferEnable = false;
-
-            device.DepthStencilState = dss;
-
-            Matrix[] skyboxTransforms = new Matrix[skyboxModel.Bones.Count];
-            skyboxModel.CopyAbsoluteBoneTransformsTo(skyboxTransforms);
-            int i = 0;
-            foreach (ModelMesh mesh in skyboxModel.Meshes)
-            {
-                foreach (Effect effect in mesh.Effects)
-                {
-                    Matrix worldMatrix = skyboxTransforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(cameraPosition);
-                    effect.CurrentTechnique = effect.Techniques["Textured"];
-                    effect.Parameters["xWorld"].SetValue(worldMatrix);
-                    effect.Parameters["xView"].SetValue(view);
-                    effect.Parameters["xProjection"].SetValue(projection);
-                    effect.Parameters["xTexture"].SetValue(skyboxTextures[i++]);
-                    effect.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 0f));
-                    effect.Parameters["isEmissive"].SetValue(false);
-                    effect.Parameters["xLightsWorldViewProjection"].SetValue(worldMatrix * this.view * this.projection);
-                }
-                mesh.Draw();
-            }
-
-            dss = new DepthStencilState();
-            dss.DepthBufferEnable = true;
-            device.DepthStencilState = dss;
-        }
-
-
 
         #region entry point
         static void Main(string[] args)

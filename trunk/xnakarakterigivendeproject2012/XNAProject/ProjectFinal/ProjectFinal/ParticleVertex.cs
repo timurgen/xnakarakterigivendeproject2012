@@ -23,6 +23,9 @@ namespace ProjectFinal
             this.normal = _normal;
         }
 
+        /// <summary>
+        /// Egendefinert vertex
+        /// </summary>
         public readonly static VertexDeclaration VertexDeclaration = new VertexDeclaration
         (
             new VertexElement(0, VertexElementFormat.Vector3,VertexElementUsage.Position, 0), 
