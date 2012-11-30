@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>effects\effectsRiemersTut.fx</Source>
+      <Name>effects\effectsRiemersTut</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\effects\effectsRiemersTut.xnb</Output>
+      <Time>2012-11-30T01:12:22.0441033+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\ASTEROIDS.png</Source>
+      <Name>textures-planets\ASTEROIDS</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\ASTEROIDS.xnb</Output>
+      <Time>2012-11-29T19:34:15.1247579+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\earthmap1k.jpg</Source>
+      <Name>textures-planets\earthmap1k</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\earthmap1k.xnb</Output>
+      <Time>2012-11-29T19:34:15.2077627+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\jupitermap.jpg</Source>
+      <Name>textures-planets\jupitermap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\jupitermap.xnb</Output>
+      <Time>2012-11-29T19:34:15.300768+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\mars_1k_color.jpg</Source>
+      <Name>textures-planets\mars_1k_color</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\mars_1k_color.xnb</Output>
+      <Time>2012-11-29T19:34:15.4627772+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\mercurymap.jpg</Source>
+      <Name>textures-planets\mercurymap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\mercurymap.xnb</Output>
+      <Time>2012-11-29T19:34:15.5747836+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\moonmap.jpg</Source>
+      <Name>textures-planets\moonmap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\moonmap.xnb</Output>
+      <Time>2012-11-29T19:34:15.6527881+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\neptunemap.jpg</Source>
+      <Name>textures-planets\neptunemap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\neptunemap.xnb</Output>
+      <Time>2012-11-29T19:34:15.7067912+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\plutomap1k.jpg</Source>
+      <Name>textures-planets\plutomap1k</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\plutomap1k.xnb</Output>
+      <Time>2012-11-29T19:34:15.8227978+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\saturnmap.jpg</Source>
+      <Name>textures-planets\saturnmap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\saturnmap.xnb</Output>
+      <Time>2012-11-29T19:34:15.878801+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\saturnringcolor.jpg</Source>
+      <Name>textures-planets\saturnringcolor</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\saturnringcolor.xnb</Output>
+      <Time>2012-11-29T19:34:15.9238036+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\sunmap.jpg</Source>
+      <Name>textures-planets\sunmap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\sunmap.xnb</Output>
+      <Time>2012-11-29T19:34:16.0098085+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\uranusmap.jpg</Source>
+      <Name>textures-planets\uranusmap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\uranusmap.xnb</Output>
+      <Time>2012-11-29T19:34:16.0378101+01:00</Time>
+    </Item>
+    <Item>
+      <Source>textures-planets\venusmap.jpg</Source>
+      <Name>textures-planets\venusmap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\textures-planets\venusmap.xnb</Output>
+      <Time>2012-11-29T19:34:16.1108143+01:00</Time>
+    </Item>
+    <Item>
+      <Source>models\cube.fbx</Source>
+      <Name>models\cube</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\models\cube.xnb</Output>
+      <Time>2012-11-29T19:36:55.0969078+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\cube_0.xml</Key>
+        <Value>2012-11-29T20:03:13.1781689+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\cubemk2.X</Source>
+      <Name>models\cubemk2</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\models\cubemk2.xnb</Output>
+      <Time>2012-11-29T19:36:55.1169089+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\cubemk2_0.xml</Key>
+        <Value>2012-11-29T20:03:13.2311719+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\planet.X</Source>
+      <Name>models\planet</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\models\planet.xnb</Output>
+      <Time>2012-11-29T19:36:55.1779124+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\planet_0.xml</Key>
+        <Value>2012-11-29T20:03:13.267174+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\ring.x</Source>
+      <Name>models\ring</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\models\ring.xnb</Output>
+      <Time>2012-11-29T19:36:55.2429161+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\ring_0.xml</Key>
+        <Value>2012-11-29T20:03:13.2911753+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\spaceone.X</Source>
+      <Name>models\spaceone</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\models\spaceone.xnb</Output>
+      <Time>2012-11-29T19:36:55.2519167+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\spaceone_0.xml</Key>
+        <Value>2012-11-29T20:03:13.4761859+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\spaceto.X</Source>
+      <Name>models\spaceto</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\models\spaceto.xnb</Output>
+      <Time>2012-11-29T19:36:55.2539168+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\spaceto_0.xml</Key>
+        <Value>2012-11-29T20:03:13.54719+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\cube.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\cube_0.xml</Output>
+      <Time>2012-11-29T19:36:55.0969078+01:00</Time>
+    </Item>
+    <Item>
+      <Source>models\cubemk2.X</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\cubemk2_0.xml</Output>
+      <Time>2012-11-29T19:36:55.1169089+01:00</Time>
+    </Item>
+    <Item>
+      <Source>models\planet.X</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\planet_0.xml</Output>
+      <Time>2012-11-29T19:36:55.1779124+01:00</Time>
+    </Item>
+    <Item>
+      <Source>models\ring.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\ring_0.xml</Output>
+      <Time>2012-11-29T19:36:55.2429161+01:00</Time>
+    </Item>
+    <Item>
+      <Source>models\spaceone.X</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\spaceone_0.xml</Output>
+      <Time>2012-11-29T19:36:55.2519167+01:00</Time>
+    </Item>
+    <Item>
+      <Source>models\spaceto.X</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\spaceto_0.xml</Output>
+      <Time>2012-11-29T19:36:55.2539168+01:00</Time>
+    </Item>
+    <Item>
+      <Source>models\xwing.x</Source>
+      <Name>models\xwing</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\models\xwing.xnb</Output>
+      <Time>2012-11-30T00:15:08.1856979+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\models\xwing_0.xml</Key>
+        <Value>2012-11-30T00:16:19.4607746+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>models\xwing.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\models\xwing_0.xml</Output>
+      <Time>2012-11-30T00:15:08.1856979+01:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinalContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinalContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\abnormal\Documents\Visual Studio 2010\Projects\XNA\XNAProject2\ProjectFinal\ProjectFinal\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2012-09-17T23:06:27.7547544+02:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
