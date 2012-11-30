@@ -10,7 +10,7 @@ namespace ProjectFinal
     public class SpaceShip : DrawableGameComponent
     {
         public Model model { get; set; }
-        Texture2D texture;
+        Texture2D texture, texture_purple, texture_red, texture_yellow;
         MainClass game;
         Effect effect;
         Matrix view, projection;
@@ -47,6 +47,9 @@ namespace ProjectFinal
             this.model = _model;
             this.effect = _effect;
             this.texture = _texture;
+            texture_purple = game.Content.Load<Texture2D>("textures-spaceship/texture-purple");
+            texture_red = game.Content.Load<Texture2D>("textures-spaceship/texture-red");
+            texture_yellow = game.Content.Load<Texture2D>("textures-spaceship/texture-yellow");
 
             foreach (ModelMesh mesh in model.Meshes)
             {
@@ -74,19 +77,58 @@ namespace ProjectFinal
                 if ((ShipType)game.menu.CurrenShipType == ShipType.ShipThree)
                     worldMatrix = Matrix.CreateRotationY(0) * Matrix.CreateRotationX(-MathHelper.Pi / 2) * Matrix.CreateRotationZ(0) * Matrix.CreateFromQuaternion(shipRotation) * Matrix.CreateTranslation(shipPosition);
 
-                foreach (ModelMesh mesh in model.Meshes)
+                if ((ShipType)game.menu.CurrenShipType == ShipType.ShipThree)
                 {
-                    foreach (Effect currentEffect in mesh.Effects)
+                    foreach (ModelMesh mesh in model.Meshes)
                     {
-                        currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
-                        currentEffect.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
-                        currentEffect.Parameters["isEmissive"].SetValue(true);
-                        currentEffect.Parameters["xWorld"].SetValue(worldMatrix);
-                        currentEffect.Parameters["xView"].SetValue(game.view);
-                        currentEffect.Parameters["xProjection"].SetValue(game.projection);
-                        currentEffect.Parameters["xTexture"].SetValue(this.texture);
+                        foreach (Effect currentEffect in mesh.Effects)
+                        {
+                            currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
+                            currentEffect.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
+                            currentEffect.Parameters["isEmissive"].SetValue(true);
+                            currentEffect.Parameters["xWorld"].SetValue(worldMatrix);
+                            currentEffect.Parameters["xView"].SetValue(game.view);
+                            currentEffect.Parameters["xProjection"].SetValue(game.projection);
+
+                            switch (mesh.Name)
+                            {
+                                case "Engine":
+                                    currentEffect.Parameters["xTexture"].SetValue(this.texture_red); 
+                                    break;
+                                case "SpaceShip":
+                                    currentEffect.Parameters["xTexture"].SetValue(this.texture_purple);
+                                    break;
+                                case "souz":
+                                    currentEffect.Parameters["xTexture"].SetValue(this.texture_red);
+                                    break;
+                                case "glass":
+                                    currentEffect.Parameters["xTexture"].SetValue(this.texture_yellow);
+                                    break;
+                                default:
+                                    currentEffect.Parameters["xTexture"].SetValue(this.texture_purple);
+                                    break;
+                            }
+                            
+                        }
+                        mesh.Draw();
                     }
-                    mesh.Draw();
+                }
+                else
+                {
+                    foreach (ModelMesh mesh in model.Meshes)
+                    {
+                        foreach (Effect currentEffect in mesh.Effects)
+                        {
+                            currentEffect.CurrentTechnique = currentEffect.Techniques["Textured"];
+                            currentEffect.Parameters["xEmissiveColor"].SetValue(new Vector4(1f, 1f, 1f, 1f));
+                            currentEffect.Parameters["isEmissive"].SetValue(true);
+                            currentEffect.Parameters["xWorld"].SetValue(worldMatrix);
+                            currentEffect.Parameters["xView"].SetValue(game.view);
+                            currentEffect.Parameters["xProjection"].SetValue(game.projection);
+                            currentEffect.Parameters["xTexture"].SetValue(this.texture);
+                        }
+                        mesh.Draw();
+                    }
                 }
                 base.Draw(gameTime);
             }
