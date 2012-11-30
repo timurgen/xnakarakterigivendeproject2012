@@ -47,7 +47,7 @@ namespace ProjectFinal
             this.projection = _projection;
         }
 
-
+        BoundingSphere s1;
 
         public void load(Effect _effect, Model _model, Texture2D _texture)
         {
@@ -86,6 +86,7 @@ namespace ProjectFinal
 
                 if ((ShipType)game.menu.CurrenShipType == ShipType.ShipThree)
                 {
+                    
                     spaceship_bound = new BoundingSphere();
                     foreach (ModelMesh mesh in model.Meshes)
                     {
@@ -130,6 +131,10 @@ namespace ProjectFinal
                 else
                 {
                     spaceship_bound = new BoundingSphere();
+
+                    s1 = (BoundingSphere)this.model.Tag;
+                    s1 = s1.Transform(this.worldMatrix);
+
                     foreach (ModelMesh mesh in model.Meshes)
                     {
                         BoundingSphere orig_bound = mesh.BoundingSphere;
@@ -151,7 +156,7 @@ namespace ProjectFinal
                     }
                 }
 
-                
+                DetectCollision();
 
                 base.Draw(gameTime);
             }
@@ -159,19 +164,28 @@ namespace ProjectFinal
         }
 
 
-        private SpaceObject DetectCollision() 
+        private void DetectCollision() 
         {
-            BoundingSphere obj_boundSphere;
-            foreach (SpaceObject obj in game.Components) 
+            try
             {
-                obj_boundSphere = (BoundingSphere)obj.model.Tag;
-                if (obj_boundSphere.Intersects((BoundingSphere)model.Tag)) 
+                foreach (SpaceObject obj in game.Components)
                 {
-                    Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                    return obj;
+                        BoundingSphere s2 = (BoundingSphere)obj.model.Tag;
+                        s2 = s2.Transform(obj.world);
+                        //Console.WriteLine(s1.ToString());
+                        //Console.WriteLine(s2.Transform(obj.world).ToString());
+
+                        if (s1.Intersects(s2))
+                        {
+                            Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        }
+
                 }
             }
-            return null;
+            catch (System.InvalidCastException e)
+            {
+                //Console.WriteLine(e);
+            }
         }
 
 
